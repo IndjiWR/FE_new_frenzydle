@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@shared/data": ["libs/shared/data/src/index.ts"],
+      "@shared/feature": ["libs/shared/feature/src/index.ts"],
+      "@games/dragonball/ui": ["libs/games/dragonball/ui/src/index.ts"],
+      "@games/dragonball/data": ["libs/games/dragonball/data/src/index.ts"],
+      "@games/dragonball/feature": ["libs/games/dragonball/feature/src/index.ts"],
+      "shared-ui": ["libs/shared/ui/src/index.ts"],
+      "shared-data": ["libs/shared/data/src/index.ts"],
+      "shared-feature": ["libs/shared/feature/src/index.ts"],
+      "dragonball-ui": ["libs/games/dragonball/ui/src/index.ts"],
+      "dragonball-data": ["libs/games/dragonball/data/src/index.ts"],
+      "dragonball-feature": ["libs/games/dragonball/feature/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

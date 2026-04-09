@@ -1,0 +1,17 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+[37m[1mInitial chunk files[22m[2m | [22m[1mNames[22m         [2m | [22m [1mRaw size[22m
+[32mchunk-V5E57HPK.js[37m  [2m | [22m[2m-[22m             [2m | [22m[36m850.78 kB[37m[2m | [22m
+[32mmain.js[37m            [2m | [22m[2mmain[22m          [2m | [22m[36m504.82 kB[37m[2m | [22m
+[32mstyles.css[37m         [2m | [22m[2mstyles[22m        [2m | [22m  [36m6.14 kB[37m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m [2m | [22m  [1m1.36 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m         [2m | [22m [1mRaw size[22m
+[32mchunk-2N4DWPSZ.js[37m  [2m | [22m[2mhome-component[22m[2m | [22m  [36m2.25 kB[37m[2m | [22m
+[32mchunk-35ATBYIA.js[37m  [2m | [22m[2muser-component[22m[2m | [22m  [36m2.24 kB[37m[2m | [22m
+
+Application bundle generation complete. [1.963 seconds] - 2026-04-09T21:18:36.639Z
+[39m
+[37mOutput location: C:\Users\Indji\WebstormProjects\FE_new_frenzydle\dist\apps\frenzydle
+[39m

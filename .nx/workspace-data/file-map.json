@@ -1,0 +1,946 @@
+{
+  "version": "6.0",
+  "nxVersion": "22.6.4",
+  "pathMappings": {
+    "@shared/ui": [
+      "libs/shared/ui/src/index.ts"
+    ],
+    "@shared/data": [
+      "libs/shared/data/src/index.ts"
+    ],
+    "@shared/feature": [
+      "libs/shared/feature/src/index.ts"
+    ],
+    "@games/dragonball/ui": [
+      "libs/games/dragonball/ui/src/index.ts"
+    ],
+    "@games/dragonball/data": [
+      "libs/games/dragonball/data/src/index.ts"
+    ],
+    "@games/dragonball/feature": [
+      "libs/games/dragonball/feature/src/index.ts"
+    ],
+    "shared-ui": [
+      "libs/shared/ui/src/index.ts"
+    ],
+    "shared-data": [
+      "libs/shared/data/src/index.ts"
+    ],
+    "shared-feature": [
+      "libs/shared/feature/src/index.ts"
+    ],
+    "dragonball-ui": [
+      "libs/games/dragonball/ui/src/index.ts"
+    ],
+    "dragonball-data": [
+      "libs/games/dragonball/data/src/index.ts"
+    ],
+    "dragonball-feature": [
+      "libs/games/dragonball/feature/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/cypress/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    },
+    {
+      "name": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "name": "@nx/storybook/plugin",
+      "options": {
+        "serveStorybookTargetName": "storybook",
+        "buildStorybookTargetName": "build-storybook",
+        "testStorybookTargetName": "test-storybook",
+        "staticStorybookTargetName": "static-storybook",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    }
+  ],
+  "fileMap": {
+    "nonProjectFiles": [],
+    "projectFileMap": {
+      "dragonball-data": [
+        {
+          "file": "libs/games/dragonball/data/README.md",
+          "hash": "17659863838477993185"
+        },
+        {
+          "file": "libs/games/dragonball/data/eslint.config.mjs",
+          "hash": "15709140257882587101",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/data/jest.config.ts",
+          "hash": "8556572597386508551"
+        },
+        {
+          "file": "libs/games/dragonball/data/project.json",
+          "hash": "12961203843992965289"
+        },
+        {
+          "file": "libs/games/dragonball/data/src/index.ts",
+          "hash": "3572147635438602869"
+        },
+        {
+          "file": "libs/games/dragonball/data/src/lib/dragonball-data/dragonball-data.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/games/dragonball/data/src/lib/dragonball-data/dragonball-data.html",
+          "hash": "3842355819644530706"
+        },
+        {
+          "file": "libs/games/dragonball/data/src/lib/dragonball-data/dragonball-data.spec.ts",
+          "hash": "15656728850493303440",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/data/src/lib/dragonball-data/dragonball-data.ts",
+          "hash": "5595026257533960578",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/data/tsconfig.json",
+          "hash": "2852424268769270550"
+        },
+        {
+          "file": "libs/games/dragonball/data/tsconfig.lib.json",
+          "hash": "15879227086833350746"
+        },
+        {
+          "file": "libs/games/dragonball/data/tsconfig.spec.json",
+          "hash": "2139579166016282877"
+        }
+      ],
+      "frenzydle": [
+        {
+          "file": "apps/frenzydle/eslint.config.mjs",
+          "hash": "11999635802406141026",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/jest.config.ts",
+          "hash": "11696601260576932907",
+          "deps": [
+            "npm:jest"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/project.json",
+          "hash": "12807420731073880012"
+        },
+        {
+          "file": "apps/frenzydle/proxy.conf.json",
+          "hash": "15680151603270670262"
+        },
+        {
+          "file": "apps/frenzydle/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/frenzydle/src/app/app.config.ts",
+          "hash": "13137185355284150591",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@angular/common",
+            "shared-data"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/app.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/frenzydle/src/app/app.html",
+          "hash": "16498897523005705592"
+        },
+        {
+          "file": "apps/frenzydle/src/app/app.routes.ts",
+          "hash": "7055946215374570876",
+          "deps": [
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/app.spec.ts",
+          "hash": "749978874494147657",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/app.ts",
+          "hash": "8382395434543543707",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/pages/home/home.component.spec.ts",
+          "hash": "5656500689690484414",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/pages/home/home.component.ts",
+          "hash": "4457508017178367479",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/pages/home/index.ts",
+          "hash": "2194488089081183095"
+        },
+        {
+          "file": "apps/frenzydle/src/app/pages/user/index.ts",
+          "hash": "16079797106831259709"
+        },
+        {
+          "file": "apps/frenzydle/src/app/pages/user/user.component.spec.ts",
+          "hash": "11514979695203735215",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/app/pages/user/user.component.ts",
+          "hash": "17019054159921949027",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/environments/environment.prod.ts",
+          "hash": "9025603061787126208"
+        },
+        {
+          "file": "apps/frenzydle/src/environments/environment.ts",
+          "hash": "13326995509113422547"
+        },
+        {
+          "file": "apps/frenzydle/src/index.html",
+          "hash": "14219294421344360636"
+        },
+        {
+          "file": "apps/frenzydle/src/main.ts",
+          "hash": "3314327030169821486",
+          "deps": [
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/src/styles.css",
+          "hash": "13685637103528456103"
+        },
+        {
+          "file": "apps/frenzydle/test-setup.ts",
+          "hash": "16777092336271629607",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/platform-browser-dynamic"
+          ]
+        },
+        {
+          "file": "apps/frenzydle/tsconfig.app.json",
+          "hash": "18236407445202082987"
+        },
+        {
+          "file": "apps/frenzydle/tsconfig.json",
+          "hash": "16004134237605501702"
+        },
+        {
+          "file": "apps/frenzydle/tsconfig.spec.json",
+          "hash": "6142562310909103194"
+        }
+      ],
+      "shared-feature": [
+        {
+          "file": "libs/shared/feature/README.md",
+          "hash": "14439164168662011285"
+        },
+        {
+          "file": "libs/shared/feature/eslint.config.mjs",
+          "hash": "10762669354477532035",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/shared/feature/jest.config.ts",
+          "hash": "17258181144715828724"
+        },
+        {
+          "file": "libs/shared/feature/project.json",
+          "hash": "1581200760436878021"
+        },
+        {
+          "file": "libs/shared/feature/src/index.ts",
+          "hash": "5093942027217401009"
+        },
+        {
+          "file": "libs/shared/feature/src/lib/shared-feature/shared-feature.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/shared/feature/src/lib/shared-feature/shared-feature.html",
+          "hash": "4500267470613092397"
+        },
+        {
+          "file": "libs/shared/feature/src/lib/shared-feature/shared-feature.spec.ts",
+          "hash": "8713031207421496941",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/feature/src/lib/shared-feature/shared-feature.ts",
+          "hash": "12678102980016063392",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/feature/tsconfig.json",
+          "hash": "1973382141025117759"
+        },
+        {
+          "file": "libs/shared/feature/tsconfig.lib.json",
+          "hash": "1317626009648939439"
+        },
+        {
+          "file": "libs/shared/feature/tsconfig.spec.json",
+          "hash": "5958551803246193814"
+        }
+      ],
+      "frenzydle-e2e": [
+        {
+          "file": "apps/frenzydle-e2e/cypress.config.ts",
+          "hash": "3275191707542778821",
+          "deps": [
+            "npm:cypress"
+          ]
+        },
+        {
+          "file": "apps/frenzydle-e2e/cypress/e2e/app.cy.ts",
+          "hash": "14679416226888428168"
+        },
+        {
+          "file": "apps/frenzydle-e2e/cypress/support/commands.ts",
+          "hash": "17320581702605279869"
+        },
+        {
+          "file": "apps/frenzydle-e2e/cypress/support/e2e.ts",
+          "hash": "13762195590047763831"
+        },
+        {
+          "file": "apps/frenzydle-e2e/project.json",
+          "hash": "7685066600425199356"
+        },
+        {
+          "file": "apps/frenzydle-e2e/tsconfig.json",
+          "hash": "15066766636591273822"
+        }
+      ],
+      "shared-data": [
+        {
+          "file": "libs/shared/data/README.md",
+          "hash": "14331826233327640284"
+        },
+        {
+          "file": "libs/shared/data/eslint.config.mjs",
+          "hash": "10762669354477532035",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/shared/data/jest.config.ts",
+          "hash": "12481102006674706077"
+        },
+        {
+          "file": "libs/shared/data/project.json",
+          "hash": "2670919475626641661"
+        },
+        {
+          "file": "libs/shared/data/src/index.ts",
+          "hash": "3051155377119364357"
+        },
+        {
+          "file": "libs/shared/data/src/lib/interceptors/index.ts",
+          "hash": "9772307879109463567"
+        },
+        {
+          "file": "libs/shared/data/src/lib/interceptors/mock.interceptor.ts",
+          "hash": "15760795024746782850",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/shared/data/src/lib/models/index.ts",
+          "hash": "4469628273503557377"
+        },
+        {
+          "file": "libs/shared/data/src/lib/shared-data/shared-data.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/shared/data/src/lib/shared-data/shared-data.html",
+          "hash": "138071110462659578"
+        },
+        {
+          "file": "libs/shared/data/src/lib/shared-data/shared-data.spec.ts",
+          "hash": "5876492848420396525",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/data/src/lib/shared-data/shared-data.ts",
+          "hash": "5422188646294282512",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/data/tsconfig.json",
+          "hash": "1973382141025117759"
+        },
+        {
+          "file": "libs/shared/data/tsconfig.lib.json",
+          "hash": "1317626009648939439"
+        },
+        {
+          "file": "libs/shared/data/tsconfig.spec.json",
+          "hash": "5958551803246193814"
+        }
+      ],
+      "shared-ui": [
+        {
+          "file": "libs/shared/ui/.storybook/main.ts",
+          "hash": "18178579680072956873",
+          "deps": [
+            "npm:@storybook/angular"
+          ]
+        },
+        {
+          "file": "libs/shared/ui/.storybook/preview.ts",
+          "hash": "9762224996094343000",
+          "deps": [
+            "npm:@storybook/angular"
+          ]
+        },
+        {
+          "file": "libs/shared/ui/.storybook/tsconfig.json",
+          "hash": "3580233103277275370"
+        },
+        {
+          "file": "libs/shared/ui/README.md",
+          "hash": "16248885516767211022"
+        },
+        {
+          "file": "libs/shared/ui/eslint.config.mjs",
+          "hash": "10762669354477532035",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/shared/ui/jest.config.ts",
+          "hash": "2353840867615971849"
+        },
+        {
+          "file": "libs/shared/ui/project.json",
+          "hash": "5969319783180115912"
+        },
+        {
+          "file": "libs/shared/ui/src/index.ts",
+          "hash": "12001691749150942951"
+        },
+        {
+          "file": "libs/shared/ui/src/lib/shared-ui/shared-ui.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/shared/ui/src/lib/shared-ui/shared-ui.html",
+          "hash": "9009390473639923416"
+        },
+        {
+          "file": "libs/shared/ui/src/lib/shared-ui/shared-ui.spec.ts",
+          "hash": "3313805871000362729",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/ui/src/lib/shared-ui/shared-ui.ts",
+          "hash": "5940039166139358287",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/ui/tsconfig.json",
+          "hash": "7945788817707607774"
+        },
+        {
+          "file": "libs/shared/ui/tsconfig.lib.json",
+          "hash": "16625172421739965657"
+        },
+        {
+          "file": "libs/shared/ui/tsconfig.spec.json",
+          "hash": "5958551803246193814"
+        }
+      ],
+      "dragonball-feature": [
+        {
+          "file": "libs/games/dragonball/feature/README.md",
+          "hash": "1489625030281837732"
+        },
+        {
+          "file": "libs/games/dragonball/feature/eslint.config.mjs",
+          "hash": "15709140257882587101",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/feature/jest.config.ts",
+          "hash": "12077116692853301293"
+        },
+        {
+          "file": "libs/games/dragonball/feature/project.json",
+          "hash": "2057627410997781303"
+        },
+        {
+          "file": "libs/games/dragonball/feature/src/index.ts",
+          "hash": "4462089217920406204"
+        },
+        {
+          "file": "libs/games/dragonball/feature/src/lib/dragonball-feature/dragonball-feature.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/games/dragonball/feature/src/lib/dragonball-feature/dragonball-feature.html",
+          "hash": "14669773842704187132"
+        },
+        {
+          "file": "libs/games/dragonball/feature/src/lib/dragonball-feature/dragonball-feature.spec.ts",
+          "hash": "13519982250102796016",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/feature/src/lib/dragonball-feature/dragonball-feature.ts",
+          "hash": "11992904960132161027",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/feature/tsconfig.json",
+          "hash": "2852424268769270550"
+        },
+        {
+          "file": "libs/games/dragonball/feature/tsconfig.lib.json",
+          "hash": "15879227086833350746"
+        },
+        {
+          "file": "libs/games/dragonball/feature/tsconfig.spec.json",
+          "hash": "2139579166016282877"
+        }
+      ],
+      "frenzydle-workspace": [
+        {
+          "file": ".claude/settings.json",
+          "hash": "4174402289047638020"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "7995278242211995109"
+        },
+        {
+          "file": ".idea/.gitignore",
+          "hash": "5255412931663222636"
+        },
+        {
+          "file": ".idea/FE_new_frenzydle.iml",
+          "hash": "17628044544001142833"
+        },
+        {
+          "file": ".idea/misc.xml",
+          "hash": "1534143403890403421"
+        },
+        {
+          "file": ".idea/modules.xml",
+          "hash": "12222985903136341148"
+        },
+        {
+          "file": ".idea/vcs.xml",
+          "hash": "14721619479974801327"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "5407418692668764289"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "16267754514737964994"
+        },
+        {
+          "file": ".vscode/extensions.json",
+          "hash": "13377419431693519786"
+        },
+        {
+          "file": "CLAUDE.md",
+          "hash": "3693179293707062853"
+        },
+        {
+          "file": "DOCUMENTATION.md",
+          "hash": "3770007938387280884"
+        },
+        {
+          "file": "PROMPT.md",
+          "hash": "2133365113715745205"
+        },
+        {
+          "file": "README.md",
+          "hash": "6981735355985372346"
+        },
+        {
+          "file": "coverage/apps/frenzydle/clover.xml",
+          "hash": "6194309000135912131"
+        },
+        {
+          "file": "coverage/apps/frenzydle/coverage-final.json",
+          "hash": "9724903309878808039"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/base.css",
+          "hash": "6204767174569381253"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/block-navigation.js",
+          "hash": "12446232633193746418"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/favicon.png",
+          "hash": "13402560043085226048"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/index.html",
+          "hash": "10047632005632098520"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/jest.config.ts.html",
+          "hash": "6326144432704547391"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/app.config.ts.html",
+          "hash": "12421433207647825393"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/app.routes.ts.html",
+          "hash": "614627619256094097"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/app.ts.html",
+          "hash": "3619989114978287800"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/index.html",
+          "hash": "3399417898492050735"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/pages/home/home.component.ts.html",
+          "hash": "4137636436171292899"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/pages/home/index.html",
+          "hash": "12801088120473887905"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/pages/home/index.ts.html",
+          "hash": "2988375221305785254"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/pages/user/index.html",
+          "hash": "16031816023047596773"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/pages/user/index.ts.html",
+          "hash": "5985815234950755230"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/app/pages/user/user.component.ts.html",
+          "hash": "11354932803021038926"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/environments/environment.prod.ts.html",
+          "hash": "9506256017312006065"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/environments/environment.ts.html",
+          "hash": "17790255090271218362"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/frenzydle/src/environments/index.html",
+          "hash": "13777367467431613508"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/index.html",
+          "hash": "13320202988864526685"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/prettify.css",
+          "hash": "8163588510556258587"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/prettify.js",
+          "hash": "15884788582061322779"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/sort-arrow-sprite.png",
+          "hash": "254831142482329146"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/sorter.js",
+          "hash": "1622810700515270183"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/app/pages/home/index.html",
+          "hash": "3489509661592271779"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/app/pages/home/index.ts.html",
+          "hash": "633987304503519709"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/app/pages/user/index.html",
+          "hash": "15331854424901936844"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/app/pages/user/index.ts.html",
+          "hash": "9728136864112659158"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/environments/environment.prod.ts.html",
+          "hash": "9530472539985262161"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/environments/environment.ts.html",
+          "hash": "8367342249718778338"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/environments/index.html",
+          "hash": "15920217871673366207"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/index.html",
+          "hash": "9045181073723658915"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov-report/src/main.ts.html",
+          "hash": "14476919742716500195"
+        },
+        {
+          "file": "coverage/apps/frenzydle/lcov.info",
+          "hash": "14629148087141991854"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/chunk-2N4DWPSZ.js",
+          "hash": "17463923968937001109"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/chunk-2N4DWPSZ.js.map",
+          "hash": "13405803878291785269"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/chunk-35ATBYIA.js",
+          "hash": "3558989826763703997"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/chunk-35ATBYIA.js.map",
+          "hash": "279093409975574933"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/chunk-V5E57HPK.js",
+          "hash": "1355857778290536991"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/chunk-V5E57HPK.js.map",
+          "hash": "15382953454159966274"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/home.component.css.map",
+          "hash": "4150276670976542739"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/index.html",
+          "hash": "14961676754434464944"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/main.js",
+          "hash": "10799994344746914789"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/main.js.map",
+          "hash": "4265652366729211697"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/styles.css",
+          "hash": "243844041272745399"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/styles.css.map",
+          "hash": "4389798949118150662"
+        },
+        {
+          "file": "dist/apps/frenzydle/browser/user.component.css.map",
+          "hash": "7516485767160906391"
+        },
+        {
+          "file": "dist/apps/frenzydle/prerendered-routes.json",
+          "hash": "15049165521752226651"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "hash": "7566070839603645918",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "jest.config.ts",
+          "hash": "7863226554536683120",
+          "deps": [
+            "npm:jest"
+          ]
+        },
+        {
+          "file": "jest.setup.ts",
+          "hash": "7434360914252977965",
+          "deps": [
+            "npm:@testing-library/jest-dom",
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "nx.json",
+          "hash": "5530140993038666437"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "5089608376010528786"
+        },
+        {
+          "file": "package.json",
+          "hash": "1560680000276502801"
+        },
+        {
+          "file": "postcss.config.js",
+          "hash": "11360490016649979777"
+        },
+        {
+          "file": "tailwind.config.js",
+          "hash": "9362188960971947379"
+        },
+        {
+          "file": "tsconfig.base.json",
+          "hash": "170190417252038352"
+        },
+        {
+          "file": "yarn.lock",
+          "hash": "10848581873345908906"
+        }
+      ],
+      "dragonball-ui": [
+        {
+          "file": "libs/games/dragonball/ui/README.md",
+          "hash": "16151780772691442261"
+        },
+        {
+          "file": "libs/games/dragonball/ui/eslint.config.mjs",
+          "hash": "15709140257882587101",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/ui/jest.config.ts",
+          "hash": "17270034245663996133"
+        },
+        {
+          "file": "libs/games/dragonball/ui/project.json",
+          "hash": "5029682016254090520"
+        },
+        {
+          "file": "libs/games/dragonball/ui/src/index.ts",
+          "hash": "16699744242329173927"
+        },
+        {
+          "file": "libs/games/dragonball/ui/src/lib/dragonball-ui/dragonball-ui.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/games/dragonball/ui/src/lib/dragonball-ui/dragonball-ui.html",
+          "hash": "3475275434043406202"
+        },
+        {
+          "file": "libs/games/dragonball/ui/src/lib/dragonball-ui/dragonball-ui.spec.ts",
+          "hash": "10011497718481620562",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/ui/src/lib/dragonball-ui/dragonball-ui.ts",
+          "hash": "15421615405645521483",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/games/dragonball/ui/tsconfig.json",
+          "hash": "2852424268769270550"
+        },
+        {
+          "file": "libs/games/dragonball/ui/tsconfig.lib.json",
+          "hash": "15879227086833350746"
+        },
+        {
+          "file": "libs/games/dragonball/ui/tsconfig.spec.json",
+          "hash": "2139579166016282877"
+        }
+      ]
+    }
+  },
+  "externalNodesHash": "3491739357063388804"
+}

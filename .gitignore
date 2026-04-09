@@ -1,0 +1,10 @@
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json
+.angular
+
+__screenshots__/
+
+vitest.config.*.timestamp*
+
+storybook-static

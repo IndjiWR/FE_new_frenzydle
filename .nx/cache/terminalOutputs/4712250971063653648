@@ -1,0 +1,123 @@
+(node:29972) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ts-jest[config] (WARN) [94mmessage[0m[90m TS151001: [0mIf you have issues related to imports, you should consider setting `esModuleInterop` to `true` in your TypeScript configuration file (usually `tsconfig.json`). See https://blogs.msdn.microsoft.com/typescript/2018/01/31/announcing-typescript-2-7/#easier-ecmascript-module-interoperability for more information.
+ts-jest[ts-compiler] (WARN) 
+                TypeScript compiler option 'isolatedModules' may prevent the 'emitDecoratorMetadata' option from emitting all metadata.
+                The 'emitDecoratorMetadata' option is not required by Angular and can be removed if not explicitly required by the project.'
+            
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [0m[7m[37m frenzydle [39m[27m[0m [2mapps/frenzydle/src/app/[22m[1mapp.spec.ts[22m
+[1m[31m  [1m● [22m[1mApp › should create the app[39m[22m
+
+    Need to call TestBed.initTestEnvironment() first
+[2m[22m
+[2m    [0m [90m 4 |[39m describe([32m'App'[39m[33m,[39m () [33m=>[39m {[22m
+[2m     [90m 5 |[39m   beforeEach(() [33m=>[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 6 |[39m     [33mTestBed[39m[33m.[39mconfigureTestingModule({[22m
+[2m     [90m   |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 7 |[39m       imports[33m:[39m [][33m,[39m[22m
+[2m     [90m 8 |[39m     })[33m;[39m[22m
+[2m     [90m 9 |[39m   })[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat _TestBedImpl.get compiler [as compiler] ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1486:13)[22m[2m[22m
+[2m      [2mat _TestBedImpl.configureTestingModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1402:10)[22m[2m[22m
+[2m      [2mat Function.configureTestingModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1273:33)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36msrc/app/app.spec.ts[39m[0m[2m:6:13)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mApp › should have title FrenzyDle[39m[22m
+
+    TypeError: Cannot read properties of null (reading 'ngModule')
+[2m[22m
+[2m    [0m [90m 15 |[39m[22m
+[2m     [90m 16 |[39m   it([32m'should have title FrenzyDle'[39m[33m,[39m () [33m=>[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 17 |[39m     [36mconst[39m fixture [33m=[39m [33mTestBed[39m[33m.[39mcreateComponent([33mApp[39m)[33m;[39m[22m
+[2m     [90m    |[39m                             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 18 |[39m     [36mconst[39m app [33m=[39m fixture[33m.[39mcomponentInstance[33m;[39m[22m
+[2m     [90m 19 |[39m     expect(app[33m.[39mtitle)[33m.[39mtoBe([32m'FrenzyDle'[39m)[33m;[39m[22m
+[2m     [90m 20 |[39m   })[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat isModuleWithProviders ([22m[2m../../node_modules/@angular/core/fesm2022/_debug_node-chunk.mjs[2m:7492:16)[22m[2m[22m
+[2m      [2mat expandModuleWithProviders ([22m[2m../../node_modules/@angular/core/fesm2022/_debug_node-chunk.mjs[2m:17633:7)[22m[2m[22m
+[2m          at Array.map (<anonymous>)[22m
+[2m      [2mat Function.get ([22m[2m../../node_modules/@angular/core/fesm2022/_debug_node-chunk.mjs[2m:17348:84)[22m[2m[22m
+[2m      [2mat getNgModuleDef ([22m[2m../../node_modules/@angular/core/fesm2022/_effect-chunk2.mjs[2m:478:10)[22m[2m[22m
+[2m      [2mat getNgModuleDefOrThrow ([22m[2m../../node_modules/@angular/core/fesm2022/_effect-chunk2.mjs[2m:481:23)[22m[2m[22m
+[2m      [2mat verifySemanticsOfNgModuleDef ([22m[2m../../node_modules/@angular/core/fesm2022/_debug_node-chunk.mjs[2m:17421:19)[22m[2m[22m
+[2m      [2mat Function.get ([22m[2m../../node_modules/@angular/core/fesm2022/_debug_node-chunk.mjs[2m:17385:22)[22m[2m[22m
+[2m      [2mat TestBedCompiler.applyProviderOverridesInScope ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:825:25)[22m[2m[22m
+[2m      [2mat TestBedCompiler.compileTestModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1065:10)[22m[2m[22m
+[2m      [2mat TestBedCompiler.finalize ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:704:10)[22m[2m[22m
+[2m      [2mat _TestBedImpl.get testModuleRef [as testModuleRef] ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1492:43)[22m[2m[22m
+[2m      [2mat _TestBedImpl.inject ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1413:25)[22m[2m[22m
+[2m      [2mat _TestBedImpl.createComponent ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1465:40)[22m[2m[22m
+[2m      [2mat Function.createComponent ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1306:33)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36msrc/app/app.spec.ts[39m[0m[2m:17:29)[22m[2m[22m
+
+ts-jest[ts-compiler] (WARN) 
+                TypeScript compiler option 'isolatedModules' may prevent the 'emitDecoratorMetadata' option from emitting all metadata.
+                The 'emitDecoratorMetadata' option is not required by Angular and can be removed if not explicitly required by the project.'
+            
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [0m[7m[37m frenzydle [39m[27m[0m [2mapps/frenzydle/src/app/pages/home/[22m[1mhome.component.spec.ts[22m
+[1m[31m  [1m● [22m[1mHomeComponent › should create[39m[22m
+
+    Need to call TestBed.initTestEnvironment() first
+[2m[22m
+[2m    [0m [90m 4 |[39m describe([32m'HomeComponent'[39m[33m,[39m () [33m=>[39m {[22m
+[2m     [90m 5 |[39m   beforeEach(() [33m=>[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 6 |[39m     [33mTestBed[39m[33m.[39mconfigureTestingModule({})[33m;[39m[22m
+[2m     [90m   |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 7 |[39m   })[33m;[39m[22m
+[2m     [90m 8 |[39m[22m
+[2m     [90m 9 |[39m   it([32m'should create'[39m[33m,[39m () [33m=>[39m {[0m[22m
+[2m[22m
+[2m      [2mat _TestBedImpl.get compiler [as compiler] ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1486:13)[22m[2m[22m
+[2m      [2mat _TestBedImpl.configureTestingModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1402:10)[22m[2m[22m
+[2m      [2mat Function.configureTestingModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1273:33)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36msrc/app/pages/home/home.component.spec.ts[39m[0m[2m:6:13)[22m[2m[22m
+
+ts-jest[ts-compiler] (WARN) 
+                TypeScript compiler option 'isolatedModules' may prevent the 'emitDecoratorMetadata' option from emitting all metadata.
+                The 'emitDecoratorMetadata' option is not required by Angular and can be removed if not explicitly required by the project.'
+            
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [0m[7m[37m frenzydle [39m[27m[0m [2mapps/frenzydle/src/app/pages/user/[22m[1muser.component.spec.ts[22m
+[1m[31m  [1m● [22m[1mUserComponent › should create[39m[22m
+
+    Need to call TestBed.initTestEnvironment() first
+[2m[22m
+[2m    [0m [90m 4 |[39m describe([32m'UserComponent'[39m[33m,[39m () [33m=>[39m {[22m
+[2m     [90m 5 |[39m   beforeEach(() [33m=>[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 6 |[39m     [33mTestBed[39m[33m.[39mconfigureTestingModule({})[33m;[39m[22m
+[2m     [90m   |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 7 |[39m   })[33m;[39m[22m
+[2m     [90m 8 |[39m[22m
+[2m     [90m 9 |[39m   it([32m'should create'[39m[33m,[39m () [33m=>[39m {[0m[22m
+[2m[22m
+[2m      [2mat _TestBedImpl.get compiler [as compiler] ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1486:13)[22m[2m[22m
+[2m      [2mat _TestBedImpl.configureTestingModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1402:10)[22m[2m[22m
+[2m      [2mat Function.configureTestingModule ([22m[2m../../node_modules/@angular/core/fesm2022/testing.mjs[2m:1273:33)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36msrc/app/pages/user/user.component.spec.ts[39m[0m[2m:6:13)[22m[2m[22m
+
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------------------------|---------|----------|---------|---------|-------------------
+[31;1mAll files                    [0m | [31;1m  37.14[0m | [32;1m     100[0m | [31;1m      0[0m | [31;1m     28[0m | [31;1m                 [0m 
+[31;1m frenzydle                   [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m                 [0m 
+[31;1m  jest.config.ts             [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m3-35             [0m 
+[31;1m frenzydle/src/app           [0m | [31;1m  26.31[0m | [32;1m     100[0m | [31;1m      0[0m | [31;1m  23.07[0m | [31;1m                 [0m 
+[31;1m  app.config.ts              [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m1-10             [0m 
+[31;1m  app.routes.ts              [0m | [31;1m      0[0m | [32;1m     100[0m | [31;1m      0[0m | [31;1m      0[0m | [31;1m3-10             [0m 
+[32;1m  app.ts                     [0m | [32;1m  83.33[0m | [32;1m     100[0m | [32;1m    100[0m | [33;1m     75[0m | [31;1m11               [0m 
+[33;1m frenzydle/src/app/pages/home[0m | [33;1m  66.66[0m | [32;1m     100[0m | [32;1m    100[0m | [33;1m     50[0m | [31;1m                 [0m 
+[32;1m  home.component.ts          [0m | [32;1m    100[0m | [32;1m     100[0m | [32;1m    100[0m | [32;1m    100[0m | [33;1m                 [0m 
+[31;1m  index.ts                   [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m1-3              [0m 
+[33;1m frenzydle/src/app/pages/user[0m | [33;1m  66.66[0m | [32;1m     100[0m | [32;1m    100[0m | [33;1m     50[0m | [31;1m                 [0m 
+[31;1m  index.ts                   [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m1-3              [0m 
+[32;1m  user.component.ts          [0m | [32;1m    100[0m | [32;1m     100[0m | [32;1m    100[0m | [32;1m    100[0m | [33;1m                 [0m 
+[31;1m frenzydle/src/environments  [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m                 [0m 
+[31;1m  environment.prod.ts        [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m1                [0m 
+[31;1m  environment.ts             [0m | [31;1m      0[0m | [32;1m     100[0m | [32;1m    100[0m | [31;1m      0[0m | [31;1m1                [0m 
+------------------------------|---------|----------|---------|---------|-------------------
+[1mTest Suites: [22m[1m[31m3 failed[39m[22m, 3 total
+[1mTests:       [22m[1m[31m4 failed[39m[22m, 4 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m2.717 s[39m[22m
+[2mRan all test suites[22m[2m.[22m

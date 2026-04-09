@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx serve frenzydle",
+    "startTime": "2026-04-09T21:39:03.433Z",
+    "endTime": "2026-04-09T21:39:11.313Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "frenzydle:serve:development",
+      "target": "serve",
+      "projectName": "frenzydle",
+      "hash": "17509259821545594976",
+      "startTime": "2026-04-09T21:39:03.444Z",
+      "endTime": "2026-04-09T21:39:11.297Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}

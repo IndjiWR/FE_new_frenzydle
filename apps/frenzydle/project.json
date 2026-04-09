@@ -1,0 +1,85 @@
+{
+  "name": "frenzydle",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/frenzydle/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/frenzydle",
+        "browser": "apps/frenzydle/src/main.ts",
+        "tsConfig": "apps/frenzydle/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/frenzydle/public"
+          }
+        ],
+        "styles": ["apps/frenzydle/src/styles.css"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "options": {
+        "proxyConfig": "apps/frenzydle/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "frenzydle:build:production"
+        },
+        "development": {
+          "buildTarget": "frenzydle:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/frenzydle"],
+      "options": {
+        "jestConfig": "apps/frenzydle/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "frenzydle:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/frenzydle/browser",
+        "spa": true
+      }
+    }
+  }
+}
