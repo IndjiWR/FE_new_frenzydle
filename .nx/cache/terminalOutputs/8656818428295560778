@@ -1,0 +1,17 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+[37m[1mInitial chunk files[22m[2m | [22m[1mNames[22m         [2m | [22m[1mRaw size[22m
+[32mstyles.css[37m         [2m | [22m[2mstyles[22m        [2m | [22m [36m6.35 kB[37m[2m | [22m
+[32mmain.js[37m            [2m | [22m[2mmain[22m          [2m | [22m [36m4.78 kB[37m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m [2m | [22m[1m11.13 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m         [2m | [22m[1mRaw size[22m
+[32mchunk-JKACI2EV.js[37m  [2m | [22m[2mhome-component[22m[2m | [22m [36m2.84 kB[37m[2m | [22m
+[32mchunk-GXX35GGR.js[37m  [2m | [22m[2muser-component[22m[2m | [22m [36m2.83 kB[37m[2m | [22m
+
+Application bundle generation complete. [4.626 seconds] - 2026-04-09T21:38:01.009Z
+[39m
+[37mNOTE: Raw file sizes do not reflect development server per-request transformations.[39m
+[2m23:38:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because lockfile has changed
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4200[22m/[39m
