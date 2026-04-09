@@ -1,0 +1,26 @@
+.game-card {
+  opacity: 0;
+  animation: staggerFadeUp 500ms ease-out forwards;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+}
+
+@keyframes staggerFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

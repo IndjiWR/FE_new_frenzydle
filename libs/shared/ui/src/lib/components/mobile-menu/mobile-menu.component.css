@@ -1,0 +1,21 @@
+.mobile-menu-backdrop {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+}
+
+.mobile-menu.translate-x-0 {
+  transform: translateX(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

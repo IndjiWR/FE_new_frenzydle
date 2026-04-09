@@ -16,7 +16,7 @@ const config: Config = {
       },
     ],
   },
-  transformIgnorePatterns: ['node_modules/(?!@angular|@nx|rxjs)'],
+  transformIgnorePatterns: ['node_modules/(?!@angular|@nx|rxjs|@ngx-translate)'],
   moduleNameMapper: {
     '^@shared/(.*)$': '<rootDir>/../../libs/shared/$1/src/index.ts',
     '^@games/dragonball/(.*)$': '<rootDir>/../../libs/games/dragonball/$1/src/index.ts',

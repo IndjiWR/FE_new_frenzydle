@@ -1,0 +1,55 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "noResults": "No results found"
+  },
+  "nav": {
+    "home": "Home",
+    "games": "Games",
+    "leaderboard": "Leaderboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "menu": "Menu"
+  },
+  "home": {
+    "title": "FrenzyDle",
+    "subtitle": "Your daily dose of trivia fun! Guess characters, unlock achievements, and compete with friends.",
+    "todaysGames": "Today's Games",
+    "streak": "{{count}} day streak",
+    "attempts": "Attempts: {{current}}/{{max}}",
+    "completed": "Completed!",
+    "playNow": "Play Now",
+    "comingSoon": "Coming Soon",
+    "nextReset": "Resets in {{time}}"
+  },
+  "game": {
+    "play": "Play",
+    "comingSoon": "Coming Soon",
+    "completed": "Completed",
+    "streak": "🔥 {{count}} day streak",
+    "attempts": "{{current}}/{{max}} attempts"
+  },
+  "languages": {
+    "en": "English",
+    "it": "Italiano",
+    "fr": "Français",
+    "es": "Español",
+    "pt": "Português"
+  },
+  "user": {
+    "guest": "Guest",
+    "signOut": "Sign Out",
+    "signIn": "Sign In"
+  },
+  "errors": {
+    "loadGames": "Failed to load games. Please try again.",
+    "loadUser": "Failed to load user data.",
+    "networkError": "Network error. Check your connection."
+  },
+  "empty": {
+    "noGames": "No games available at the moment.",
+    "checkBackLater": "Check back later for new games!"
+  }
+}

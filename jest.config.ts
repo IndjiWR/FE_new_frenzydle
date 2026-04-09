@@ -38,6 +38,7 @@ const config: Config = {
     '^@shared/(.*)$': '<rootDir>/libs/shared/$1/src/lib',
     '^@games/dragonball/(.*)$': '<rootDir>/libs/games/dragonball/$1/src/lib',
   },
+  transformIgnorePatterns: ['node_modules/(?!@angular|@nx|rxjs|@ngx-translate)'],
 };
 
 export default config;

@@ -1,0 +1,4 @@
+.app-main {
+  padding-top: 64px; /* Height of navbar */
+  min-height: 100vh;
+}

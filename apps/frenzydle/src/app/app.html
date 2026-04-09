@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<app-nav-bar
+  [isLoggedIn]="isLoggedIn()"
+  [userAvatar]="userAvatar"
+  [userName]="userName"
+  [navItems]="navItems"
+  (loginClick)="onLoginClick()"
+  (logoutClick)="onLogoutClick()"
+></app-nav-bar>
+
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

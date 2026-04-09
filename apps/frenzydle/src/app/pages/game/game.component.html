@@ -1,0 +1,19 @@
+<div class="game-page pt-16 min-h-screen flex flex-col items-center justify-center">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">
+      {{ 'game.play' | translate }}
+    </h1>
+    <p class="text-gray-600 mb-2">
+      Game: {{ gameId() }}
+    </p>
+    <p class="text-gray-500">
+      This game is coming soon!
+    </p>
+    <a
+      routerLink="/"
+      class="mt-6 inline-block px-6 py-2 bg-lavender-600 hover:bg-lavender-700 text-white rounded-lg font-semibold transition-colors"
+    >
+      {{ 'nav.home' | translate }}
+    </a>
+  </div>
+</div>
