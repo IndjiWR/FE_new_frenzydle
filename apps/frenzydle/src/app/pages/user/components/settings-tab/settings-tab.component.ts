@@ -69,6 +69,11 @@ export class SettingsTabComponent {
   constructor() {
     // Sync language with translate service
     this.selectedLanguage.set(this.translateService.currentLang || 'en');
+
+    // Subscribe to language changes from other components
+    this.translateService.onLangChange.subscribe((event) => {
+      this.selectedLanguage.set(event.lang);
+    });
   }
 
   /**
