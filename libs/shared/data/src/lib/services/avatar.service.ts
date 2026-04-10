@@ -38,7 +38,7 @@ export class AvatarService {
 
   // Computed: Options grouped by category
   readonly optionsByCategory = computed(() => {
-    const opts = this._options();
+    const opts = this._options() ?? [];
     return {
       skinTone: opts.filter(o => o.category === 'skinTone'),
       hairStyle: opts.filter(o => o.category === 'hairStyle'),
@@ -71,7 +71,7 @@ export class AvatarService {
    * Check if an option is unlocked/available
    */
   isOptionUnlocked(optionId: string): boolean {
-    const option = this._options().find(o => o.id === optionId);
+    const option = (this._options() ?? []).find(o => o.id === optionId);
     if (!option) return false;
     if (option.isDefault) return true;
     return this._unlockedIds().has(optionId);
@@ -208,7 +208,7 @@ export class AvatarService {
    * Get a specific option by ID
    */
   getOptionById(optionId: string): AvatarOption | undefined {
-    return this._options().find(o => o.id === optionId);
+    return (this._options() ?? []).find(o => o.id === optionId);
   }
 
   /**
