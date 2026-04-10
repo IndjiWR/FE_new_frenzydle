@@ -105,6 +105,8 @@
       "goodbye": "Goodbye! See you soon!"
     },
     "teaser": {
+      "title": "Sign in to unlock this feature",
+      "message": "Create an account to track your stats, earn achievements, and compete on the leaderboard!",
       "createAccount": "Create Account",
       "signInRequired": "Sign in to unlock this feature",
       "maybeLater": "Maybe Later",

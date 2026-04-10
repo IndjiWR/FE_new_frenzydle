@@ -105,6 +105,8 @@
       "goodbye": "Au revoir ! À bientôt !"
     },
     "teaser": {
+      "title": "Connectez-vous pour débloquer cette fonctionnalité",
+      "message": "Créez un compte pour suivre vos statistiques, gagner des succès et compétitionner au classement !",
       "createAccount": "Créer un Compte",
       "signInRequired": "Connectez-vous pour débloquer cette fonctionnalité",
       "maybeLater": "Peut-être Plus tard",

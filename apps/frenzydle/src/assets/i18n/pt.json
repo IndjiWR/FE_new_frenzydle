@@ -105,6 +105,8 @@
       "goodbye": "Adeus! Até logo!"
     },
     "teaser": {
+      "title": "Entre para desbloquear este recurso",
+      "message": "Crie uma conta para rastrear suas estatísticas, ganhar conquistas e competir no ranking!",
       "createAccount": "Criar Conta",
       "signInRequired": "Entre para desbloquear este recurso",
       "maybeLater": "Talvez Depois",

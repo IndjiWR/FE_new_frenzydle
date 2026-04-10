@@ -105,6 +105,8 @@
       "goodbye": "Arrivederci! A presto!"
     },
     "teaser": {
+      "title": "Accedi per sbloccare questa funzione",
+      "message": "Crea un account per tracciare le tue statistiche, guadagnare achievement e competere in classifica!",
       "createAccount": "Crea Account",
       "signInRequired": "Accedi per sbloccare questa funzione",
       "maybeLater": "Forse Dopo",

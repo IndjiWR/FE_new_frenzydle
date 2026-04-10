@@ -105,6 +105,8 @@
       "goodbye": "¡Adiós! ¡Hasta pronto!"
     },
     "teaser": {
+      "title": "Inicia sesión para desbloquear esta función",
+      "message": "¡Crea una cuenta para rastrear tus estadísticas, ganar logros y competir en la clasificación!",
       "createAccount": "Crear Cuenta",
       "signInRequired": "Inicia sesión para desbloquear esta función",
       "maybeLater": "Quizás Después",
