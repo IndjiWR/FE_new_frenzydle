@@ -2,11 +2,49 @@ import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '@shared/data';
+import { AuthModalService } from '@shared/feature';
+import { signal } from '@angular/core';
 
 describe('App', () => {
+  let authServiceMock: jest.Mocked<AuthService>;
+  let authModalServiceMock: jest.Mocked<AuthModalService>;
+
   beforeEach(() => {
+    authServiceMock = {
+      initialize: jest.fn().mockResolvedValue(undefined),
+      isLoggedIn: signal(false),
+      currentUser: signal(null),
+      displayName: signal('Guest'),
+      isLoading: signal(false),
+      isInitialized: signal(true),
+      isGuest: signal(true),
+      userEmail: signal(null),
+      csrfToken: signal(null),
+      createGuestSession: jest.fn(),
+      login: jest.fn(),
+      register: jest.fn(),
+      convertGuest: jest.fn(),
+      loginWithGoogle: jest.fn(),
+      logout: jest.fn(),
+      checkEmail: jest.fn(),
+    } as unknown as jest.Mocked<AuthService>;
+
+    authModalServiceMock = {
+      isOpen: signal(false),
+      step: signal('method-selection'),
+      redirectUrl: signal(null),
+      open: jest.fn(),
+      close: jest.fn(),
+      handleLoginSuccess: jest.fn(),
+    } as unknown as jest.Mocked<AuthModalService>;
+
     TestBed.configureTestingModule({
       imports: [App, TranslateModule.forRoot(), RouterModule.forRoot([])],
+      providers: [
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: AuthModalService, useValue: authModalServiceMock },
+      ],
     });
   });
 
@@ -44,28 +82,35 @@ describe('App', () => {
     expect(app.navItems[0].path).toBe('/');
   });
 
-  it('should have default user state', () => {
+  it('should have default user state from auth service', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app.isLoggedIn()).toBe(false);
-    expect(app.userName).toBe('Guest');
-    expect(app.userAvatar).toBe('');
+    expect(app.isGuest()).toBe(true);
+    expect(app.userName()).toBe('Guest');
+    expect(app.userAvatar()).toBe('');
   });
 
-  it('should toggle logged in state on logout', () => {
+  it('should call authModalService.open on login click', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
-    app.isLoggedIn.set(true);
-    expect(app.isLoggedIn()).toBe(true);
+    app.onLoginClick();
+    expect(authModalServiceMock.open).toHaveBeenCalled();
+  });
 
+  it('should call authService.logout on logout click', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    authServiceMock.logout.mockReturnValue({
+      subscribe: (fn: Function) => fn(),
+    } as any);
     app.onLogoutClick();
-    expect(app.isLoggedIn()).toBe(false);
+    expect(authServiceMock.logout).toHaveBeenCalled();
   });
 
-  it('should handle login click', () => {
+  it('should have settings click handler', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
-    // Should not throw
-    expect(() => app.onLoginClick()).not.toThrow();
+    expect(app.onSettingsClick).toBeDefined();
   });
 });

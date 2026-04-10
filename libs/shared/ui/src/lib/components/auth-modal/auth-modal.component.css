@@ -1,0 +1,52 @@
+/* Backdrop animation */
+.auth-modal-backdrop {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Modal entrance animation */
+.auth-modal-content {
+  animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Checkmark animation */
+.auth-checkmark {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: drawCheckmark 0.4s ease-out 0.2s forwards;
+}
+
+@keyframes drawCheckmark {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Focus styles */
+input:focus {
+  outline: none;
+}
+
+/* Button hover states */
+button:disabled {
+  cursor: not-allowed;
+}

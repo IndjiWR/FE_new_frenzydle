@@ -10,5 +10,8 @@ export * from './lib/mocks';
 // Services
 export * from './lib/services';
 
+// Guards
+export * from './lib/guards';
+
 // Default export for library
 export * from './lib/shared-data/shared-data';

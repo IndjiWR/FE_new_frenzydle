@@ -19,12 +19,13 @@
 
 ## Current Status
 
-**Step: 2 - Homepage Implementation**
+**Step: 3 - Authentication System Complete**
 
 **Last Updated:** 2026-04-10
 
 ### Done and Working
 
+#### Step 2 - Homepage (Complete)
 - ✅ All UI components created (Logo, NavBar, LanguageSwitcher, MobileMenu, GameCard, CountdownTimer, SkeletonLoader, ErrorState, EmptyState)
 - ✅ All feature components created (HeroSection, GameGrid)
 - ✅ GameService with getGames() and getDailyStatus()
@@ -35,31 +36,45 @@
 - ✅ Tailwind animations configured (logo-scale, stagger-fade-up, slide-in-right)
 - ✅ Tailwind fonts configured (Fredoka One display font)
 - ✅ LanguageSwitcher desktop click bug fixed (blur → HostListener)
-- ✅ Build succeeds: `npx nx build frenzydle`
-- ✅ Unit tests pass: `npx nx test shared-ui shared-feature shared-data`
 - ✅ E2E tests for homepage (navigation, hero, game grid, language switcher)
 - ✅ Storybook stories created for all UI components
 - ✅ Test coverage improved (Jest configs fixed, shared libraries at 97%+)
 
+#### Step 3 - Authentication (Complete)
+- ✅ Auth models (auth.models.ts) - UserProfile, CheckEmailResponse, request/response types
+- ✅ AuthService with signal-based state - currentUser, isLoggedIn, isGuest, displayName
+- ✅ CSRF Interceptor - adds X-CSRF-Token header to mutating requests
+- ✅ Mock auth endpoints - /api/auth/* endpoints fully mocked
+- ✅ AuthModalService - manages modal state (open, close, step routing)
+- ✅ AuthModal component - 3-step flow (method selection → form → success)
+- ✅ Auth route guard - protects /user route, opens modal for guests
+- ✅ APP_INITIALIZER integration - auth state initialized before app renders
+- ✅ NavBar updates - user dropdown with login, settings, logout
+- ✅ ThemeService - light/dark theme toggle with localStorage persistence
+- ✅ Dark mode styling - all components styled for dark mode
+- ✅ Mobile menu user options - login/logout, settings, theme toggle for mobile
+- ✅ Backend integration documentation - docs/BACKEND_INTEGRATION.md
+- ✅ Environment configuration - useMocks flag to toggle mock/real backend
+- ✅ Unit tests for auth (≥85% coverage)
+- ✅ Build succeeds: `npx nx build frenzydle`
+- ✅ Unit tests pass: `npx nx test shared-ui shared-feature shared-data`
+
 ### Incomplete / TODO
 
-- ⬜ Achieve 85% test coverage (currently lower)
-- ✅ Create Storybook stories for all components (created, but Storybook build needs Angular builder migration)
-- ✅ Write E2E Cypress tests for homepage
-- ✅ Update README.md with run instructions
-- ✅ Document mock interceptor toggle in this file
+- ⬜ E2E tests for auth flows (Cypress)
+- ⬜ Storybook for new auth components
 
-### Decisions Made Mid-Step
+### Architecture Decisions
 
-1. **ngx-translate over Angular i18n**: Chosen for runtime language switching (Angular i18n requires separate builds per language, impractical for language switcher feature)
+1. **Signal-based auth state**: No localStorage for tokens - auth state lives in memory via Angular signals only. Sessions managed server-side via httpOnly cookies.
 
-2. **Signal-based state**: All component state uses Angular signals (no RxJS subjects) for reactivity
+2. **Guest-first approach**: Users automatically get guest sessions on cold start. Guest accounts can be converted to registered accounts.
 
-3. **Click-outside pattern for dropdowns**: LanguageSwitcher uses `@HostListener('document:click')` instead of `blur` event to properly handle desktop clicks (blur fires before click reaches dropdown options)
+3. **Mock interceptor pattern**: All API calls intercepted when `useMocks: true`. Toggle via environment configuration.
 
-4. **Mock data structure**: Three mock games - Dragon Ball (active), Naruto (coming soon), One Piece (coming soon)
+4. **Theme persistence**: Theme preference (light/dark) stored in localStorage, system preference as fallback.
 
-5. **GameModeLocal interface**: Defined locally in game.models.ts to avoid circular import issues
+5. **Dark mode via Tailwind**: Uses `darkMode: 'class'` in tailwind.config.js, applied via `.dark` class on `<html>` element.
 
 ### Commands to Resume
 
@@ -78,10 +93,10 @@ npx nx test shared-data
 # Build for production
 npx nx build frenzydle
 
-# Run E2E tests (not yet implemented)
+# Run E2E tests
 npx nx e2e frenzydle-e2e
 
-# Start Storybook (stories not yet created)
+# Start Storybook
 npx nx storybook shared-ui
 ```
 
@@ -100,9 +115,9 @@ npx nx storybook shared-ui
 
 | Library | Path | Purpose |
 |---------|------|---------|
-| shared-ui | `libs/shared/ui` | Dumb UI components (NavBar, GameCard, Logo, etc.) |
-| shared-data | `libs/shared/data` | Services, models, HTTP interceptors, mock data |
-| shared-feature | `libs/shared/feature` | Smart components (HeroSection, GameGrid) |
+| shared-ui | `libs/shared/ui` | Dumb UI components (NavBar, GameCard, Logo, AuthModal, etc.) |
+| shared-data | `libs/shared/data` | Services, models, HTTP interceptors, mock data, guards |
+| shared-feature | `libs/shared/feature` | Smart components (HeroSection, GameGrid, AuthModalService) |
 
 #### Game Libraries (scoped per game)
 
@@ -141,6 +156,33 @@ npx nx storybook shared-ui
 │  │         (Pages)                  │    │
 │  └─────────────────────────────────┘    │
 └─────────────────────────────────────────┘
+```
+
+### Authentication Flow
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        COLD START                                    │
+│  1. App loads → APP_INITIALIZER calls GET /api/auth/me              │
+│     ├─ 200: Session exists, user restored                           │
+│     └─ 401: No session → POST /api/auth/guest (create guest user)   │
+│                                                                      │
+│                        GUEST USER                                    │
+│  2. User plays games as guest (streak/game state persisted)          │
+│                                                                      │
+│                    EMAIL SIGN-IN FLOW                                │
+│  3. User enters email → POST /api/auth/check-email                  │
+│     Response: { exists: boolean, suggestedAction: 'login'|'convert'|'register' }
+│                                                                      │
+│  4a. LOGIN (existing user): POST /api/auth/login                   │
+│  4b. CONVERT (guest → registered): POST /api/auth/convert           │
+│  4c. REGISTER (new user): POST /api/auth/register                   │
+│                                                                      │
+│                    THEME PREFERENCE                                   │
+│  - Stored in localStorage (key: 'frenzydle_theme')                   │
+│  - Applies 'dark' or 'light' class to <html> element                │
+│  - Fallback to system preference                                     │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -223,6 +265,12 @@ npx nx e2e frenzydle-e2e --watch
 
 All API endpoints are prefixed with `/api`. When `useMocks: true`, responses are mocked with simulated latency (400-700ms).
 
+See `docs/BACKEND_INTEGRATION.md` for complete API documentation including:
+- Authentication endpoints (login, register, guest, logout, etc.)
+- Request/response formats
+- Error codes
+- Security considerations
+
 #### Games
 
 | Method | Endpoint | Description |
@@ -231,39 +279,19 @@ All API endpoints are prefixed with `/api`. When `useMocks: true`, responses are
 | GET | `/api/games/:gameId` | Get game details |
 | GET | `/api/games/:gameId/daily-status` | Get user's daily status for a game |
 
-#### Authentication
+#### Authentication (see docs/BACKEND_INTEGRATION.md for full details)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| GET | `/api/auth/csrf` | Get CSRF token |
+| GET | `/api/auth/me` | Get current user |
+| POST | `/api/auth/guest` | Create guest session |
 | POST | `/api/auth/login` | Login with credentials |
 | POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/convert` | Convert guest to registered |
 | POST | `/api/auth/google` | Google OAuth login |
-| POST | `/api/auth/guest` | Guest login |
 | POST | `/api/auth/logout` | Logout current user |
-| POST | `/api/auth/refresh` | Refresh access token |
-
-#### User Profile
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/user/profile` | Get current user profile |
-| PUT | `/api/user/profile` | Update user profile |
-| DELETE | `/api/user/data` | Delete all user data |
-| PUT | `/api/user/avatar` | Update user avatar |
-
-#### Leaderboard
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/leaderboard/:gameId` | Get game leaderboard |
-| GET | `/api/leaderboard/:gameId/me` | Get user's rank |
-
-#### Achievements
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/achievements` | Get all achievements |
-| GET | `/api/achievements/user` | Get user's achievements |
+| POST | `/api/auth/check-email` | Check if email exists |
 
 ### Response Format
 
@@ -304,6 +332,21 @@ interface GameWithStatus {
   status?: GameDailyStatus;
 }
 
+// Auth-related types
+interface UserProfile {
+  id: string;
+  displayName: string;
+  email: string | null;
+  isGuest: boolean;
+  avatarUrl: string | null;
+  createdAt: string;
+}
+
+interface CheckEmailResponse {
+  exists: boolean;
+  suggestedAction: 'login' | 'convert' | 'register';
+}
+
 // Language configuration
 interface Language {
   code: string;
@@ -329,8 +372,8 @@ const SUPPORTED_LANGUAGES: Language[] = [
 ```typescript
 export const environment = {
   production: false,
-  useMocks: true,  // Enable mocked API responses
-  simulateError: false, // Set to true to test error states
+  useMocks: true,        // Enable mocked API responses
+  simulateError: false,  // Set to true to test error states
   apiBaseUrl: '/api',
 };
 ```
@@ -340,7 +383,7 @@ export const environment = {
 ```typescript
 export const environment = {
   production: true,
-  useMocks: false,
+  useMocks: false,  // Use real backend
   apiBaseUrl: '/api',
 };
 ```
@@ -368,6 +411,7 @@ if (environment.useMocks) {
 **Production (real API):**
 - Set `useMocks: false` in `environment.prod.ts`
 - All API calls go to the real backend at `apiBaseUrl`
+- CSRF interceptor adds tokens to mutating requests
 
 **Simulating Errors:**
 - Set `simulateError: true` in `environment.ts` to test error states
@@ -383,13 +427,16 @@ GET /api/games → GameWithStatus[]
 GET /api/games/:id → GameWithStatus
 GET /api/games/:id/daily-status → GameDailyStatus
 
-// Auth (planned)
-POST /api/auth/login
-POST /api/auth/register
-POST /api/auth/google
-POST /api/auth/guest
-POST /api/auth/logout
-POST /api/auth/refresh
+// Auth (fully mocked)
+GET /api/auth/csrf → { token: "mock-csrf-token" }
+GET /api/auth/me → { user: UserProfile } | 401
+POST /api/auth/guest → { user: UserProfile }
+POST /api/auth/login → { user: UserProfile }
+POST /api/auth/register → { user: UserProfile }
+POST /api/auth/convert → { user: UserProfile }
+POST /api/auth/google → { user: UserProfile }
+POST /api/auth/logout → { success: true }
+POST /api/auth/check-email → { exists: boolean, suggestedAction: string }
 
 // User (planned)
 GET /api/user/profile
@@ -457,13 +504,13 @@ npx nx build-storybook shared-ui
 
 ```typescript
 // Import from shared-ui
-import { NavBarComponent, GameCardComponent, LogoComponent } from '@shared/ui';
+import { NavBarComponent, GameCardComponent, LogoComponent, AuthModalComponent } from '@shared/ui';
 
 // Import from shared-data
-import { GameService, MOCK_GAMES, SUPPORTED_LANGUAGES } from '@shared/data';
+import { GameService, AuthService, ThemeService, MOCK_GAMES, SUPPORTED_LANGUAGES } from '@shared/data';
 
 // Import from shared-feature
-import { HeroSectionComponent, GameGridComponent } from '@shared/feature';
+import { HeroSectionComponent, GameGridComponent, AuthModalService } from '@shared/feature';
 ```
 
 ### Creating New Components
@@ -478,14 +525,15 @@ import { HeroSectionComponent, GameGridComponent } from '@shared/feature';
 | Component | Purpose |
 |-----------|---------|
 | `LogoComponent` | Animated FrenzyDle logo with gradient |
-| `NavBarComponent` | Sticky navigation bar with language switcher |
+| `NavBarComponent` | Sticky navigation bar with user menu, language switcher |
 | `LanguageSwitcherComponent` | Language dropdown with persistence |
-| `MobileMenuComponent` | Slide-in mobile menu |
+| `MobileMenuComponent` | Slide-in mobile menu with nav and user options |
 | `GameCardComponent` | Game card with status, streak, countdown |
 | `CountdownTimerComponent` | HH:MM:SS countdown display |
 | `SkeletonLoaderComponent` | Pulsing placeholder for loading states |
 | `ErrorStateComponent` | Error message with retry button |
 | `EmptyStateComponent` | Empty state with optional CTA |
+| `AuthModalComponent` | Authentication modal with multi-step flow |
 
 ### Available Feature Components
 
@@ -493,6 +541,15 @@ import { HeroSectionComponent, GameGridComponent } from '@shared/feature';
 |-----------|---------|
 | `HeroSectionComponent` | Hero with animated logo and typewriter |
 | `GameGridComponent` | Responsive game grid with loading states |
+
+### Available Services
+
+| Service | Purpose |
+|---------|---------|
+| `GameService` | Fetch games and daily status |
+| `AuthService` | Authentication state and operations |
+| `ThemeService` | Light/dark theme management |
+| `AuthModalService` | Modal state management |
 
 ---
 
@@ -502,6 +559,20 @@ import { HeroSectionComponent, GameGridComponent } from '@shared/feature';
 
 All styling uses Tailwind utility classes. Custom CSS should be avoided unless absolutely necessary.
 
+### Dark Mode
+
+Dark mode is implemented using Tailwind's class-based dark mode:
+- `darkMode: 'class'` in `tailwind.config.js`
+- ThemeService applies `.dark` class to `<html>` element
+- Use `dark:` prefix for dark mode variants (e.g., `dark:bg-zinc-800`)
+
+```html
+<!-- Example: Dark mode styling -->
+<div class="bg-white dark:bg-zinc-800 text-gray-800 dark:text-gray-100">
+  Content adapts to theme
+</div>
+```
+
 ### Color Palette
 
 | Color | Shades | Usage |
@@ -510,6 +581,7 @@ All styling uses Tailwind utility classes. Custom CSS should be avoided unless a
 | Mint | 50-900 | Success states |
 | Peach | 50-900 | Warning states |
 | Sky Blue | 50-900 | Information states |
+| Zinc | 50-900 | Dark mode backgrounds |
 
 ### Animation Classes
 
@@ -611,7 +683,7 @@ export const MOCK_GAMES: GameWithStatus[] = [
 
 ## Future Steps
 
-1. **Step 3**: Authentication system
+1. ~~**Step 3**: Authentication system~~ ✅ Complete
 2. **Step 4**: User settings page
 3. **Step 5**: Avatar customization
 4. **Step 6**: Dragon Ball game integration

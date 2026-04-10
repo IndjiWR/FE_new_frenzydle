@@ -43,6 +43,31 @@
     "signOut": "Sair",
     "signIn": "Entrar"
   },
+  "auth": {
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "welcomeBack": "Bem-vindo de volta!",
+    "createAccount": "Criar Conta",
+    "success": "Sucesso!",
+    "successMessage": "Você está conectado!",
+    "successSubtitle": "Redirecionando...",
+    "email": "Email",
+    "password": "Senha",
+    "displayName": "Nome de Exibição",
+    "displayNamePlaceholder": "Seu nome",
+    "continue": "Continuar",
+    "back": "Voltar",
+    "orContinueWithEmail": "ou continuar com email",
+    "continueAsGuest": "Continuar como Convidado",
+    "checkingEmail": "Verificando...",
+    "signingIn": "Entrando...",
+    "invalidEmail": "Por favor insira um email válido",
+    "passwordError": "A senha deve ter pelo menos 8 caracteres",
+    "displayNameError": "O nome deve ter 2-24 caracteres",
+    "invalidCredentials": "Email ou senha inválidos",
+    "googleError": "Falha no login com Google. Por favor tente novamente.",
+    "errorCheckingEmail": "Não foi possível verificar o email. Por favor tente novamente."
+  },
   "errors": {
     "loadGames": "Falha ao carregar jogos. Por favor, tente novamente.",
     "loadUser": "Falha ao carregar dados do usuário.",
@@ -51,5 +76,9 @@
   "empty": {
     "noGames": "Nenhum jogo disponível no momento.",
     "checkBackLater": "Volte mais tarde para novos jogos!"
+  },
+  "theme": {
+    "light": "Modo Claro",
+    "dark": "Modo Escuro"
   }
 }

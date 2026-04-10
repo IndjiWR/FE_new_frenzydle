@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { authGuard } from '@shared/data';
 
 export const appRoutes: Route[] = [
   {
@@ -8,6 +9,7 @@ export const appRoutes: Route[] = [
   {
     path: 'user',
     loadComponent: () => import('./pages/user/user.component').then(m => m.UserComponent),
+    canActivate: [authGuard],
   },
   {
     path: 'games/:gameId',

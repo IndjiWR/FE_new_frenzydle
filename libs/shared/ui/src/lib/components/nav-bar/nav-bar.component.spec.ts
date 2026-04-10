@@ -65,6 +65,68 @@ describe('NavBarComponent', () => {
     expect(placeholder).toBeTruthy();
   });
 
+  it('should display user menu trigger when logged in', () => {
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.detectChanges();
+
+    const menuTrigger = fixture.nativeElement.querySelector('[data-testid="user-menu-trigger"]');
+    expect(menuTrigger).toBeTruthy();
+  });
+
+  it('should toggle user dropdown menu', () => {
+    expect(component.isUserMenuOpen()).toBe(false);
+    component.toggleUserMenu();
+    expect(component.isUserMenuOpen()).toBe(true);
+    component.toggleUserMenu();
+    expect(component.isUserMenuOpen()).toBe(false);
+  });
+
+  it('should close user dropdown menu', () => {
+    component.isUserMenuOpen.set(true);
+    component.closeUserMenu();
+    expect(component.isUserMenuOpen()).toBe(false);
+  });
+
+  it('should show login option in dropdown for guest users', () => {
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.componentRef.setInput('isGuest', true);
+    fixture.detectChanges();
+
+    // Open dropdown
+    component.toggleUserMenu();
+    fixture.detectChanges();
+
+    const loginOption = fixture.nativeElement.querySelector('[data-testid="menu-login"]');
+    expect(loginOption).toBeTruthy();
+  });
+
+  it('should NOT show login option in dropdown for registered users', () => {
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.componentRef.setInput('isGuest', false);
+    fixture.detectChanges();
+
+    // Open dropdown
+    component.toggleUserMenu();
+    fixture.detectChanges();
+
+    const loginOption = fixture.nativeElement.querySelector('[data-testid="menu-login"]');
+    expect(loginOption).toBeFalsy();
+  });
+
+  it('should show settings and logout options in dropdown', () => {
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.detectChanges();
+
+    // Open dropdown
+    component.toggleUserMenu();
+    fixture.detectChanges();
+
+    const settingsOption = fixture.nativeElement.querySelector('[data-testid="menu-settings"]');
+    const logoutOption = fixture.nativeElement.querySelector('[data-testid="menu-logout"]');
+    expect(settingsOption).toBeTruthy();
+    expect(logoutOption).toBeTruthy();
+  });
+
   it('should toggle mobile menu', () => {
     expect(component.isMobileMenuOpen()).toBe(false);
     component.toggleMobileMenu();
@@ -88,6 +150,55 @@ describe('NavBarComponent', () => {
     loginButton.click();
 
     expect(component.loginClick.emit).toHaveBeenCalled();
+  });
+
+  it('should emit loginClick when menu login option clicked', () => {
+    jest.spyOn(component.loginClick, 'emit');
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.componentRef.setInput('isGuest', true);
+    fixture.detectChanges();
+
+    // Open dropdown
+    component.toggleUserMenu();
+    fixture.detectChanges();
+
+    const loginOption = fixture.nativeElement.querySelector('[data-testid="menu-login"]');
+    loginOption.click();
+
+    expect(component.loginClick.emit).toHaveBeenCalled();
+    expect(component.isUserMenuOpen()).toBe(false);
+  });
+
+  it('should emit settingsClick when settings option clicked', () => {
+    jest.spyOn(component.settingsClick, 'emit');
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.detectChanges();
+
+    // Open dropdown
+    component.toggleUserMenu();
+    fixture.detectChanges();
+
+    const settingsOption = fixture.nativeElement.querySelector('[data-testid="menu-settings"]');
+    settingsOption.click();
+
+    expect(component.settingsClick.emit).toHaveBeenCalled();
+    expect(component.isUserMenuOpen()).toBe(false);
+  });
+
+  it('should emit logoutClick when logout option clicked', () => {
+    jest.spyOn(component.logoutClick, 'emit');
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.detectChanges();
+
+    // Open dropdown
+    component.toggleUserMenu();
+    fixture.detectChanges();
+
+    const logoutOption = fixture.nativeElement.querySelector('[data-testid="menu-logout"]');
+    logoutOption.click();
+
+    expect(component.logoutClick.emit).toHaveBeenCalled();
+    expect(component.isUserMenuOpen()).toBe(false);
   });
 
   it('should display mobile menu button on mobile', () => {

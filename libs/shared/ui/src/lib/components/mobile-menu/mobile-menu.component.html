@@ -9,32 +9,32 @@
 
 <!-- Menu Drawer -->
 <div
-  class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50"
+  class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white dark:bg-zinc-800 shadow-xl z-50 flex flex-col"
   [class.open]="isOpen()"
   [attr.data-testid]="'mobile-menu'"
 >
   <!-- Header -->
-  <div class="flex items-center justify-between p-4 border-b border-gray-200">
-    <span class="font-display font-bold text-lavender-600">Menu</span>
+  <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-zinc-700">
+    <span class="font-display font-bold text-lavender-600 dark:text-lavender-400">Menu</span>
     <button
-      class="p-2 hover:bg-gray-100 rounded-lg"
+      class="p-2 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded-lg"
       (click)="onClose()"
       [attr.data-testid]="'mobile-menu-close'"
     >
-      <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
 
   <!-- Navigation Items -->
-  <nav class="p-4">
+  <nav class="p-4 flex-1 overflow-y-auto">
     <ul class="space-y-2">
       @for (item of navItems(); track item.path) {
         <li>
           <a
             [routerLink]="item.path"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-lavender-50 hover:text-lavender-600 transition-colors"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-lavender-50 dark:hover:bg-lavender-900/30 hover:text-lavender-600 dark:hover:text-lavender-400 transition-colors"
             (click)="onNavigate(item.path)"
             [attr.data-testid]="'mobile-nav-' + item.label"
           >
@@ -47,4 +47,89 @@
       }
     </ul>
   </nav>
+
+  <!-- User Section -->
+  <div class="p-4 border-t border-gray-200 dark:border-zinc-700">
+    @if (isLoggedIn()) {
+      <!-- User Info -->
+      <div class="flex items-center gap-3 px-4 py-2 mb-2">
+        <div class="w-8 h-8 rounded-full bg-lavender-100 dark:bg-lavender-900 flex items-center justify-center">
+          <span class="text-sm font-medium text-lavender-600 dark:text-lavender-300">{{ userName().charAt(0) }}</span>
+        </div>
+        <span class="font-medium text-gray-700 dark:text-gray-200">{{ userName() }}</span>
+      </div>
+
+      <!-- Theme Toggle -->
+      <button
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
+        (click)="onThemeToggle()"
+        [attr.data-testid]="'mobile-theme-toggle'"
+      >
+        @if (isDarkTheme()) {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span>{{ 'theme.light' | translate }}</span>
+        } @else {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <span>{{ 'theme.dark' | translate }}</span>
+        }
+      </button>
+
+      <!-- Settings -->
+      <button
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
+        (click)="onSettingsClick()"
+        [attr.data-testid]="'mobile-settings'"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.598 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>{{ 'nav.settings' | translate }}</span>
+      </button>
+
+      <!-- Logout -->
+      <button
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+        (click)="onLogoutClick()"
+        [attr.data-testid]="'mobile-logout'"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>{{ 'user.signOut' | translate }}</span>
+      </button>
+    } @else {
+      <!-- Theme Toggle (for guests) -->
+      <button
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
+        (click)="onThemeToggle()"
+        [attr.data-testid]="'mobile-theme-toggle'"
+      >
+        @if (isDarkTheme()) {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span>{{ 'theme.light' | translate }}</span>
+        } @else {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <span>{{ 'theme.dark' | translate }}</span>
+        }
+      </button>
+
+      <!-- Login Button -->
+      <button
+        class="w-full mt-2 px-4 py-3 bg-lavender-600 hover:bg-lavender-700 text-white rounded-lg font-semibold transition-colors"
+        (click)="onLoginClick()"
+        [attr.data-testid]="'mobile-login'"
+      >
+        {{ 'user.signIn' | translate }}
+      </button>
+    }
+  </div>
 </div>

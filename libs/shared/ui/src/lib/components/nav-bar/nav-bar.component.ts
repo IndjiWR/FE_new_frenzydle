@@ -1,4 +1,4 @@
-import { Component, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, output, signal, ChangeDetectionStrategy, inject, effect } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LogoComponent } from '../logo/logo.component';
@@ -30,6 +30,11 @@ export class NavBarComponent {
   isLoggedIn = input<boolean>(false);
 
   /**
+   * Whether user is a guest
+   */
+  isGuest = input<boolean>(true);
+
+  /**
    * User avatar URL
    */
   userAvatar = input<string>('');
@@ -58,9 +63,50 @@ export class NavBarComponent {
   logoutClick = output<void>();
 
   /**
+   * Emits when user clicks settings
+   */
+  settingsClick = output<void>();
+
+  /**
+   * Whether dark theme is active
+   */
+  isDarkTheme = input<boolean>(false);
+
+  /**
+   * Emits when user clicks theme toggle
+   */
+  themeToggle = output<void>();
+
+  /**
    * Mobile menu open state
    */
   isMobileMenuOpen = signal<boolean>(false);
+
+  /**
+   * User dropdown menu open state
+   */
+  isUserMenuOpen = signal<boolean>(false);
+
+  constructor() {
+    // Close dropdown when clicking outside
+    effect((onCleanup) => {
+      const handleClick = (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        if (!target.closest('[data-testid="user-menu-trigger"]') &&
+            !target.closest('[data-testid="user-dropdown-menu"]')) {
+          this.isUserMenuOpen.set(false);
+        }
+      };
+
+      if (this.isUserMenuOpen()) {
+        document.addEventListener('click', handleClick);
+      }
+
+      onCleanup(() => {
+        document.removeEventListener('click', handleClick);
+      });
+    });
+  }
 
   /**
    * Toggle mobile menu
@@ -77,9 +123,24 @@ export class NavBarComponent {
   }
 
   /**
+   * Toggle user dropdown menu
+   */
+  toggleUserMenu(): void {
+    this.isUserMenuOpen.update(v => !v);
+  }
+
+  /**
+   * Close user dropdown menu
+   */
+  closeUserMenu(): void {
+    this.isUserMenuOpen.set(false);
+  }
+
+  /**
    * Handle login click
    */
   onLoginClick(): void {
+    this.closeUserMenu();
     this.loginClick.emit();
   }
 
@@ -87,6 +148,22 @@ export class NavBarComponent {
    * Handle logout click
    */
   onLogoutClick(): void {
+    this.closeUserMenu();
     this.logoutClick.emit();
+  }
+
+  /**
+   * Handle settings click
+   */
+  onSettingsClick(): void {
+    this.closeUserMenu();
+    this.settingsClick.emit();
+  }
+
+  /**
+   * Handle theme toggle click
+   */
+  onThemeToggle(): void {
+    this.themeToggle.emit();
   }
 }

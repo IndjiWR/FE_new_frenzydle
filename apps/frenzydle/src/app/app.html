@@ -1,12 +1,22 @@
 <app-nav-bar
   [isLoggedIn]="isLoggedIn()"
-  [userAvatar]="userAvatar"
-  [userName]="userName"
+  [isGuest]="isGuest()"
+  [userAvatar]="userAvatar()"
+  [userName]="userName()"
   [navItems]="navItems"
+  [isDarkTheme]="isDarkTheme()"
   (loginClick)="onLoginClick()"
   (logoutClick)="onLogoutClick()"
+  (settingsClick)="onSettingsClick()"
+  (themeToggle)="onThemeToggle()"
 ></app-nav-bar>
 
 <main class="app-main">
   <router-outlet></router-outlet>
 </main>
+
+<app-auth-modal
+  [isOpen]="authModalService.isOpen()"
+  (close)="authModalService.close()"
+  (loginSuccess)="authModalService.handleLoginSuccess()"
+></app-auth-modal>

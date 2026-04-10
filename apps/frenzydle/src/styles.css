@@ -17,6 +17,17 @@ body {
   background-color: #fafafa;
 }
 
+/* Dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body,
+.dark {
+  background-color: #18181b;
+  color: #fafafa;
+}
+
 /* Smooth transitions for all interactive elements */
 * {
   transition-property: background-color, border-color, color, fill, stroke;

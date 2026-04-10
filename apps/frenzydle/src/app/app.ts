@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NavBarComponent } from '@shared/ui';
+import { Component, inject, computed } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
+import { NavBarComponent, AuthModalComponent } from '@shared/ui';
+import { AuthService, ThemeService } from '@shared/data';
+import { AuthModalService } from '@shared/feature';
 
 /**
  * Main application component
@@ -9,27 +11,42 @@ import { NavBarComponent } from '@shared/ui';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, NavBarComponent],
+  imports: [RouterModule, NavBarComponent, AuthModalComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
+  private readonly authService = inject(AuthService);
+  private readonly themeService = inject(ThemeService);
+  private readonly router = inject(Router);
+  protected readonly authModalService = inject(AuthModalService);
+
   protected title = 'FrenzyDle';
 
   /**
-   * Whether user is logged in (placeholder for auth)
+   * Whether user is logged in (from auth service)
    */
-  isLoggedIn = signal(false);
+  isLoggedIn = this.authService.isLoggedIn;
 
   /**
-   * User avatar URL (placeholder for auth)
+   * Whether user is a guest (from auth service)
    */
-  userAvatar = '';
+  isGuest = this.authService.isGuest;
 
   /**
-   * User display name (placeholder for auth)
+   * User avatar URL (from auth service)
    */
-  userName = 'Guest';
+  userAvatar = computed(() => this.authService.currentUser()?.avatarUrl ?? '');
+
+  /**
+   * User display name (from auth service)
+   */
+  userName = this.authService.displayName;
+
+  /**
+   * Whether dark theme is active
+   */
+  isDarkTheme = this.themeService.isDark;
 
   /**
    * Navigation items
@@ -40,18 +57,30 @@ export class App {
   ];
 
   /**
-   * Handle login click
+   * Handle login click - opens auth modal
    */
   onLoginClick(): void {
-    // TODO: Implement login modal/navigation
-    console.log('Login clicked');
+    this.authModalService.open();
   }
 
   /**
    * Handle logout click
    */
   onLogoutClick(): void {
-    // TODO: Implement logout
-    this.isLoggedIn.set(false);
+    this.authService.logout();
+  }
+
+  /**
+   * Handle settings click - navigate to settings page
+   */
+  onSettingsClick(): void {
+    this.router.navigate(['/settings']);
+  }
+
+  /**
+   * Handle theme toggle click
+   */
+  onThemeToggle(): void {
+    this.themeService.toggle();
   }
 }
