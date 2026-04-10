@@ -34,9 +34,14 @@ export class App {
   isGuest = this.authService.isGuest;
 
   /**
-   * User avatar URL (from auth service)
+   * User avatar URL (from auth service) - fallback for legacy avatars
    */
   userAvatar = computed(() => this.authService.currentUser()?.avatarUrl ?? '');
+
+  /**
+   * User avatar data (for custom avatars)
+   */
+  userAvatarData = computed(() => this.authService.currentUser()?.avatarData ?? null);
 
   /**
    * User display name (from auth service)

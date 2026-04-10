@@ -12,6 +12,7 @@ import { UserProfileHeaderComponent } from './components/user-profile-header/use
  * - /user → redirects to /user/stats
  * - /user/stats
  * - /user/achievements
+ * - /user/avatar
  * - /user/settings
  */
 @Component({
@@ -41,6 +42,7 @@ export class UserComponent {
   tabs = [
     { path: '/user/stats', label: 'user.tabs.stats', icon: 'chart' },
     { path: '/user/achievements', label: 'user.tabs.achievements', icon: 'trophy' },
+    { path: '/user/avatar', label: 'user.tabs.avatar', icon: 'avatar' },
     { path: '/user/settings', label: 'user.tabs.settings', icon: 'settings' },
   ];
 

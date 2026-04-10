@@ -2,7 +2,17 @@
   <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
     <!-- Avatar -->
     <div class="avatar-container relative mb-4">
-      @if (avatarUrl()) {
+      @if (avatarData()) {
+        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-lavender-300 dark:border-lavender-600 shadow-lg" [attr.data-testid]="'profile-avatar'">
+          <app-avatar-renderer
+            [avatarData]="avatarData()"
+            size="md"
+            [isGuest]="isGuest()"
+            [animated]="true"
+            [initial]="displayName()"
+          ></app-avatar-renderer>
+        </div>
+      } @else if (avatarUrl()) {
         <img
           [src]="avatarUrl()"
           [alt]="displayName()"

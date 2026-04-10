@@ -48,6 +48,7 @@
     "tabs": {
       "stats": "Estadísticas",
       "achievements": "Logros",
+      "avatar": "Avatar",
       "settings": "Configuración"
     },
     "stats": {
@@ -150,5 +151,25 @@
   "theme": {
     "light": "Modo Claro",
     "dark": "Modo Oscuro"
+  },
+  "avatar": {
+    "save": "Guardar Avatar",
+    "saving": "Guardando...",
+    "unsavedChanges": "Tienes cambios sin guardar",
+    "randomize": "Aleatorio",
+    "reset": "Restablecer",
+    "locked": "Bloqueado",
+    "lockedHint": "Algunas opciones están bloqueadas. ¡Desbloquéalas ganando logros!",
+    "unlock": "Desbloquear: {{achievement}}",
+    "category": {
+      "skinTone": "Piel",
+      "hairStyle": "Estilo de Pelo",
+      "hairColor": "Color de Pelo",
+      "eyeStyle": "Ojos",
+      "expression": "Expresión",
+      "glasses": "Gafas",
+      "hat": "Sombrero",
+      "bgColor": "Fondo"
+    }
   }
 }

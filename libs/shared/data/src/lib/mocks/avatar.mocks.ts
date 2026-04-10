@@ -326,17 +326,8 @@ export const MOCK_AVATAR_OPTIONS: AvatarOption[] = [
   })),
 ];
 
-// Default avatar configuration
-export const DEFAULT_AVATAR: AvatarData = {
-  skinTone: 'skin-light',
-  hairStyle: 'hair-short-1',
-  hairColor: 'hair-color-brown',
-  eyeStyle: 'eyes-round',
-  expression: 'expr-smile',
-  glasses: null,
-  hat: null,
-  bgColor: 'bg-lavender',
-};
+// Re-export DEFAULT_AVATAR from models for convenience
+export { DEFAULT_AVATAR } from '../models/avatar.models';
 
 /**
  * Get SVG layer for an option

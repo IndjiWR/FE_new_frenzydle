@@ -1,0 +1,85 @@
+/* Avatar Tab Styles */
+
+.avatar-tab {
+  min-height: 400px;
+}
+
+/* Preview Panel */
+.preview-panel {
+  width: 100%;
+  max-width: 250px;
+}
+
+.avatar-preview-container {
+  position: relative;
+}
+
+.w-50 {
+  width: 12.5rem;
+  height: 12.5rem;
+}
+
+/* Options Panel */
+.options-panel {
+  min-width: 0;
+}
+
+.category-tabs {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tab {
+  min-width: fit-content;
+}
+
+/* Option Tiles */
+.option-tile {
+  position: relative;
+  cursor: pointer;
+}
+
+.option-tile:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+.option-tile:disabled {
+  cursor: not-allowed;
+}
+
+/* Locked Overlay */
+.locked-overlay {
+  pointer-events: none;
+}
+
+/* Unlock hint on hover */
+.option-tile:hover .unlock-hint {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .avatar-editor {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .preview-panel {
+    max-width: 100%;
+  }
+
+  .options-panel {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .options-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

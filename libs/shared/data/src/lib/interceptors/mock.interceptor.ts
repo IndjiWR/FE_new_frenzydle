@@ -219,6 +219,7 @@ export const mockInterceptor = (
         email: body.email,
         isGuest: false,
         avatarUrl: null,
+        avatarData: null,
         createdAt: new Date().toISOString(),
       };
       mockCurrentUser = user;
@@ -242,6 +243,7 @@ export const mockInterceptor = (
         email: body.email,
         isGuest: false,
         avatarUrl: null,
+        avatarData: existingUser?.avatarData || null,
         createdAt: existingUser?.createdAt || new Date().toISOString(),
       };
       mockCurrentUser = user;
@@ -262,6 +264,7 @@ export const mockInterceptor = (
       email: 'mario.rossi@gmail.com',
       isGuest: false,
       avatarUrl: null,
+      avatarData: null,
       createdAt: new Date().toISOString(),
     };
     mockCurrentUser = user;

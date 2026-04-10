@@ -4,6 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LogoComponent } from '../logo/logo.component';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 import { MobileMenuComponent, NavItem } from '../mobile-menu/mobile-menu.component';
+import { AvatarRendererComponent } from '../avatar-renderer/avatar-renderer.component';
+import { AvatarData } from '@shared/data';
 
 /**
  * Navigation bar component
@@ -18,6 +20,7 @@ import { MobileMenuComponent, NavItem } from '../mobile-menu/mobile-menu.compone
     LogoComponent,
     LanguageSwitcherComponent,
     MobileMenuComponent,
+    AvatarRendererComponent,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
@@ -35,9 +38,14 @@ export class NavBarComponent {
   isGuest = input<boolean>(true);
 
   /**
-   * User avatar URL
+   * User avatar URL (fallback for legacy avatars)
    */
   userAvatar = input<string>('');
+
+  /**
+   * User avatar data (for custom avatars)
+   */
+  userAvatarData = input<AvatarData | null>(null);
 
   /**
    * User display name

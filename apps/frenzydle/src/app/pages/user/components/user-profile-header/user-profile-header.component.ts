@@ -1,7 +1,8 @@
 import { Component, input, output, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserProfile } from '@shared/data';
+import { UserProfile, AvatarData } from '@shared/data';
+import { AvatarRendererComponent } from '@shared/ui';
 
 /**
  * User profile header component
@@ -12,7 +13,7 @@ import { UserProfile } from '@shared/data';
 @Component({
   selector: 'app-user-profile-header',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, AvatarRendererComponent],
   templateUrl: './user-profile-header.component.html',
   styleUrls: ['./user-profile-header.component.css'],
 })
@@ -45,6 +46,7 @@ export class UserProfileHeaderComponent {
   displayName = computed(() => this.user()?.displayName ?? 'Guest');
   email = computed(() => this.user()?.email ?? null);
   avatarUrl = computed(() => this.user()?.avatarUrl ?? null);
+  avatarData = computed(() => this.user()?.avatarData ?? null);
   initial = computed(() => this.displayName().charAt(0).toUpperCase());
 
   /**

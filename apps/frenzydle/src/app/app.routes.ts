@@ -29,6 +29,10 @@ export const appRoutes: Route[] = [
         path: 'settings',
         loadComponent: () => import('./pages/user/components/settings-tab').then(m => m.SettingsTabComponent),
       },
+      {
+        path: 'avatar',
+        loadComponent: () => import('./pages/user/components/avatar-tab').then(m => m.AvatarTabComponent),
+      },
     ],
   },
   {

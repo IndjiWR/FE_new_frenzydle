@@ -48,6 +48,7 @@
     "tabs": {
       "stats": "Stats",
       "achievements": "Achievements",
+      "avatar": "Avatar",
       "settings": "Settings"
     },
     "stats": {
@@ -150,5 +151,25 @@
   "theme": {
     "light": "Light Mode",
     "dark": "Dark Mode"
+  },
+  "avatar": {
+    "save": "Save Avatar",
+    "saving": "Saving...",
+    "unsavedChanges": "You have unsaved changes",
+    "randomize": "Randomize",
+    "reset": "Reset",
+    "locked": "Locked",
+    "lockedHint": "Some options are locked. Unlock them by earning achievements!",
+    "unlock": "Unlock: {{achievement}}",
+    "category": {
+      "skinTone": "Skin",
+      "hairStyle": "Hair Style",
+      "hairColor": "Hair Color",
+      "eyeStyle": "Eyes",
+      "expression": "Expression",
+      "glasses": "Glasses",
+      "hat": "Hat",
+      "bgColor": "Background"
+    }
   }
 }

@@ -1,0 +1,247 @@
+<div class="avatar-tab" [attr.data-testid]="'avatar-tab'">
+  @if (isGuest()) {
+    <!-- Guest Teaser Overlay -->
+    <app-guest-teaser [attr.data-testid]="'avatar-guest-teaser'"></app-guest-teaser>
+  } @else {
+    @if (isLoading()) {
+      <!-- Loading State -->
+      <div class="loading-state flex flex-col lg:flex-row gap-6">
+        <!-- Preview skeleton -->
+        <div class="preview-panel flex-shrink-0">
+          <div class="w-50 h-50 bg-gray-200 dark:bg-zinc-700 rounded-2xl animate-pulse"></div>
+        </div>
+        <!-- Options skeleton -->
+        <div class="options-panel flex-1">
+          <div class="h-10 bg-gray-200 dark:bg-zinc-700 rounded-lg mb-4 animate-pulse"></div>
+          <div class="grid grid-cols-4 gap-3">
+            @for (_ of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+              <div class="aspect-square bg-gray-200 dark:bg-zinc-700 rounded-xl animate-pulse"></div>
+            }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <!-- Main Content -->
+      <div class="avatar-editor flex flex-col lg:flex-row gap-6">
+        <!-- Left: Preview Panel -->
+        <div class="preview-panel flex-shrink-0 flex flex-col items-center gap-4">
+          <!-- Avatar Preview -->
+          <div class="avatar-preview-container relative">
+            <div class="w-50 h-50 bg-white dark:bg-zinc-800 rounded-2xl shadow-lg flex items-center justify-center p-4" [attr.data-testid]="'avatar-preview'">
+              @if (editorState()) {
+                <app-avatar-renderer
+                  [avatarData]="editorState()"
+                  size="lg"
+                  [animated]="true"
+                ></app-avatar-renderer>
+              }
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-2 w-full max-w-xs">
+            <!-- Save Button -->
+            <button
+              class="btn-primary w-full py-2.5 px-4 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              [class.bg-lavender-500]="hasUnsavedChanges()"
+              [class.hover:bg-lavender-600]="hasUnsavedChanges()"
+              [class.bg-gray-300]="!hasUnsavedChanges()"
+              [class.dark:bg-zinc-600]="!hasUnsavedChanges()"
+              [disabled]="!hasUnsavedChanges() || isSaving()"
+              (click)="save()"
+              [attr.data-testid]="'save-avatar-btn'"
+            >
+              @if (isSaving()) {
+                <span class="flex items-center justify-center gap-2">
+                  <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  {{ 'avatar.saving' | translate }}
+                </span>
+              } @else {
+                {{ 'avatar.save' | translate }}
+              }
+            </button>
+
+            <!-- Unsaved changes indicator -->
+            @if (hasUnsavedChanges()) {
+              <span class="text-xs text-lavender-500 text-center" [attr.data-testid]="'unsaved-changes'">
+                {{ 'avatar.unsavedChanges' | translate }}
+              </span>
+            }
+
+            <!-- Control buttons row -->
+            <div class="flex gap-2">
+              <button
+                class="btn-secondary flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all bg-gray-100 dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-600 text-gray-700 dark:text-gray-200"
+                (click)="randomize()"
+                [attr.data-testid]="'randomize-btn'"
+              >
+                {{ 'avatar.randomize' | translate }}
+              </button>
+              <button
+                class="btn-secondary flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all bg-gray-100 dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-600 text-gray-700 dark:text-gray-200"
+                (click)="reset()"
+                [disabled]="!hasUnsavedChanges()"
+                [attr.data-testid]="'reset-btn'"
+              >
+                {{ 'avatar.reset' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Options Panel -->
+        <div class="options-panel flex-1 flex flex-col gap-4">
+          <!-- Category Tabs -->
+          <div class="category-tabs flex gap-1 overflow-x-auto pb-2" [attr.data-testid]="'category-tabs'">
+            @for (category of categories; track category) {
+              <button
+                class="category-tab flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all"
+                [class.bg-lavender-500]="isCategoryActive(category)"
+                [class.text-white]="isCategoryActive(category)"
+                [class.bg-gray-100]="!isCategoryActive(category)"
+                [class.dark:bg-zinc-700]="!isCategoryActive(category)"
+                [class.text-gray-600]="!isCategoryActive(category)"
+                [class.dark:text-gray-300]="!isCategoryActive(category)"
+                [class.hover:bg-lavender-400]="isCategoryActive(category)"
+                [class.hover:bg-gray-200]="!isCategoryActive(category)"
+                [class.dark:hover:bg-zinc-600]="!isCategoryActive(category)"
+                (click)="selectCategory(category)"
+                [attr.data-testid]="'category-' + category"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path [attr.d]="getCategoryIcon(category)" />
+                </svg>
+                <span>{{ 'avatar.category.' + category | translate }}</span>
+              </button>
+            }
+          </div>
+
+          <!-- Options Grid -->
+          <div class="options-grid grid grid-cols-4 sm:grid-cols-5 gap-3" [attr.data-testid]="'options-grid'">
+            @if (selectedCategory() === 'glasses' || selectedCategory() === 'hat') {
+              <!-- None option for glasses and hats -->
+              <button
+                class="option-tile relative aspect-square rounded-xl border-2 transition-all overflow-hidden"
+                [class.border-lavender-500]="selectedOptionInCategory() === null"
+                [class.ring-2]="selectedOptionInCategory() === null"
+                [class.ring-lavender-500]="selectedOptionInCategory() === null"
+                [class.border-gray-200]="selectedOptionInCategory() !== null"
+                [class.dark:border-zinc-600]="selectedOptionInCategory() !== null"
+                [class.bg-white]="selectedOptionInCategory() === null"
+                [class.dark:bg-zinc-800]="selectedOptionInCategory() === null"
+                [class.bg-gray-50]="selectedOptionInCategory() !== null"
+                [class.dark:bg-zinc-900]="selectedOptionInCategory() !== null"
+                [class.hover:border-gray-300]="selectedOptionInCategory() !== null"
+                [class.dark:hover:border-zinc-500]="selectedOptionInCategory() !== null"
+                (click)="selectOption(null)"
+                [attr.data-testid]="'option-none'"
+              >
+                <div class="w-full h-full flex items-center justify-center">
+                  <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                @if (selectedOptionInCategory() === null) {
+                  <div class="absolute bottom-1 right-1 w-5 h-5 bg-lavender-500 rounded-full flex items-center justify-center">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                }
+              </button>
+            }
+
+            @for (option of optionsByCategory()[selectedCategory()]; track option.id) {
+              <button
+                class="option-tile relative aspect-square rounded-xl border-2 transition-all overflow-hidden"
+                [class.border-lavender-500]="selectedOptionInCategory() === option.id"
+                [class.ring-2]="selectedOptionInCategory() === option.id"
+                [class.ring-lavender-500]="selectedOptionInCategory() === option.id"
+                [class.border-gray-200]="selectedOptionInCategory() !== option.id"
+                [class.dark:border-zinc-600]="selectedOptionInCategory() !== option.id"
+                [class.bg-white]="!isOptionUnlocked(option.id)"
+                [class.dark:bg-zinc-800]="!isOptionUnlocked(option.id)"
+                [class.bg-gray-50]="isOptionUnlocked(option.id) && selectedOptionInCategory() !== option.id"
+                [class.dark:bg-zinc-900]="isOptionUnlocked(option.id) && selectedOptionInCategory() !== option.id"
+                [class.opacity-50]="!isOptionUnlocked(option.id)"
+                [class.cursor-not-allowed]="!isOptionUnlocked(option.id)"
+                [class.hover:border-gray-300]="isOptionUnlocked(option.id) && selectedOptionInCategory() !== option.id"
+                [class.dark:hover:border-zinc-500]="isOptionUnlocked(option.id) && selectedOptionInCategory() !== option.id"
+                [disabled]="!isOptionUnlocked(option.id)"
+                (click)="selectOption(option.id)"
+                [attr.data-testid]="'option-' + option.id"
+                [title]="!isOptionUnlocked(option.id) ? ('avatar.locked' | translate) : ''"
+              >
+                <!-- Option preview (color swatch for skin/hair colors, otherwise show label) -->
+                @if (selectedCategory() === 'skinTone' || selectedCategory() === 'bgColor') {
+                  <div
+                    class="w-full h-full flex items-center justify-center"
+                    [class.bg-amber-100]="option.id.includes('light')"
+                    [class.bg-amber-200]="option.id.includes('tan')"
+                    [class.bg-amber-300]="option.id.includes('medium')"
+                    [class.bg-amber-400]="option.id.includes('dark')"
+                    [class.bg-lavender-200]="option.id.includes('lavender')"
+                    [class.bg-mint-200]="option.id.includes('mint')"
+                    [class.bg-peach-200]="option.id.includes('peach')"
+                    [class.bg-sky-200]="option.id.includes('sky')"
+                  ></div>
+                } @else if (selectedCategory() === 'hairColor') {
+                  <div
+                    class="w-full h-full flex items-center justify-center"
+                    [style.backgroundColor]="getHairColorStyle(option.id)"
+                  ></div>
+                } @else {
+                  <div class="w-full h-full flex items-center justify-center p-1">
+                    <span class="text-xs text-center text-gray-600 dark:text-gray-300 leading-tight">
+                      {{ option.label }}
+                    </span>
+                  </div>
+                }
+
+                <!-- Locked overlay -->
+                @if (!isOptionUnlocked(option.id)) {
+                  <div class="locked-overlay absolute inset-0 bg-gray-900/40 flex items-center justify-center" [attr.data-testid]="'locked-overlay-' + option.id">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                }
+
+                <!-- Selected indicator -->
+                @if (selectedOptionInCategory() === option.id) {
+                  <div class="absolute bottom-1 right-1 w-5 h-5 bg-lavender-500 rounded-full flex items-center justify-center" [attr.data-testid]="'selected-check-' + option.id">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                }
+
+                <!-- Unlock hint tooltip -->
+                @if (!isOptionUnlocked(option.id) && getUnlockRequirement(option.id)) {
+                  <div class="unlock-hint absolute inset-x-0 bottom-0 bg-gray-900/80 text-white text-xs p-1.5 text-center opacity-0 hover:opacity-100 transition-opacity">
+                    {{ 'avatar.unlock' | translate: { achievement: getUnlockRequirement(option.id) } }}
+                  </div>
+                }
+              </button>
+            }
+          </div>
+
+          <!-- Locked item hint -->
+          @if (hasLockedOptions()) {
+            <div class="locked-hint mt-2 text-sm text-gray-500 dark:text-gray-400" [attr.data-testid]="'locked-hint'">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+                {{ 'avatar.lockedHint' | translate }}
+              </span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

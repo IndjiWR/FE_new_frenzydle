@@ -48,6 +48,7 @@
     "tabs": {
       "stats": "Statistiques",
       "achievements": "Succès",
+      "avatar": "Avatar",
       "settings": "Paramètres"
     },
     "stats": {
@@ -150,5 +151,25 @@
   "theme": {
     "light": "Mode Clair",
     "dark": "Mode Sombre"
+  },
+  "avatar": {
+    "save": "Enregistrer l'Avatar",
+    "saving": "Enregistrement...",
+    "unsavedChanges": "Vous avez des modifications non enregistrées",
+    "randomize": "Aléatoire",
+    "reset": "Réinitialiser",
+    "locked": "Verrouillé",
+    "lockedHint": "Certaines options sont verrouillées. Débloquez-les en gagnant des succès !",
+    "unlock": "Débloquer : {{achievement}}",
+    "category": {
+      "skinTone": "Peau",
+      "hairStyle": "Style de Cheveux",
+      "hairColor": "Couleur de Cheveux",
+      "eyeStyle": "Yeux",
+      "expression": "Expression",
+      "glasses": "Lunettes",
+      "hat": "Chapeau",
+      "bgColor": "Fond"
+    }
   }
 }

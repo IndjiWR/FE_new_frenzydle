@@ -163,9 +163,12 @@ export class AvatarService {
       const categoryOptions = unlockedOptions.filter(o => o.category === category);
       if (categoryOptions.length > 0) {
         const randomOption = categoryOptions[Math.floor(Math.random() * categoryOptions.length)];
-        newState[category] = category === 'glasses' || category === 'hat'
-          ? (randomOption.id === 'glasses-none' || randomOption.id === 'hat-none' ? null : randomOption.id)
-          : randomOption.id;
+        if (category === 'glasses' || category === 'hat') {
+          (newState as Record<string, string | null>)[category] =
+            randomOption.id === 'glasses-none' || randomOption.id === 'hat-none' ? null : randomOption.id;
+        } else {
+          (newState as Record<string, string>)[category] = randomOption.id;
+        }
       }
     }
 

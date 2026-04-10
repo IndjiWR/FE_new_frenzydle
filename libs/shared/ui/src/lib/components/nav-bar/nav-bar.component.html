@@ -45,7 +45,14 @@
               (click)="toggleUserMenu()"
               [attr.data-testid]="'user-menu-trigger'"
             >
-              @if (userAvatar()) {
+              @if (userAvatarData()) {
+                <app-avatar-renderer
+                  [avatarData]="userAvatarData()"
+                  size="sm"
+                  [isGuest]="isGuest()"
+                  [initial]="userName()"
+                ></app-avatar-renderer>
+              } @else if (userAvatar()) {
                 <img
                   [src]="userAvatar()"
                   [alt]="userName()"

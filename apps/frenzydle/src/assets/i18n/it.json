@@ -48,6 +48,7 @@
     "tabs": {
       "stats": "Statistiche",
       "achievements": "Achievement",
+      "avatar": "Avatar",
       "settings": "Impostazioni"
     },
     "stats": {
@@ -150,5 +151,25 @@
   "theme": {
     "light": "Modalità Chiara",
     "dark": "Modalità Scura"
+  },
+  "avatar": {
+    "save": "Salva Avatar",
+    "saving": "Salvataggio...",
+    "unsavedChanges": "Hai modifiche non salvate",
+    "randomize": "Randomizza",
+    "reset": "Reset",
+    "locked": "Bloccato",
+    "lockedHint": "Alcune opzioni sono bloccate. Sbloccale guadagnando achievement!",
+    "unlock": "Sblocca: {{achievement}}",
+    "category": {
+      "skinTone": "Pelle",
+      "hairStyle": "Stile Capelli",
+      "hairColor": "Colore Capelli",
+      "eyeStyle": "Occhi",
+      "expression": "Espressione",
+      "glasses": "Occhiali",
+      "hat": "Cappello",
+      "bgColor": "Sfondo"
+    }
   }
 }
