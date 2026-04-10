@@ -57,13 +57,17 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Poppins', 'Inter', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'typewriter': 'typewriter 2s steps(40) infinite',
+        'logo-scale': 'logoScale 600ms ease-out',
+        'stagger-fade-up': 'staggerFadeUp 500ms ease-out forwards',
+        'slide-in-right': 'slideInRight 300ms ease-out',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -78,6 +82,18 @@ module.exports = {
           '0%': { width: '0%' },
           '50%': { width: '100%' },
           '100%': { width: '0%' },
+        },
+        logoScale: {
+          '0%': { opacity: '0.8', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        staggerFadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInRight: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
     },

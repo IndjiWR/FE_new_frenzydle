@@ -1,10 +1,23 @@
+# Nx
 .nx/polygraph
+.nx/cache
+.nx/workspace-data
 .claude/worktrees
 .claude/settings.local.json
+
+# Angular
 .angular
 
+# Build outputs
+dist
+
+# Dependencies
+node_modules
+
+# Testing
 __screenshots__/
+coverage
 
+# Misc
 vitest.config.*.timestamp*
-
 storybook-static

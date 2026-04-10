@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["angular:styles/component:css;c0eddde72260d35e9286190d05f4c7f10d427892e258c850ce26a3dac81f3e71;C:/Users/Indji/WebstormProjects/FE_new_frenzydle/apps/frenzydle/src/app/pages/user/user.component.ts"],
-  "sourcesContent": ["\n    .user-container {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: center;\n      min-height: 60vh;\n      text-align: center;\n    }\n  "],
-  "mappings": ";AACI,CAAC;AACC,WAAS;AACT,kBAAgB;AAChB,eAAa;AACb,mBAAiB;AACjB,cAAY;AACZ,cAAY;AACd;",
-  "names": []
-}

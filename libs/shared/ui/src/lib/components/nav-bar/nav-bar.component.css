@@ -1,0 +1,8 @@
+.nav-bar {
+  /* Spacer for fixed positioning */
+}
+
+/* Ensure content doesn't hide behind nav */
+:host {
+  display: block;
+}

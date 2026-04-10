@@ -10,6 +10,10 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('./pages/user/user.component').then(m => m.UserComponent),
   },
   {
+    path: 'games/:gameId',
+    loadComponent: () => import('./pages/game/game.component').then(m => m.GameComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

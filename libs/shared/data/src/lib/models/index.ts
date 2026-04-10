@@ -2,6 +2,7 @@
 export interface Environment {
   production: boolean;
   useMocks: boolean;
+  simulateError?: boolean;
   apiBaseUrl: string;
 }
 
@@ -77,3 +78,6 @@ export interface LoginResponse {
   user: User;
   tokens: AuthTokens;
 }
+
+// Extended game models for homepage
+export * from './game.models';

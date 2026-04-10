@@ -19,6 +19,7 @@
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "~2.1.2",
     "@analogjs/vitest-angular": "~2.1.2",
+    "@angular-devkit/build-angular": "^19.2.24",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
     "@angular/build": "~21.2.0",
@@ -82,6 +83,8 @@
     "@angular/platform-browser": "~21.2.0",
     "@angular/platform-browser-dynamic": "^19.2.20",
     "@angular/router": "~21.2.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
     "rxjs": "~7.8.0"
   }
 }

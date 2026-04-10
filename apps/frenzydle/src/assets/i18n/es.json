@@ -1,0 +1,55 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Reintentar",
+    "noResults": "No se encontraron resultados"
+  },
+  "nav": {
+    "home": "Inicio",
+    "games": "Juegos",
+    "leaderboard": "Clasificación",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "menu": "Menú"
+  },
+  "home": {
+    "title": "FrenzyDle",
+    "subtitle": "¡Tu dosis diaria de diversión trivial! Adivina personajes, desbloquea logros y compite con amigos.",
+    "todaysGames": "Juegos de Hoy",
+    "streak": "{{count}} días consecutivos",
+    "attempts": "Intentos: {{current}}/{{max}}",
+    "completed": "¡Completado!",
+    "playNow": "Jugar Ahora",
+    "comingSoon": "Próximamente",
+    "nextReset": "Se reinicia en {{time}}"
+  },
+  "game": {
+    "play": "Jugar",
+    "comingSoon": "Próximamente",
+    "completed": "Completado",
+    "streak": "🔥 {{count}} días consecutivos",
+    "attempts": "{{current}}/{{max}} intentos"
+  },
+  "languages": {
+    "en": "English",
+    "it": "Italiano",
+    "fr": "Français",
+    "es": "Español",
+    "pt": "Português"
+  },
+  "user": {
+    "guest": "Invitado",
+    "signOut": "Cerrar Sesión",
+    "signIn": "Iniciar Sesión"
+  },
+  "errors": {
+    "loadGames": "Error al cargar los juegos. Por favor, inténtalo de nuevo.",
+    "loadUser": "Error al cargar los datos del usuario.",
+    "networkError": "Error de red. Verifica tu conexión."
+  },
+  "empty": {
+    "noGames": "No hay juegos disponibles en este momento.",
+    "checkBackLater": "¡Vuelve más tarde para nuevos juegos!"
+  }
+}

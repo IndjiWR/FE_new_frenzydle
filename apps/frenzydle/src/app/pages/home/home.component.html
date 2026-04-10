@@ -1,0 +1,15 @@
+<div class="home-page pt-16">
+  <app-hero-section
+    [animated]="true"
+    [attr.data-testid]="'home-hero'"
+  ></app-hero-section>
+
+  <app-game-grid
+    [games]="games()"
+    [state]="gridState()"
+    [errorMessage]="errorMessage()"
+    (gameClick)="onGameClick($event)"
+    (retry)="onRetry()"
+    [attr.data-testid]="'home-game-grid'"
+  ></app-game-grid>
+</div>

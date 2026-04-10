@@ -17,6 +17,11 @@
           {
             "glob": "**/*",
             "input": "apps/frenzydle/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/frenzydle/src/assets",
+            "output": "assets"
           }
         ],
         "styles": ["apps/frenzydle/src/styles.css"]

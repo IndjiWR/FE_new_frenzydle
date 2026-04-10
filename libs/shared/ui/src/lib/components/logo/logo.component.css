@@ -1,0 +1,29 @@
+.logo {
+  background-size: 200% 200%;
+  animation-duration: 600ms;
+}
+
+/* Add gradient animation for large logos */
+.logo.animate-logo-scale {
+  animation: logoScale 600ms ease-out, gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes logoScale {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

@@ -1,0 +1,116 @@
+<article
+  class="game-card group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden animate-stagger-fade-up"
+  [class.cursor-pointer]="isReleased()"
+  [class.cursor-not-allowed]="!isReleased()"
+  [style]="animationStyle()"
+  [attr.data-testid]="'game-card'"
+  [attr.data-game-id]="game()?.id"
+  (click)="onCardClick()"
+>
+  <!-- Thumbnail -->
+  <div class="aspect-video overflow-hidden relative">
+    <img
+      [src]="getThumbnailUrl()"
+      [alt]="game()?.name ?? 'Game'"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      [attr.data-testid]="'game-thumbnail'"
+    />
+
+    <!-- Coming Soon Overlay -->
+    @if (!isReleased()) {
+      <div
+        class="absolute inset-0 bg-gray-900/60 flex items-center justify-center"
+        [attr.data-testid]="'coming-soon-overlay'"
+      >
+        <span class="text-white font-bold text-lg">
+          {{ 'game.comingSoon' | translate }}
+        </span>
+      </div>
+    }
+
+    <!-- Completed Badge -->
+    @if (isCompleted() && isReleased()) {
+      <div
+        class="absolute top-2 right-2 bg-mint-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1"
+        [attr.data-testid]="'completed-badge'"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+        {{ 'game.completed' | translate }}
+      </div>
+    }
+  </div>
+
+  <!-- Content -->
+  <div class="p-4">
+    <h3
+      class="font-display text-xl font-bold text-gray-800"
+      [attr.data-testid]="'game-name'"
+    >
+      {{ game()?.name }}
+    </h3>
+    <p
+      class="text-sm text-gray-600 mt-1 line-clamp-2"
+      [attr.data-testid]="'game-description'"
+    >
+      {{ game()?.description }}
+    </p>
+
+    <!-- Status Bar -->
+    @if (isReleased() && game()?.status) {
+      <div class="mt-3 flex items-center justify-between text-sm">
+        <!-- Streak -->
+        <div class="flex items-center gap-1 text-peach-600" [attr.data-testid]="'game-streak'">
+          <span>🔥</span>
+          <span>{{ 'game.streak' | translate:{ count: streakCount() } }}</span>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div
+          class="text-gray-500"
+          [attr.data-testid]="'game-countdown'"
+        >
+          @if (nextResetAt(); as resetTime) {
+            <app-countdown-timer
+              [targetDate]="resetTime"
+            ></app-countdown-timer>
+          }
+        </div>
+      </div>
+
+      <!-- Attempts Bar -->
+      <div class="mt-2">
+        <div class="flex justify-between text-xs text-gray-500 mb-1">
+          <span [attr.data-testid]="'game-attempts'">
+            {{ 'game.attempts' | translate:{ current: attemptsUsed(), max: maxAttempts() } }}
+          </span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-1.5">
+          <div
+            class="h-1.5 rounded-full transition-all duration-300"
+            [class.bg-lavender-500]="!isCompleted()"
+            [class.bg-mint-500]="isCompleted()"
+            [style.width.%]="getAttemptsPercentage()"
+            [attr.data-testid]="'attempts-progress'"
+          ></div>
+        </div>
+      </div>
+    }
+
+    <!-- CTA Button -->
+    @if (isReleased()) {
+      <button
+        class="mt-4 w-full py-2 px-4 rounded-lg font-semibold text-white transition-all duration-300"
+        [class.bg-lavender-600]="!isCompleted()"
+        [class.hover:bg-lavender-700]="!isCompleted()"
+        [class.bg-mint-600]="isCompleted()"
+        [class.hover:bg-mint-700]="isCompleted()"
+        [attr.data-testid]="'play-button'"
+        (click)="onCardClick(); $event.stopPropagation()"
+      >
+        {{ 'game.play' | translate }}
+      </button>
+    }
+  </div>
+</article>

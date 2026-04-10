@@ -1,0 +1,91 @@
+<nav
+  class="nav-bar fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200 h-16"
+  [attr.data-testid]="'nav-bar'"
+>
+  <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+    <!-- Logo -->
+    <a
+      routerLink="/"
+      class="flex items-center hover:opacity-80 transition-opacity"
+      [attr.data-testid]="'nav-logo'"
+    >
+      <app-logo size="sm" [animated]="false" />
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-6" [attr.data-testid]="'desktop-nav'">
+      @for (item of navItems(); track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="text-lavender-600 font-semibold"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="text-gray-600 hover:text-lavender-600 transition-colors font-medium"
+          [attr.data-testid]="'nav-link-' + item.label"
+        >
+          {{ item.label | translate }}
+        </a>
+      }
+    </div>
+
+    <!-- Right Section -->
+    <div class="flex items-center gap-4">
+      <!-- Language Switcher -->
+      <app-language-switcher
+        (languageChange)="closeMobileMenu()"
+        [attr.data-testid]="'nav-language-switcher'"
+      ></app-language-switcher>
+
+      <!-- User Avatar / Login Button -->
+      <div class="hidden sm:flex items-center" [attr.data-testid]="'user-section'">
+        @if (isLoggedIn()) {
+          <div class="flex items-center gap-2">
+            @if (userAvatar()) {
+              <img
+                [src]="userAvatar()"
+                [alt]="userName()"
+                class="w-8 h-8 rounded-full object-cover border-2 border-lavender-300"
+                [attr.data-testid]="'user-avatar'"
+              />
+            } @else {
+              <div
+                class="w-8 h-8 rounded-full bg-lavender-100 flex items-center justify-center"
+                [attr.data-testid]="'user-avatar-placeholder'"
+              >
+                <span class="text-sm font-medium text-lavender-600">{{ userName().charAt(0) }}</span>
+              </div>
+            }
+            <span class="text-sm font-medium text-gray-700 hidden lg:inline">{{ userName() }}</span>
+          </div>
+        } @else {
+          <button
+            class="px-4 py-2 bg-lavender-600 hover:bg-lavender-700 text-white rounded-lg font-semibold transition-colors"
+            (click)="onLoginClick()"
+            [attr.data-testid]="'login-button'"
+          >
+            {{ 'user.signIn' | translate }}
+          </button>
+        }
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+        (click)="toggleMobileMenu()"
+        [attr.data-testid]="'mobile-menu-button'"
+      >
+        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<app-mobile-menu
+  [isOpen]="isMobileMenuOpen()"
+  [navItems]="navItems()"
+  (close)="closeMobileMenu()"
+  (navigate)="closeMobileMenu()"
+  [attr.data-testid]="'nav-mobile-menu'"
+></app-mobile-menu>

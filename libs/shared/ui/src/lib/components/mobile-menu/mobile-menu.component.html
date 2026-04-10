@@ -1,0 +1,50 @@
+<!-- Backdrop -->
+@if (isOpen()) {
+  <div
+    class="mobile-menu-backdrop fixed inset-0 bg-black/50 z-40"
+    (click)="onClose()"
+    [attr.data-testid]="'mobile-menu-backdrop'"
+  ></div>
+}
+
+<!-- Menu Drawer -->
+<div
+  class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50"
+  [class.open]="isOpen()"
+  [attr.data-testid]="'mobile-menu'"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between p-4 border-b border-gray-200">
+    <span class="font-display font-bold text-lavender-600">Menu</span>
+    <button
+      class="p-2 hover:bg-gray-100 rounded-lg"
+      (click)="onClose()"
+      [attr.data-testid]="'mobile-menu-close'"
+    >
+      <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Navigation Items -->
+  <nav class="p-4">
+    <ul class="space-y-2">
+      @for (item of navItems(); track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-lavender-50 hover:text-lavender-600 transition-colors"
+            (click)="onNavigate(item.path)"
+            [attr.data-testid]="'mobile-nav-' + item.label"
+          >
+            @if (item.icon) {
+              <span class="text-xl">{{ item.icon }}</span>
+            }
+            <span class="font-medium">{{ item.label | translate }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>
