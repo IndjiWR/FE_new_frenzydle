@@ -71,10 +71,10 @@ export class App {
   }
 
   /**
-   * Handle settings click - navigate to settings page
+   * Handle settings click - navigate to user settings page
    */
   onSettingsClick(): void {
-    this.router.navigate(['/settings']);
+    this.router.navigate(['/user/settings']);
   }
 
   /**
