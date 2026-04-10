@@ -14,6 +14,11 @@ import {
   MOCK_USER_ACHIEVEMENTS,
   MOCK_GUEST_ACHIEVEMENTS,
 } from '../mocks/achievements.mocks';
+import {
+  MOCK_AVATAR_OPTIONS,
+  DEFAULT_AVATAR,
+  getUnlockedAvatarOptions,
+} from '../mocks/avatar.mocks';
 import { ApiResponse, GameWithStatus } from '../models';
 import { UserProfile } from '../models/auth.models';
 import { ENVIRONMENT, AuthEnvironment } from '../services/auth.service';
@@ -172,6 +177,7 @@ export const mockInterceptor = (
       email: null,
       isGuest: true,
       avatarUrl: null,
+      avatarData: null,
       createdAt: new Date().toISOString(),
     };
     mockCurrentUser = guestUser;
@@ -191,6 +197,7 @@ export const mockInterceptor = (
         email: 'test@frenzydle.com',
         isGuest: false,
         avatarUrl: null,
+        avatarData: null,
         createdAt: new Date().toISOString(),
       };
       mockCurrentUser = user;
@@ -405,6 +412,49 @@ export const mockInterceptor = (
     const achievements = isGuest ? MOCK_GUEST_ACHIEVEMENTS : MOCK_USER_ACHIEVEMENTS;
     const response = createApiResponse(achievements);
     return of(new HttpResponse({ body: response, status: 200 }))
+      .pipe(delay(latency));
+  }
+
+  // ============================================
+  // AVATAR ENDPOINTS
+  // ============================================
+
+  // Handle GET /api/avatar/options
+  if (request.method === 'GET' && request.url === '/api/avatar/options') {
+    const isGuest = mockCurrentUser?.isGuest ?? true;
+
+    // Get unlocked achievement IDs for the user
+    const unlockedAchievementIds = isGuest
+      ? []
+      : MOCK_USER_ACHIEVEMENTS
+          .filter(ua => ua.isUnlocked)
+          .map(ua => ua.achievementId);
+
+    // Get unlocked avatar option IDs
+    const unlockedOptionIds = getUnlockedAvatarOptions(unlockedAchievementIds);
+
+    const response = createApiResponse({
+      options: MOCK_AVATAR_OPTIONS,
+      unlockedIds: unlockedOptionIds,
+    });
+    return of(new HttpResponse({ body: response, status: 200 }))
+      .pipe(delay(latency));
+  }
+
+  // Handle PUT /api/user/avatar
+  if (request.method === 'PUT' && request.url === '/api/user/avatar') {
+    const body = request.body as { avatarData: unknown };
+    if (mockCurrentUser && body?.avatarData) {
+      mockCurrentUser = {
+        ...mockCurrentUser,
+        avatarData: body.avatarData as UserProfile['avatarData'],
+        avatarUrl: null, // Clear old URL when using custom avatar
+      };
+      const response = createApiResponse({ user: mockCurrentUser });
+      return of(new HttpResponse({ body: response, status: 200 }))
+        .pipe(delay(latency));
+    }
+    return throwError(() => createErrorResponse('Missing avatarData', 400))
       .pipe(delay(latency));
   }
 

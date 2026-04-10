@@ -14,3 +14,6 @@ export * from './auth.models';
 
 // User stats and achievements models
 export * from './user-stats.models';
+
+// Avatar customization models
+export * from './avatar.models';

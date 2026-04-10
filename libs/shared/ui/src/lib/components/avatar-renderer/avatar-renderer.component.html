@@ -1,0 +1,81 @@
+<div [class]="sizeClasses()" class="relative inline-block" [attr.data-testid]="'avatar-renderer'">
+  @if (showPlaceholder()) {
+    <!-- Placeholder for guests or users without avatar data -->
+    <div
+      class="w-full h-full rounded-full bg-gradient-to-br from-lavender-400 to-lavender-600 dark:from-lavender-500 dark:to-lavender-700 flex items-center justify-center shadow-md"
+      [attr.data-testid]="'avatar-placeholder'"
+    >
+      <span
+        class="font-bold text-white"
+        [class]="textSizeClasses()"
+        [attr.data-testid]="'avatar-initial'"
+      >
+        {{ initial().charAt(0).toUpperCase() }}
+      </span>
+    </div>
+  } @else {
+    <!-- Avatar with stacked SVG layers -->
+    <div
+      class="w-full h-full relative"
+      [class.animate-blink]="animated()"
+      [attr.data-testid]="'avatar-layers'"
+    >
+      <!-- Layer 1: Background color -->
+      @if (avatarData()?.bgColor) {
+        <div
+          class="absolute inset-0"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.bgColor, 'bgColor'))"
+        ></div>
+      }
+
+      <!-- Layer 2: Skin base -->
+      @if (avatarData()?.skinTone) {
+        <div
+          class="absolute inset-0"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.skinTone, 'skinTone'))"
+        ></div>
+      }
+
+      <!-- Layer 3: Eyes -->
+      @if (avatarData()?.eyeStyle) {
+        <div
+          class="absolute inset-0"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.eyeStyle, 'eyeStyle'))"
+        ></div>
+      }
+
+      <!-- Layer 4: Expression/Mouth -->
+      @if (avatarData()?.expression) {
+        <div
+          class="absolute inset-0"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.expression, 'expression'))"
+        ></div>
+      }
+
+      <!-- Layer 5: Hair style (with hair color applied) -->
+      @if (avatarData()?.hairStyle && avatarData()?.hairColor) {
+        <div
+          class="absolute inset-0"
+          [style.color]="getHairColorValue(avatarData()!.hairColor)"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.hairStyle, 'hairStyle'))"
+        ></div>
+      }
+
+      <!-- Layer 6: Glasses -->
+      @if (avatarData()?.glasses) {
+        <div
+          class="absolute inset-0"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.glasses!, 'glasses'))"
+        ></div>
+      }
+
+      <!-- Layer 7: Hat -->
+      @if (avatarData()?.hat) {
+        <div
+          class="absolute inset-0"
+          [innerHTML]="getSafeSvg(getOptionSvg(avatarData()!.hat!, 'hat'))"
+        ></div>
+      }
+    </div>
+  }
+</div>

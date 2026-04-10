@@ -24,6 +24,7 @@ export interface UserProfile {
   email: string | null;
   isGuest: boolean;
   avatarUrl: string | null;
+  avatarData: import('./avatar.models').AvatarData | null;
   createdAt: string;
 }
 

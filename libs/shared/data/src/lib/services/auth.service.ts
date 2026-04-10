@@ -351,9 +351,13 @@ export class AuthService {
   }
 
   /**
-   * Update current user data (used by UserProfileService)
+   * Update current user data (used by UserProfileService and AvatarService)
+   * @param updates - Partial user data to merge with current user
    */
-  updateUser(user: UserProfile): void {
-    this._currentUser.set(user);
+  updateUser(updates: Partial<UserProfile>): void {
+    const currentUser = this._currentUser();
+    if (currentUser) {
+      this._currentUser.set({ ...currentUser, ...updates });
+    }
   }
 }

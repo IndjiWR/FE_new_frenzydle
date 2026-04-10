@@ -1,0 +1,38 @@
+/* Avatar Renderer Styles */
+
+:host {
+  display: inline-block;
+}
+
+/* Ensure SVG fills container properly */
+.avatar-renderer svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Blink animation for eyes */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.15s ease-in-out;
+}
+
+/* Hover effect for interactive avatars */
+.avatar-renderer:not(.static):hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Focus styles for accessibility */
+.avatar-renderer:focus-visible {
+  outline: 2px solid var(--color-lavender-500);
+  outline-offset: 2px;
+}
