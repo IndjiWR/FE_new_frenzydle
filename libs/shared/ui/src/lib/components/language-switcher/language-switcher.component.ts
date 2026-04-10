@@ -1,11 +1,11 @@
-import { Component, output, ChangeDetectionStrategy, signal, OnInit, HostListener, ElementRef, computed, effect } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '@shared/data';
+import { Component, output, ChangeDetectionStrategy, signal, HostListener, ElementRef, computed, inject } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '@shared/data';
 
 /**
  * Language switcher component for i18n
  * Displays a dropdown with available languages
- * Persists selection to localStorage
+ * Uses LanguageService for state management
  */
 @Component({
   selector: 'app-language-switcher',
@@ -15,16 +15,19 @@ import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '@sh
   styleUrls: ['./language-switcher.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LanguageSwitcherComponent implements OnInit {
+export class LanguageSwitcherComponent {
+  private readonly languageService = inject(LanguageService);
+  private readonly elementRef = inject(ElementRef);
+
   /**
    * Available languages
    */
-  languages = SUPPORTED_LANGUAGES;
+  languages = this.languageService.languages;
 
   /**
-   * Currently selected language
+   * Currently selected language (from service)
    */
-  currentLanguage = signal<string>(DEFAULT_LANGUAGE);
+  currentLanguage = this.languageService.language;
 
   /**
    * Whether the dropdown is open
@@ -42,30 +45,6 @@ export class LanguageSwitcherComponent implements OnInit {
   currentLang = computed(() => {
     return this.languages.find(l => l.code === this.currentLanguage()) || this.languages[0];
   });
-
-  constructor(
-    private translate: TranslateService,
-    private elementRef: ElementRef,
-  ) {
-    // Keep currentLanguage in sync with translate service
-    effect(() => {
-      const lang = this.translate.currentLang;
-      if (lang && lang !== this.currentLanguage()) {
-        this.currentLanguage.set(lang);
-      }
-    });
-  }
-
-  ngOnInit(): void {
-    // Get current language from translate service
-    const currentLang = this.translate.currentLang || this.translate.defaultLang || DEFAULT_LANGUAGE;
-    this.currentLanguage.set(currentLang);
-
-    // Subscribe to language changes from other components
-    this.translate.onLangChange.subscribe((event) => {
-      this.currentLanguage.set(event.lang);
-    });
-  }
 
   /**
    * Toggle the dropdown
@@ -85,14 +64,7 @@ export class LanguageSwitcherComponent implements OnInit {
    * Select a language
    */
   selectLanguage(langCode: string): void {
-    this.currentLanguage.set(langCode);
-    this.translate.use(langCode);
-
-    // Persist to localStorage
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(LANGUAGE_STORAGE_KEY, langCode);
-    }
-
+    this.languageService.setLanguage(langCode);
     this.languageChange.emit(langCode);
     this.closeDropdown();
   }

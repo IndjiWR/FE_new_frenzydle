@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { signal } from '@angular/core';
 import { of } from 'rxjs';
 import { SettingsTabComponent } from './settings-tab.component';
-import { AuthService, ThemeService, UserProfileService } from '@shared/data';
+import { AuthService, ThemeService, UserProfileService, LanguageService } from '@shared/data';
 import { AuthModalService } from '@shared/feature';
 import { UserProfile } from '@shared/data';
 
@@ -16,6 +16,7 @@ describe('SettingsTabComponent', () => {
   let mockThemeService: any;
   let mockUserProfileService: any;
   let mockAuthModalService: any;
+  let mockLanguageService: any;
   let translateService: TranslateService;
   let mockRouter: any;
 
@@ -51,6 +52,18 @@ describe('SettingsTabComponent', () => {
       open: jest.fn(),
     };
 
+    mockLanguageService = {
+      languages: [
+        { code: 'en', name: 'English' },
+        { code: 'it', name: 'Italiano' },
+        { code: 'fr', name: 'Français' },
+        { code: 'es', name: 'Español' },
+        { code: 'pt', name: 'Português' },
+      ],
+      language: signal('en'),
+      setLanguage: jest.fn(),
+    };
+
     mockRouter = {
       navigateByUrl: jest.fn(),
     };
@@ -64,6 +77,7 @@ describe('SettingsTabComponent', () => {
         { provide: ThemeService, useValue: mockThemeService },
         { provide: UserProfileService, useValue: mockUserProfileService },
         { provide: AuthModalService, useValue: mockAuthModalService },
+        { provide: LanguageService, useValue: mockLanguageService },
         { provide: Router, useValue: mockRouter },
       ],
     }).compileComponents();
@@ -144,10 +158,8 @@ describe('SettingsTabComponent', () => {
   });
 
   it('should change language', () => {
-    const useSpy = jest.spyOn(translateService, 'use');
     component.onLanguageChange('it');
-    expect(component.selectedLanguage()).toBe('it');
-    expect(useSpy).toHaveBeenCalledWith('it');
+    expect(mockLanguageService.setLanguage).toHaveBeenCalledWith('it');
   });
 
   it('should toggle theme', () => {

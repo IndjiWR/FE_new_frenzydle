@@ -1,9 +1,9 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AuthService, ThemeService, UserProfileService, LANGUAGE_STORAGE_KEY, DEFAULT_LANGUAGE } from '@shared/data';
+import { AuthService, ThemeService, UserProfileService, LanguageService } from '@shared/data';
 import { AuthModalService } from '@shared/feature';
 
 /**
@@ -25,6 +25,7 @@ export class SettingsTabComponent {
   protected readonly userProfileService = inject(UserProfileService);
   protected readonly authModalService = inject(AuthModalService);
   protected readonly translateService = inject(TranslateService);
+  protected readonly languageService = inject(LanguageService);
   protected readonly router = inject(Router);
 
   // User info
@@ -51,50 +52,14 @@ export class SettingsTabComponent {
   showToast = signal(false);
   toastMessage = signal('');
 
-  // Available languages
-  languages = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'pt', name: 'Português', flag: '🇵🇹' },
-  ];
+  // Available languages (from service)
+  languages = this.languageService.languages;
 
-  // Selected language - initialize from translate service or localStorage
-  selectedLanguage = signal(this.getInitialLanguage());
+  // Selected language (from service - single source of truth)
+  selectedLanguage = this.languageService.language;
 
   // Is dark theme
   isDarkTheme = this.themeService.isDark;
-
-  constructor() {
-    // Subscribe to language changes from other components
-    this.translateService.onLangChange.subscribe((event) => {
-      this.selectedLanguage.set(event.lang);
-    });
-  }
-
-  /**
-   * Get initial language from translate service or localStorage
-   */
-  private getInitialLanguage(): string {
-    // First try translate service currentLang
-    if (this.translateService.currentLang) {
-      return this.translateService.currentLang;
-    }
-    // Then try localStorage
-    if (typeof localStorage !== 'undefined') {
-      const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-      if (stored) {
-        return stored;
-      }
-    }
-    // Then try defaultLang
-    if (this.translateService.defaultLang) {
-      return this.translateService.defaultLang;
-    }
-    // Finally fallback to DEFAULT_LANGUAGE
-    return DEFAULT_LANGUAGE;
-  }
 
   /**
    * Start editing display name
@@ -165,8 +130,7 @@ export class SettingsTabComponent {
    * Change language
    */
   onLanguageChange(langCode: string): void {
-    this.selectedLanguage.set(langCode);
-    this.translateService.use(langCode);
+    this.languageService.setLanguage(langCode);
   }
 
   /**
