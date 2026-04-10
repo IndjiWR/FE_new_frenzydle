@@ -11,3 +11,6 @@ export * from './game.models';
 
 // Auth-related models
 export * from './auth.models';
+
+// User stats and achievements models
+export * from './user-stats.models';

@@ -19,7 +19,7 @@
 
 ## Current Status
 
-**Step: 3 - Authentication System Complete**
+**Step: 4 - User Page Complete**
 
 **Last Updated:** 2026-04-10
 
@@ -56,13 +56,31 @@
 - ✅ Backend integration documentation - docs/BACKEND_INTEGRATION.md
 - ✅ Environment configuration - useMocks flag to toggle mock/real backend
 - ✅ Unit tests for auth (≥85% coverage)
+
+#### Step 4 - User Page (Complete)
+- ✅ User page with tabbed layout (Stats, Achievements, Settings)
+- ✅ UserProfileHeader component - avatar, editable displayName, email display, guest badge
+- ✅ Stats Tab - 4 summary cards (total games, win rate, streak, avg attempts)
+- ✅ SVG line chart for 30-day activity with game filter
+- ✅ Achievements Tab - 12 achievements in 3 categories (playing, performance, customisation)
+- ✅ Progress bars, unlock badges, toast notification on click
+- ✅ Settings Tab - account (display name, email, password), preferences (language, theme), danger zone
+- ✅ Guest Teaser component - blurred overlay with sign-in CTA
+- ✅ UserProfileService with signals - userStats, achievementsByCategory
+- ✅ Mock API endpoints - GET /api/user/stats, PUT /api/user/profile, PUT /api/user/password, DELETE /api/user/data
+- ✅ Mock achievements endpoint - GET /api/achievements, GET /api/achievements/user
+- ✅ AuthGuard updated - guests can access /user with `allowGuest: true` route data
+- ✅ Child routes configured - /user/stats, /user/achievements, /user/settings
+- ✅ i18n translations - user page keys in all 5 languages
+- ✅ Unit tests for user page components (73 tests passing)
 - ✅ Build succeeds: `npx nx build frenzydle`
-- ✅ Unit tests pass: `npx nx test shared-ui shared-feature shared-data`
 
 ### Incomplete / TODO
 
 - ⬜ E2E tests for auth flows (Cypress)
+- ⬜ E2E tests for user page flows (Cypress)
 - ⬜ Storybook for new auth components
+- ⬜ Storybook for user page components
 
 ### Architecture Decisions
 
@@ -347,6 +365,53 @@ interface CheckEmailResponse {
   suggestedAction: 'login' | 'convert' | 'register';
 }
 
+// User Stats types
+interface UserStats {
+  totalGamesPlayed: number;
+  winRate: number; // 0-100
+  currentStreak: number;
+  bestStreak: number;
+  avgAttempts: number;
+  activityByDay: ActivityByDay[];
+  perGame: GameStats[];
+}
+
+interface ActivityByDay {
+  date: string; // ISO date
+  gamesPlayed: number;
+}
+
+interface GameStats {
+  gameId: string;
+  gameName: string;
+  totalPlayed: number;
+  winRate: number;
+  currentStreak: number;
+  bestStreak: number;
+  avgAttempts: number;
+}
+
+// Achievement types
+type AchievementCategory = 'playing' | 'performance' | 'customisation';
+
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  category: AchievementCategory;
+  unlockCondition: string;
+  maxProgress: number;
+  iconType: string;
+  unlocksAvatarItem?: string;
+}
+
+interface UserAchievement {
+  achievementId: string;
+  currentProgress: number;
+  isUnlocked: boolean;
+  unlockedAt: string | null;
+}
+
 // Language configuration
 interface Language {
   code: string;
@@ -438,19 +503,19 @@ POST /api/auth/google → { user: UserProfile }
 POST /api/auth/logout → { success: true }
 POST /api/auth/check-email → { exists: boolean, suggestedAction: string }
 
-// User (planned)
-GET /api/user/profile
-PUT /api/user/profile
-DELETE /api/user/data
-PUT /api/user/avatar
+// User Profile
+GET /api/user/stats → UserStats
+PUT /api/user/profile → { displayName: string }
+PUT /api/user/password → { currentPassword: string, newPassword: string }
+DELETE /api/user/data → { success: true }
+
+// Achievements
+GET /api/achievements → Achievement[]
+GET /api/achievements/user → UserAchievement[]
 
 // Leaderboard (planned)
 GET /api/leaderboard/:gameId
 GET /api/leaderboard/:gameId/me
-
-// Achievements (planned)
-GET /api/achievements
-GET /api/achievements/user
 ```
 
 ---
@@ -507,7 +572,7 @@ npx nx build-storybook shared-ui
 import { NavBarComponent, GameCardComponent, LogoComponent, AuthModalComponent } from '@shared/ui';
 
 // Import from shared-data
-import { GameService, AuthService, ThemeService, MOCK_GAMES, SUPPORTED_LANGUAGES } from '@shared/data';
+import { GameService, AuthService, ThemeService, UserProfileService, MOCK_GAMES, SUPPORTED_LANGUAGES } from '@shared/data';
 
 // Import from shared-feature
 import { HeroSectionComponent, GameGridComponent, AuthModalService } from '@shared/feature';
@@ -550,6 +615,7 @@ import { HeroSectionComponent, GameGridComponent, AuthModalService } from '@shar
 | `AuthService` | Authentication state and operations |
 | `ThemeService` | Light/dark theme management |
 | `AuthModalService` | Modal state management |
+| `UserProfileService` | User stats, achievements, and settings management |
 
 ---
 
@@ -683,7 +749,8 @@ export const MOCK_GAMES: GameWithStatus[] = [
 
 ## Future Steps
 
-1. ~~**Step 3**: Authentication system~~ ✅ Complete
-2. **Step 4**: User settings page
-3. **Step 5**: Avatar customization
-4. **Step 6**: Dragon Ball game integration
+1. ~~**Step 2**: Homepage~~ ✅ Complete
+2. ~~**Step 3**: Authentication system~~ ✅ Complete
+3. ~~**Step 4**: User settings page~~ ✅ Complete
+4. **Step 5**: Avatar customization
+5. **Step 6**: Dragon Ball game integration

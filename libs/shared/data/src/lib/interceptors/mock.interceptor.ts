@@ -8,6 +8,12 @@ import {
 import { Observable, of, throwError, delay } from 'rxjs';
 import { inject } from '@angular/core';
 import { MOCK_GAMES, MOCK_DAILY_STATUS } from '../mocks/game.mocks';
+import { MOCK_USER_STATS, MOCK_GUEST_STATS } from '../mocks/user-stats.mocks';
+import {
+  MOCK_ACHIEVEMENTS,
+  MOCK_USER_ACHIEVEMENTS,
+  MOCK_GUEST_ACHIEVEMENTS,
+} from '../mocks/achievements.mocks';
 import { ApiResponse, GameWithStatus } from '../models';
 import { UserProfile } from '../models/auth.models';
 import { ENVIRONMENT, AuthEnvironment } from '../services/auth.service';
@@ -90,6 +96,16 @@ function generateId(): string {
  * - GET /api/games - Returns list of all games
  * - GET /api/games/:gameId - Returns single game
  * - GET /api/games/:gameId/daily-status - Returns user's daily status for a game
+ *
+ * USER:
+ * - GET /api/user/stats - Returns user statistics
+ * - PUT /api/user/profile - Update user profile (displayName)
+ * - PUT /api/user/password - Change password
+ * - DELETE /api/user/data - Delete all user data
+ *
+ * ACHIEVEMENTS:
+ * - GET /api/achievements - Returns all achievements
+ * - GET /api/achievements/user - Returns user's achievement progress
  */
 export const mockInterceptor = (
   request: HttpRequest<unknown>,
@@ -323,6 +339,72 @@ export const mockInterceptor = (
         .pipe(delay(latency));
     }
     return throwError(() => createErrorResponse(`Game ${gameId} not found`))
+      .pipe(delay(latency));
+  }
+
+  // ============================================
+  // USER ENDPOINTS
+  // ============================================
+
+  // Handle GET /api/user/stats
+  if (request.method === 'GET' && request.url === '/api/user/stats') {
+    const isGuest = mockCurrentUser?.isGuest ?? true;
+    const stats = isGuest ? MOCK_GUEST_STATS : MOCK_USER_STATS;
+    const response = createApiResponse(stats);
+    return of(new HttpResponse({ body: response, status: 200 }))
+      .pipe(delay(latency));
+  }
+
+  // Handle PUT /api/user/profile
+  if (request.method === 'PUT' && request.url === '/api/user/profile') {
+    const body = request.body as { displayName?: string };
+    if (mockCurrentUser && body?.displayName) {
+      mockCurrentUser = {
+        ...mockCurrentUser,
+        displayName: body.displayName,
+      };
+      const response = createApiResponse({ user: mockCurrentUser });
+      return of(new HttpResponse({ body: response, status: 200 }))
+        .pipe(delay(latency));
+    }
+    return throwError(() => createErrorResponse('Missing displayName', 400))
+      .pipe(delay(latency));
+  }
+
+  // Handle PUT /api/user/password
+  if (request.method === 'PUT' && request.url === '/api/user/password') {
+    // Mock: always succeed
+    const response = createApiResponse({ success: true });
+    return of(new HttpResponse({ body: response, status: 200 }))
+      .pipe(delay(latency));
+  }
+
+  // Handle DELETE /api/user/data
+  if (request.method === 'DELETE' && request.url === '/api/user/data') {
+    // Clear user data and session
+    mockCurrentUser = null;
+    const response = createApiResponse({ success: true });
+    return of(new HttpResponse({ body: response, status: 200 }))
+      .pipe(delay(latency));
+  }
+
+  // ============================================
+  // ACHIEVEMENT ENDPOINTS
+  // ============================================
+
+  // Handle GET /api/achievements
+  if (request.method === 'GET' && request.url === '/api/achievements') {
+    const response = createApiResponse(MOCK_ACHIEVEMENTS);
+    return of(new HttpResponse({ body: response, status: 200 }))
+      .pipe(delay(latency));
+  }
+
+  // Handle GET /api/achievements/user
+  if (request.method === 'GET' && request.url === '/api/achievements/user') {
+    const isGuest = mockCurrentUser?.isGuest ?? true;
+    const achievements = isGuest ? MOCK_GUEST_ACHIEVEMENTS : MOCK_USER_ACHIEVEMENTS;
+    const response = createApiResponse(achievements);
+    return of(new HttpResponse({ body: response, status: 200 }))
       .pipe(delay(latency));
   }
 

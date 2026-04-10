@@ -3,7 +3,10 @@
     "loading": "Caricamento...",
     "error": "Qualcosa è andato storto",
     "retry": "Riprova",
-    "noResults": "Nessun risultato trovato"
+    "noResults": "Nessun risultato trovato",
+    "save": "Salva",
+    "edit": "Modifica",
+    "cancel": "Annulla"
   },
   "nav": {
     "home": "Home",
@@ -41,7 +44,68 @@
   "user": {
     "guest": "Ospite",
     "signOut": "Esci",
-    "signIn": "Accedi"
+    "signIn": "Accedi",
+    "tabs": {
+      "stats": "Statistiche",
+      "achievements": "Achievement",
+      "settings": "Impostazioni"
+    },
+    "stats": {
+      "totalGames": "Partite Totali",
+      "winRate": "Percentuale Vittorie",
+      "currentStreak": "Serie Corrente",
+      "avgAttempts": "Media Tentativi",
+      "days": "giorni",
+      "games": "partite",
+      "activityChart": "Attività (Ultimi 30 Giorni)",
+      "filterAll": "Tutti i Giochi",
+      "noGames": "Nessuna partita giocata",
+      "noActivity": "Inizia a giocare per vedere le tue statistiche!"
+    },
+    "achievements": {
+      "category": {
+        "playing": "Gioco",
+        "performance": "Prestazioni",
+        "customisation": "Personalizzazione"
+      },
+      "unlocked": "Sbloccato",
+      "unlockedToast": "sbloccato!",
+      "locked": "Bloccato",
+      "progress": "Progresso"
+    },
+    "settings": {
+      "account": "Account",
+      "displayName": "Nome Visualizzato",
+      "email": "Email",
+      "currentPassword": "Password Attuale",
+      "newPassword": "Nuova Password",
+      "confirmPassword": "Conferma Password",
+      "changePassword": "Cambia Password",
+      "passwordTooShort": "La password deve essere di almeno 8 caratteri",
+      "passwordMismatch": "Le password non coincidono",
+      "passwordError": "Impossibile cambiare la password",
+      "passwordSaved": "Password aggiornata con successo",
+      "nameError": "Il nome deve essere di 2-24 caratteri",
+      "nameSaved": "Nome aggiornato",
+      "preferences": "Preferenze",
+      "language": "Lingua",
+      "theme": "Tema",
+      "guestAccount": "Sei un ospite. Crea un account per salvare i tuoi progressi!",
+      "dangerZone": "Zona Pericolosa",
+      "deleteAccount": "Elimina Account",
+      "deleteWarning": "Questa azione non può essere annullata. Tutti i tuoi dati saranno eliminati permanentemente.",
+      "deleteConfirm": "Elimina Account",
+      "deleteConfirmMessage": "Digita DELETE per confermare. Questo rimuoverà permanentemente il tuo account e tutti i dati associati.",
+      "deleteBtn": "Elimina",
+      "accountDeleted": "Account eliminato con successo",
+      "goodbye": "Arrivederci! A presto!"
+    },
+    "teaser": {
+      "createAccount": "Crea Account",
+      "signInRequired": "Accedi per sbloccare questa funzione",
+      "maybeLater": "Forse Dopo",
+      "guestLimitation": "Crea un account per tracciare le tue statistiche, guadagnare achievement e competere in classifica!"
+    }
   },
   "auth": {
     "signIn": "Accedi",

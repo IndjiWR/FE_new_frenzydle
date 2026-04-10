@@ -1,0 +1,130 @@
+<div class="achievements-tab" [attr.data-testid]="'achievements-tab'">
+  @if (isGuest()) {
+    <!-- Guest Teaser Overlay -->
+    <app-guest-teaser [attr.data-testid]="'achievements-guest-teaser'"></app-guest-teaser>
+  } @else {
+    @if (isLoading()) {
+      <!-- Loading State -->
+      <div class="loading-state space-y-6">
+        @for (_ of [1, 2, 3]; track $index) {
+          <div class="space-y-3">
+            <div class="h-6 bg-gray-100 dark:bg-zinc-700 rounded w-32 animate-pulse"></div>
+            @for (i of [1, 2, 3, 4]; track i) {
+              <div class="h-20 bg-gray-100 dark:bg-zinc-700 rounded-xl animate-pulse"></div>
+            }
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Achievement Categories -->
+      @for (category of ['playing', 'performance', 'customisation']; track category) {
+        <div class="category-section mb-8">
+          <!-- Category Header -->
+          <h3 class="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+            <span class="text-xl">{{ getCategoryIcon(category) }}</span>
+            {{ 'user.achievements.category.' + category | translate }}
+          </h3>
+
+          <!-- Achievement Items -->
+          <div class="space-y-3">
+            @for (achievement of getAchievementsForCategory(category); track achievement.id) {
+              <button
+                class="achievement-item w-full flex items-center gap-4 p-4 bg-white dark:bg-zinc-800 rounded-xl border transition-all"
+                [class.border-gray-100]="!achievement.isUnlocked"
+                [class.dark:border-zinc-700]="!achievement.isUnlocked"
+                [class.border-mint-300]="achievement.isUnlocked"
+                [class.dark:border-mint-700]="achievement.isUnlocked"
+                [class.opacity-75]="!achievement.isUnlocked"
+                [class.cursor-pointer]="achievement.isUnlocked"
+                [class.hover:shadow-md]="achievement.isUnlocked"
+                (click)="onAchievementClick(achievement)"
+                [attr.data-testid]="'achievement-' + achievement.id"
+              >
+                <!-- Icon -->
+                <div
+                  class="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                  [class.bg-gray-100]="!achievement.isUnlocked"
+                  [class.dark:bg-zinc-700]="!achievement.isUnlocked"
+                  [class.bg-mint-100]="achievement.isUnlocked"
+                  [class.dark:bg-mint-900/30]="achievement.isUnlocked"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    [class.text-gray-400]="!achievement.isUnlocked"
+                    [class.dark:text-gray-500]="!achievement.isUnlocked"
+                    [class.text-mint-600]="achievement.isUnlocked"
+                    [class.dark:text-mint-400]="achievement.isUnlocked"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="getAchievementIcon(achievement.iconType)" />
+                  </svg>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-gray-100 truncate"
+                      [class.text-gray-500]="!achievement.isUnlocked"
+                      [class.dark:text-gray-400]="!achievement.isUnlocked"
+                    >
+                      {{ achievement.name }}
+                    </h4>
+                    @if (achievement.isUnlocked) {
+                      <span
+                        class="shrink-0 px-2 py-0.5 bg-mint-100 dark:bg-mint-900/50 text-mint-700 dark:text-mint-300 text-xs font-semibold rounded-full shimmer"
+                        [attr.data-testid]="'unlocked-badge'"
+                      >
+                        {{ 'user.achievements.unlocked' | translate }}
+                      </span>
+                    }
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 truncate">
+                    {{ achievement.description }}
+                  </p>
+                  <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    {{ achievement.unlockCondition }}
+                  </p>
+                </div>
+
+                <!-- Progress -->
+                <div class="text-right shrink-0 w-24">
+                  @if (achievement.isUnlocked) {
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      {{ achievement.unlockedAt | date:'shortDate' }}
+                    </div>
+                  } @else {
+                    <div class="relative pt-1">
+                      <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                        {{ achievement.currentProgress }}/{{ achievement.maxProgress }}
+                      </div>
+                      <div class="h-2 bg-gray-100 dark:bg-zinc-700 rounded-full overflow-hidden">
+                        <div
+                          class="h-full bg-lavender-500 rounded-full transition-all"
+                          [style.width.%]="(achievement.currentProgress / achievement.maxProgress) * 100"
+                        ></div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+
+  <!-- Toast Notification -->
+  @if (showToast()) {
+    <div
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-mint-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-bounce-in"
+      [attr.data-testid]="'achievement-toast'"
+    >
+      <span class="text-xl">🎉</span>
+      <span>{{ toastAchievement() }} {{ 'user.achievements.unlockedToast' | translate }}</span>
+    </div>
+  }
+</div>

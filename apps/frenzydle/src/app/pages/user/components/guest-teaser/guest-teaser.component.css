@@ -1,0 +1,21 @@
+.guest-teaser {
+  min-height: 400px;
+}
+
+.teaser-background {
+  position: absolute;
+  inset: 0;
+}
+
+.teaser-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
