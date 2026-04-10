@@ -147,7 +147,8 @@ export class AvatarService {
    * Randomize all options (only unlocked ones)
    */
   randomize(): void {
-    const unlockedOptions = this._options().filter(opt =>
+    const options = this._options() ?? [];
+    const unlockedOptions = options.filter(opt =>
       opt.isDefault || this._unlockedIds().has(opt.id)
     );
 
@@ -176,6 +177,38 @@ export class AvatarService {
       ...DEFAULT_AVATAR,
       ...newState,
     } as AvatarData);
+  }
+
+  /**
+   * Generate a random avatar using only default options
+   * Used for new users who don't have an avatar yet
+   */
+  generateRandomDefaultAvatar(): AvatarData {
+    const defaultOptions = (this._options() ?? []).filter(opt => opt.isDefault);
+
+    const newState: Partial<AvatarData> = {};
+    const categories: AvatarCategory[] = [
+      'skinTone', 'hairStyle', 'hairColor', 'eyeStyle',
+      'expression', 'glasses', 'hat', 'bgColor',
+    ];
+
+    for (const category of categories) {
+      const categoryOptions = defaultOptions.filter(o => o.category === category);
+      if (categoryOptions.length > 0) {
+        const randomOption = categoryOptions[Math.floor(Math.random() * categoryOptions.length)];
+        if (category === 'glasses' || category === 'hat') {
+          (newState as Record<string, string | null>)[category] =
+            randomOption.id === 'glasses-none' || randomOption.id === 'hat-none' ? null : randomOption.id;
+        } else {
+          (newState as Record<string, string>)[category] = randomOption.id;
+        }
+      }
+    }
+
+    return {
+      ...DEFAULT_AVATAR,
+      ...newState,
+    } as AvatarData;
   }
 
   /**

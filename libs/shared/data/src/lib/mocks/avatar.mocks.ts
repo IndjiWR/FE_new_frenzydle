@@ -362,3 +362,38 @@ export function getUnlockedAvatarOptions(unlockedAchievementIds: string[]): stri
 
   return unlocked;
 }
+
+/**
+ * Generate a random avatar using only default (unlocked) options
+ * Used for new users
+ */
+export function generateRandomDefaultAvatar(): AvatarData {
+  const defaultOptions = MOCK_AVATAR_OPTIONS.filter(opt => opt.isDefault);
+
+  const categories = ['skinTone', 'hairStyle', 'hairColor', 'eyeStyle', 'expression', 'glasses', 'hat', 'bgColor'] as const;
+
+  const avatar: Record<string, string | null> = {};
+
+  for (const category of categories) {
+    const categoryOptions = defaultOptions.filter(o => o.category === category);
+    if (categoryOptions.length > 0) {
+      const randomOption = categoryOptions[Math.floor(Math.random() * categoryOptions.length)];
+      if (category === 'glasses' || category === 'hat') {
+        avatar[category] = randomOption.id === 'glasses-none' || randomOption.id === 'hat-none' ? null : randomOption.id;
+      } else {
+        avatar[category] = randomOption.id;
+      }
+    }
+  }
+
+  return {
+    skinTone: avatar['skinTone'] as string,
+    hairStyle: avatar['hairStyle'] as string,
+    hairColor: avatar['hairColor'] as string,
+    eyeStyle: avatar['eyeStyle'] as string,
+    expression: avatar['expression'] as string,
+    glasses: avatar['glasses'] as string | null,
+    hat: avatar['hat'] as string | null,
+    bgColor: avatar['bgColor'] as string,
+  };
+}

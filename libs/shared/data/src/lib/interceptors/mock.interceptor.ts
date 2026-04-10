@@ -18,6 +18,7 @@ import {
   MOCK_AVATAR_OPTIONS,
   DEFAULT_AVATAR,
   getUnlockedAvatarOptions,
+  generateRandomDefaultAvatar,
 } from '../mocks/avatar.mocks';
 import { ApiResponse, GameWithStatus } from '../models';
 import { UserProfile } from '../models/auth.models';
@@ -197,7 +198,7 @@ export const mockInterceptor = (
         email: 'test@frenzydle.com',
         isGuest: false,
         avatarUrl: null,
-        avatarData: null,
+        avatarData: generateRandomDefaultAvatar(),
         createdAt: new Date().toISOString(),
       };
       mockCurrentUser = user;
@@ -219,7 +220,7 @@ export const mockInterceptor = (
         email: body.email,
         isGuest: false,
         avatarUrl: null,
-        avatarData: null,
+        avatarData: generateRandomDefaultAvatar(),
         createdAt: new Date().toISOString(),
       };
       mockCurrentUser = user;
@@ -243,7 +244,8 @@ export const mockInterceptor = (
         email: body.email,
         isGuest: false,
         avatarUrl: null,
-        avatarData: existingUser?.avatarData || null,
+        // Keep existing avatar or generate new one if none
+        avatarData: existingUser?.avatarData || generateRandomDefaultAvatar(),
         createdAt: existingUser?.createdAt || new Date().toISOString(),
       };
       mockCurrentUser = user;
@@ -264,7 +266,7 @@ export const mockInterceptor = (
       email: 'mario.rossi@gmail.com',
       isGuest: false,
       avatarUrl: null,
-      avatarData: null,
+      avatarData: generateRandomDefaultAvatar(),
       createdAt: new Date().toISOString(),
     };
     mockCurrentUser = user;
