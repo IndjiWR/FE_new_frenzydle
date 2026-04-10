@@ -349,4 +349,11 @@ export class AuthService {
     }
     return new AuthError(defaultMessage, 'VALIDATION_ERROR', 500);
   }
+
+  /**
+   * Update current user data (used by UserProfileService)
+   */
+  updateUser(user: UserProfile): void {
+    this._currentUser.set(user);
+  }
 }

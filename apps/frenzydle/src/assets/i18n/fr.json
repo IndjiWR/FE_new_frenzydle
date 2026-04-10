@@ -3,7 +3,10 @@
     "loading": "Chargement...",
     "error": "Une erreur s'est produite",
     "retry": "Réessayer",
-    "noResults": "Aucun résultat trouvé"
+    "noResults": "Aucun résultat trouvé",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "cancel": "Annuler"
   },
   "nav": {
     "home": "Accueil",
@@ -41,7 +44,74 @@
   "user": {
     "guest": "Invité",
     "signOut": "Se Déconnecter",
-    "signIn": "Se Connecter"
+    "signIn": "Se Connecter",
+    "tabs": {
+      "stats": "Statistiques",
+      "achievements": "Succès",
+      "settings": "Paramètres"
+    },
+    "stats": {
+      "totalGames": "Parties Totales",
+      "winRate": "Taux de Victoire",
+      "currentStreak": "Série Actuelle",
+      "streak": "Série",
+      "best": "meilleure",
+      "avgAttempts": "Tentatives Moyenne",
+      "days": "jours",
+      "games": "parties",
+      "activity": "Activité",
+      "activityChart": "Activité (30 Derniers Jours)",
+      "allGames": "Tous les Jeux",
+      "filterAll": "Tous les Jeux",
+      "noGames": "Aucune partie jouée",
+      "noActivity": "Commencez à jouer pour voir vos statistiques !"
+    },
+    "achievements": {
+      "category": {
+        "playing": "Jeu",
+        "performance": "Performance",
+        "customisation": "Personnalisation"
+      },
+      "unlocked": "Débloqué",
+      "unlockedToast": "débloqué !",
+      "locked": "Verrouillé",
+      "progress": "Progression"
+    },
+    "settings": {
+      "account": "Compte",
+      "displayName": "Nom d'Affichage",
+      "email": "Email",
+      "currentPassword": "Mot de Passe Actuel",
+      "newPassword": "Nouveau Mot de Passe",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "changePassword": "Changer le Mot de Passe",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "passwordError": "Impossible de changer le mot de passe",
+      "passwordSaved": "Mot de passe mis à jour avec succès",
+      "nameError": "Le nom doit contenir 2-24 caractères",
+      "nameSaved": "Nom mis à jour",
+      "preferences": "Préférences",
+      "language": "Langue",
+      "theme": "Thème",
+      "guestAccount": "Vous êtes invité. Créez un compte pour sauvegarder vos progrès !",
+      "dangerZone": "Zone de Danger",
+      "deleteAccount": "Supprimer le Compte",
+      "deleteWarning": "Cette action est irréversible. Toutes vos données seront définitivement supprimées.",
+      "deleteConfirm": "Supprimer le Compte",
+      "deleteConfirmMessage": "Tapez DELETE pour confirmer. Cela supprimera définitivement votre compte et toutes les données associées.",
+      "deleteBtn": "Supprimer",
+      "accountDeleted": "Compte supprimé avec succès",
+      "goodbye": "Au revoir ! À bientôt !"
+    },
+    "teaser": {
+      "title": "Connectez-vous pour débloquer cette fonctionnalité",
+      "message": "Créez un compte pour suivre vos statistiques, gagner des succès et compétitionner au classement !",
+      "createAccount": "Créer un Compte",
+      "signInRequired": "Connectez-vous pour débloquer cette fonctionnalité",
+      "maybeLater": "Peut-être Plus tard",
+      "guestLimitation": "Créez un compte pour suivre vos statistiques, gagner des succès et compétitionner au classement !"
+    }
   },
   "auth": {
     "signIn": "Se Connecter",

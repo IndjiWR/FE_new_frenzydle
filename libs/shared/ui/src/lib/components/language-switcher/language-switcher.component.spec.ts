@@ -1,21 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LanguageSwitcherComponent } from './language-switcher.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '@shared/data';
+import { signal } from '@angular/core';
 
 describe('LanguageSwitcherComponent', () => {
   let component: LanguageSwitcherComponent;
   let fixture: ComponentFixture<LanguageSwitcherComponent>;
-  let translateService: TranslateService;
+  let languageService: jest.Mocked<LanguageService>;
 
   beforeEach(async () => {
+    const mockLanguageService = {
+      languages: [
+        { code: 'en', name: 'English' },
+        { code: 'it', name: 'Italiano' },
+        { code: 'fr', name: 'Français' },
+        { code: 'es', name: 'Español' },
+        { code: 'pt', name: 'Português' },
+      ],
+      language: signal('en'),
+      setLanguage: jest.fn(),
+    };
+
     await TestBed.configureTestingModule({
       imports: [LanguageSwitcherComponent, TranslateModule.forRoot()],
-      providers: [TranslateService],
+      providers: [{ provide: LanguageService, useValue: mockLanguageService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LanguageSwitcherComponent);
     component = fixture.componentInstance;
-    translateService = TestBed.inject(TranslateService);
+    languageService = TestBed.inject(LanguageService) as jest.Mocked<LanguageService>;
   });
 
   it('should create', () => {
@@ -37,13 +51,12 @@ describe('LanguageSwitcherComponent', () => {
 
   it('should select language', () => {
     jest.spyOn(component.languageChange, 'emit');
-    jest.spyOn(translateService, 'use');
 
     component.selectLanguage('it');
 
-    expect(component.currentLanguage()).toBe('it');
+    expect(languageService.setLanguage).toHaveBeenCalledWith('it');
     expect(component.languageChange.emit).toHaveBeenCalledWith('it');
-    expect(translateService.use).toHaveBeenCalledWith('it');
+    expect(component.isOpen()).toBe(false);
   });
 
   it('should close dropdown after selection', () => {
@@ -52,12 +65,17 @@ describe('LanguageSwitcherComponent', () => {
     expect(component.isOpen()).toBe(false);
   });
 
-  it('should persist language to localStorage', () => {
-    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
+  it('should compute current language info', () => {
+    // Signal starts with 'en'
+    expect(component.currentLang().code).toBe('en');
+    expect(component.currentLang().name).toBe('English');
 
-    component.selectLanguage('es');
+    // Update the signal
+    languageService.language.set('it');
+    fixture.detectChanges();
 
-    expect(setItemSpy).toHaveBeenCalledWith('frenzydle_language', 'es');
+    expect(component.currentLang().code).toBe('it');
+    expect(component.currentLang().name).toBe('Italiano');
   });
 
   it('should close dropdown when clicking outside', () => {

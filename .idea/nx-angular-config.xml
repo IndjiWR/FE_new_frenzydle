@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="NxAngularConfigService" workspaceLocation="file://$PROJECT_DIR$/nx.json">
+    <projects>
+      <project name="dragonball-data" file="file://$PROJECT_DIR$/libs/games/dragonball/data/project.json" />
+      <project name="dragonball-feature" file="file://$PROJECT_DIR$/libs/games/dragonball/feature/project.json" />
+      <project name="dragonball-ui" file="file://$PROJECT_DIR$/libs/games/dragonball/ui/project.json" />
+      <project name="frenzydle" file="file://$PROJECT_DIR$/apps/frenzydle/project.json" />
+      <project name="frenzydle-e2e" file="file://$PROJECT_DIR$/apps/frenzydle-e2e/project.json" />
+      <project name="shared-data" file="file://$PROJECT_DIR$/libs/shared/data/project.json" />
+      <project name="shared-feature" file="file://$PROJECT_DIR$/libs/shared/feature/project.json" />
+      <project name="shared-ui" file="file://$PROJECT_DIR$/libs/shared/ui/project.json" />
+    </projects>
+  </component>
+</project>

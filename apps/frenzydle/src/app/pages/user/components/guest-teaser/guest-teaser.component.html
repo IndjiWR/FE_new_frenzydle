@@ -1,0 +1,51 @@
+<div class="guest-teaser relative rounded-xl overflow-hidden" [attr.data-testid]="'guest-teaser'">
+  <!-- Blurred background with placeholder content -->
+  <div class="teaser-background blur-sm opacity-60 pointer-events-none">
+    <!-- Fake stat cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+      @for (_ of [1, 2, 3, 4]; track $index) {
+        <div class="h-24 bg-white dark:bg-zinc-700 rounded-xl"></div>
+      }
+    </div>
+    <!-- Fake chart -->
+    <div class="h-48 mx-4 mb-4 bg-white dark:bg-zinc-700 rounded-xl"></div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="teaser-overlay absolute inset-0 flex flex-col items-center justify-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm p-8">
+    <div class="text-center max-w-sm">
+      <!-- Icon -->
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-lavender-100 dark:bg-lavender-900/50 flex items-center justify-center">
+        <svg class="w-8 h-8 text-lavender-600 dark:text-lavender-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      </div>
+
+      <!-- Message -->
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+        {{ 'user.teaser.title' | translate }}
+      </h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
+        {{ 'user.teaser.message' | translate }}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button
+          class="px-6 py-2.5 bg-lavender-600 hover:bg-lavender-700 text-white rounded-lg font-semibold transition-colors"
+          (click)="onCreateAccount()"
+          [attr.data-testid]="'teaser-create-account'"
+        >
+          {{ 'user.teaser.createAccount' | translate }}
+        </button>
+        <button
+          class="px-6 py-2.5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
+          (click)="onMaybeLater()"
+          [attr.data-testid]="'teaser-maybe-later'"
+        >
+          {{ 'user.teaser.maybeLater' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

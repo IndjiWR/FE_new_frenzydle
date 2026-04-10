@@ -1,0 +1,56 @@
+<div class="user-page pt-16 min-h-screen bg-gray-50 dark:bg-zinc-900">
+  <!-- Profile Header -->
+  <app-user-profile-header
+    [user]="currentUser()"
+    [isGuest]="isGuest()"
+    [isDarkTheme]="isDarkTheme()"
+    class="block"
+  ></app-user-profile-header>
+
+  <!-- Tab Navigation -->
+  <nav class="tabs-nav sticky top-16 z-40 bg-white dark:bg-zinc-800 border-b border-gray-200 dark:border-zinc-700 shadow-sm">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="flex gap-1 overflow-x-auto">
+        @for (tab of tabs; track tab.path) {
+          <button
+            class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap"
+            [class.text-lavender-600]="isTabActive(tab.path)"
+            [class.dark:text-lavender-400]="isTabActive(tab.path)"
+            [class.border-b-2]="isTabActive(tab.path)"
+            [class.border-lavender-600]="isTabActive(tab.path)"
+            [class.dark:border-lavender-400]="isTabActive(tab.path)"
+            [class.text-gray-500]="!isTabActive(tab.path)"
+            [class.dark:text-gray-400]="!isTabActive(tab.path)"
+            [class.hover:text-gray-700]="!isTabActive(tab.path)"
+            [class.dark:hover:text-gray-200]="!isTabActive(tab.path)"
+            (click)="navigateToTab(tab.path)"
+            [attr.data-testid]="'tab-' + tab.path.split('/').pop()"
+          >
+            @if (tab.icon === 'chart') {
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            }
+            @if (tab.icon === 'trophy') {
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            }
+            @if (tab.icon === 'settings') {
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.598 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            }
+            <span>{{ tab.label | translate }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tab Content -->
+  <main class="tab-content max-w-4xl mx-auto px-4 py-6">
+    <router-outlet></router-outlet>
+  </main>
+</div>

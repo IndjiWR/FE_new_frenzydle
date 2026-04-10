@@ -74,6 +74,7 @@ export class AuthModalService {
     this._step.set('method-selection');
     this._email.set('');
     this._action.set('register');
+    this._redirectUrl.set(null);
   }
 
   /**

@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthModalService } from '@shared/feature';
-import { map, take } from 'rxjs/operators';
 
 /**
  * Auth Guard
@@ -12,11 +11,16 @@ import { map, take } from 'rxjs/operators';
  *
  * Behavior:
  * - If user is logged in: allows navigation
+ * - If user is a guest and route has `allowGuest: true` data: allows navigation
  * - If user is not logged in: opens auth modal and blocks navigation
  *
  * Usage:
  * ```typescript
+ * // Requires full auth
  * { path: 'profile', component: ProfileComponent, canActivate: [authGuard] }
+ *
+ * // Allows guests (shows teaser content in components)
+ * { path: 'user', component: UserComponent, canActivate: [authGuard], data: { allowGuest: true } }
  * ```
  */
 export const authGuard: CanActivateFn = (route, state) => {
@@ -26,6 +30,12 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   // Check if user is logged in
   if (authService.isLoggedIn()) {
+    return true;
+  }
+
+  // Check if guests are allowed for this route
+  const allowGuest = route.data?.['allowGuest'] === true;
+  if (allowGuest && authService.isGuest()) {
     return true;
   }
 

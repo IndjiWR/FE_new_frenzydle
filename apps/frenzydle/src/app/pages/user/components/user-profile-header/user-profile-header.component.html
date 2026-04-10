@@ -1,0 +1,98 @@
+<div class="profile-header bg-white dark:bg-zinc-800 py-8 px-4 animate-header-fade-in" [attr.data-testid]="'profile-header'">
+  <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
+    <!-- Avatar -->
+    <div class="avatar-container relative mb-4">
+      @if (avatarUrl()) {
+        <img
+          [src]="avatarUrl()"
+          [alt]="displayName()"
+          class="w-24 h-24 rounded-full object-cover border-4 border-lavender-300 dark:border-lavender-600 shadow-lg"
+          [attr.data-testid]="'profile-avatar'"
+        />
+      } @else {
+        <div
+          class="w-24 h-24 rounded-full bg-gradient-to-br from-lavender-400 to-lavender-600 dark:from-lavender-500 dark:to-lavender-700 flex items-center justify-center shadow-lg"
+          [attr.data-testid]="'profile-avatar-placeholder'"
+        >
+          <span class="text-3xl font-bold text-white">{{ initial() }}</span>
+        </div>
+      }
+      <!-- Guest Badge -->
+      @if (isGuest()) {
+        <div
+          class="absolute -bottom-1 -right-1 bg-peach-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow"
+          [attr.data-testid]="'guest-badge'"
+        >
+          {{ 'user.guest' | translate }}
+        </div>
+      }
+    </div>
+
+    <!-- Display Name (Editable) -->
+    <div class="name-section mb-2">
+      @if (isEditing()) {
+        <div class="edit-container flex items-center gap-2">
+          <input
+            type="text"
+            [value]="editValue()"
+            (input)="editValue.set($any($event).target.value)"
+            (keydown)="onKeyDown($event)"
+            (blur)="confirmEdit()"
+            class="px-3 py-1 text-2xl font-display font-bold text-center bg-gray-50 dark:bg-zinc-700 border-2 border-lavender-500 rounded-lg outline-none text-gray-900 dark:text-gray-100 w-64"
+            autofocus
+            [attr.data-testid]="'display-name-input'"
+          />
+          <button
+            class="p-1 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded"
+            (click)="confirmEdit()"
+            [attr.data-testid]="'confirm-name-btn'"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+          <button
+            class="p-1 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"
+            (click)="cancelEdit()"
+            [attr.data-testid]="'cancel-name-btn'"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      } @else {
+        <div class="display-container flex items-center justify-center gap-2">
+          <h1
+            class="text-2xl font-display font-bold text-gray-900 dark:text-gray-100"
+            [attr.data-testid]="'display-name'"
+          >
+            {{ displayName() }}
+          </h1>
+          @if (!isGuest()) {
+            <button
+              class="p-1 text-gray-400 hover:text-lavender-600 dark:hover:text-lavender-400 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded transition-colors"
+              (click)="startEdit()"
+              [attr.data-testid]="'edit-name-btn'"
+              aria-label="Edit display name"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Email (Read Only) -->
+    @if (email()) {
+      <p
+        class="text-sm text-gray-500 dark:text-gray-400"
+        [attr.data-testid]="'user-email'"
+      >
+        {{ email() }}
+      </p>
+    }
+  </div>
+</div>
