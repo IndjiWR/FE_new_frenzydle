@@ -1,5 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
 
 export type LogoSize = 'sm' | 'md' | 'lg';
 
@@ -10,7 +9,7 @@ export type LogoSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-logo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,20 +18,20 @@ export class LogoComponent {
   /**
    * Size variant: 'sm' (nav), 'md' (default), 'lg' (hero)
    */
-  @Input() size: LogoSize = 'md';
+  size = input<LogoSize>('md');
 
   /**
    * Whether to animate on mount
    */
-  @Input() animated: boolean = true;
+  animated = input<boolean>(true);
 
   /**
    * Optional custom class
    */
-  @Input() customClass: string = '';
+  customClass = input<string>('');
 
-  get sizeClass(): string {
-    switch (this.size) {
+  sizeClass = computed(() => {
+    switch (this.size()) {
       case 'sm':
         return 'text-xl';
       case 'lg':
@@ -40,9 +39,9 @@ export class LogoComponent {
       default:
         return 'text-3xl';
     }
-  }
+  });
 
-  get animationClass(): string {
-    return this.animated ? 'animate-logo-scale' : '';
-  }
+  animationClass = computed(() => {
+    return this.animated() ? 'animate-logo-scale' : '';
+  });
 }

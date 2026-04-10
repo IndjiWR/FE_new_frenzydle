@@ -25,33 +25,30 @@ describe('LogoComponent', () => {
   });
 
   it('should apply size classes correctly', () => {
-    component.size = 'sm';
+    fixture.componentRef.setInput('size', 'sm');
     fixture.detectChanges();
-    expect(component.sizeClass).toBe('text-xl');
+    expect(component.sizeClass()).toBe('text-xl');
 
-    component.size = 'lg';
+    fixture.componentRef.setInput('size', 'lg');
     fixture.detectChanges();
-    expect(component.sizeClass).toBe('text-5xl');
+    expect(component.sizeClass()).toBe('text-5xl');
   });
 
   it('should apply animation class when animated is true', () => {
-    component.animated = true;
+    fixture.componentRef.setInput('animated', true);
     fixture.detectChanges();
-    expect(component.animationClass).toBe('animate-logo-scale');
+    expect(component.animationClass()).toBe('animate-logo-scale');
   });
 
   it('should not apply animation class when animated is false', () => {
-    component.animated = false;
+    fixture.componentRef.setInput('animated', false);
     fixture.detectChanges();
-    expect(component.animationClass).toBe('');
+    expect(component.animationClass()).toBe('');
   });
 
   it('should have custom class property set', () => {
-    component.customClass = 'my-custom-class';
+    fixture.componentRef.setInput('customClass', 'my-custom-class');
     fixture.detectChanges();
-    // The customClass input should be set correctly
-    expect(component.customClass).toBe('my-custom-class');
-    // Check the computed animationStyle which uses customClass
-    expect(component.animationClass).toBe('animate-logo-scale'); // default animated
+    expect(component.customClass()).toBe('my-custom-class');
   });
 });

@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
@@ -8,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-empty-state',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './empty-state.component.html',
   styleUrls: ['./empty-state.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,22 +16,22 @@ export class EmptyStateComponent {
   /**
    * Title for the empty state
    */
-  @Input() title: string = '';
+  title = input<string>('');
 
   /**
    * Description for the empty state
    */
-  @Input() description: string = '';
+  description = input<string>('');
 
   /**
    * Optional action button text
    */
-  @Input() actionText: string = '';
+  actionText = input<string>('');
 
   /**
    * Emits when action button is clicked
    */
-  @Output() action = new EventEmitter<void>();
+  action = output<void>();
 
   onAction(): void {
     this.action.emit();

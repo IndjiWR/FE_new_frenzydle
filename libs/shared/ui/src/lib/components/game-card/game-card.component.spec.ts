@@ -39,35 +39,35 @@ describe('GameCardComponent', () => {
   });
 
   it('should display game name', () => {
-    component.game = mockGame;
+    fixture.componentRef.setInput('game', mockGame);
     fixture.detectChanges();
     const nameElement = fixture.nativeElement.querySelector('[data-testid="game-name"]');
     expect(nameElement.textContent.trim()).toBe('Dragon Ball');
   });
 
   it('should display game description', () => {
-    component.game = mockGame;
+    fixture.componentRef.setInput('game', mockGame);
     fixture.detectChanges();
     const descElement = fixture.nativeElement.querySelector('[data-testid="game-description"]');
     expect(descElement.textContent.trim()).toContain('Test game description');
   });
 
   it('should show coming soon overlay for unreleased games', () => {
-    component.game = { ...mockGame, isReleased: false };
+    fixture.componentRef.setInput('game', { ...mockGame, isReleased: false });
     fixture.detectChanges();
     const overlay = fixture.nativeElement.querySelector('[data-testid="coming-soon-overlay"]');
     expect(overlay).toBeTruthy();
   });
 
   it('should show completed badge when game is completed', () => {
-    component.game = { ...mockGame, status: { ...mockGame.status!, isCompletedToday: true } };
+    fixture.componentRef.setInput('game', { ...mockGame, status: { ...mockGame.status!, isCompletedToday: true } });
     fixture.detectChanges();
     const badge = fixture.nativeElement.querySelector('[data-testid="completed-badge"]');
     expect(badge).toBeTruthy();
   });
 
   it('should emit cardClick when clicked on released game', () => {
-    component.game = mockGame;
+    fixture.componentRef.setInput('game', mockGame);
     jest.spyOn(component.cardClick, 'emit');
     fixture.detectChanges();
 
@@ -76,7 +76,7 @@ describe('GameCardComponent', () => {
   });
 
   it('should not emit cardClick for unreleased games', () => {
-    component.game = { ...mockGame, isReleased: false };
+    fixture.componentRef.setInput('game', { ...mockGame, isReleased: false });
     jest.spyOn(component.cardClick, 'emit');
     fixture.detectChanges();
 
@@ -85,8 +85,8 @@ describe('GameCardComponent', () => {
   });
 
   it('should apply animation delay style', () => {
-    component.animationDelay = 100;
+    fixture.componentRef.setInput('animationDelay', 100);
     fixture.detectChanges();
-    expect(component.animationStyle['animation-delay']).toBe('100ms');
+    expect(component.animationStyle()['animation-delay']).toBe('100ms');
   });
 });

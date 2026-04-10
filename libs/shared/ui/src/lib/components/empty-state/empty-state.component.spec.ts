@@ -20,21 +20,21 @@ describe('EmptyStateComponent', () => {
   });
 
   it('should display title when provided', () => {
-    component.title = 'No games available';
+    fixture.componentRef.setInput('title', 'No games available');
     fixture.detectChanges();
     const titleElement = fixture.nativeElement.querySelector('[data-testid="empty-title"]');
     expect(titleElement.textContent.trim()).toBe('No games available');
   });
 
   it('should display description', () => {
-    component.description = 'Check back later';
+    fixture.componentRef.setInput('description', 'Check back later');
     fixture.detectChanges();
     const descElement = fixture.nativeElement.querySelector('[data-testid="empty-description"]');
     expect(descElement.textContent.trim()).toContain('Check back later');
   });
 
   it('should display action button when actionText is provided', () => {
-    component.actionText = 'Refresh';
+    fixture.componentRef.setInput('actionText', 'Refresh');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('[data-testid="empty-action"]');
     expect(button).toBeTruthy();
@@ -42,14 +42,14 @@ describe('EmptyStateComponent', () => {
   });
 
   it('should not display action button when actionText is empty', () => {
-    component.actionText = '';
+    fixture.componentRef.setInput('actionText', '');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('[data-testid="empty-action"]');
     expect(button).toBeFalsy();
   });
 
   it('should emit action when button is clicked', () => {
-    component.actionText = 'Refresh';
+    fixture.componentRef.setInput('actionText', 'Refresh');
     jest.spyOn(component.action, 'emit');
     fixture.detectChanges();
 

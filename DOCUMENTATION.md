@@ -37,14 +37,17 @@
 - ✅ LanguageSwitcher desktop click bug fixed (blur → HostListener)
 - ✅ Build succeeds: `npx nx build frenzydle`
 - ✅ Unit tests pass: `npx nx test shared-ui shared-feature shared-data`
+- ✅ E2E tests for homepage (navigation, hero, game grid, language switcher)
+- ✅ Storybook stories created for all UI components
+- ✅ Test coverage improved (Jest configs fixed, shared libraries at 97%+)
 
 ### Incomplete / TODO
 
 - ⬜ Achieve 85% test coverage (currently lower)
-- ⬜ Create Storybook stories for all components
-- ⬜ Write E2E Cypress tests
-- ⬜ Update README.md with run instructions
-- ⬜ Document mock interceptor toggle in this file
+- ✅ Create Storybook stories for all components (created, but Storybook build needs Angular builder migration)
+- ✅ Write E2E Cypress tests for homepage
+- ✅ Update README.md with run instructions
+- ✅ Document mock interceptor toggle in this file
 
 ### Decisions Made Mid-Step
 
@@ -353,6 +356,54 @@ import { environment } from '../environments/environment';
 if (environment.useMocks) {
   // Mock responses enabled
 }
+```
+
+#### Toggling Mock Mode
+
+**Development (mocks enabled):**
+- Set `useMocks: true` in `environment.ts`
+- All API calls return mock data with simulated latency (400-700ms)
+- No backend server required
+
+**Production (real API):**
+- Set `useMocks: false` in `environment.prod.ts`
+- All API calls go to the real backend at `apiBaseUrl`
+
+**Simulating Errors:**
+- Set `simulateError: true` in `environment.ts` to test error states
+- Mock interceptor will return error responses instead of success
+
+#### Mock Data Structure
+
+The mock interceptor provides:
+
+```typescript
+// Games
+GET /api/games → GameWithStatus[]
+GET /api/games/:id → GameWithStatus
+GET /api/games/:id/daily-status → GameDailyStatus
+
+// Auth (planned)
+POST /api/auth/login
+POST /api/auth/register
+POST /api/auth/google
+POST /api/auth/guest
+POST /api/auth/logout
+POST /api/auth/refresh
+
+// User (planned)
+GET /api/user/profile
+PUT /api/user/profile
+DELETE /api/user/data
+PUT /api/user/avatar
+
+// Leaderboard (planned)
+GET /api/leaderboard/:gameId
+GET /api/leaderboard/:gameId/me
+
+// Achievements (planned)
+GET /api/achievements
+GET /api/achievements/user
 ```
 
 ---

@@ -18,7 +18,7 @@ npm install
 ### Running the Application
 
 ```bash
-# Development mode
+# Development mode (with mock API)
 npx nx serve frenzydle
 
 # Or using npm scripts
@@ -30,23 +30,36 @@ The application will be available at `http://localhost:4200`.
 ### Running Tests
 
 ```bash
-# Unit tests
+# Unit tests for all shared libraries
+npx nx run-many -t test --projects=shared-ui,shared-feature,shared-data
+
+# Unit tests for main app
 npx nx test frenzydle
 
-# Run tests with coverage
-npx nx test frenzydle --coverage
+# Run all tests with coverage
+npx nx run-many -t test --all --coverage
 
-# E2E tests
+# E2E tests (requires dev server running)
 npx nx e2e frenzydle-e2e
 
-# Test all projects
-npx nx run-many -t test --all
+# Open Cypress interactive mode
+npx nx e2e frenzydle-e2e --watch
 ```
 
 ### Building for Production
 
 ```bash
 npx nx build frenzydle --configuration=production
+```
+
+### Storybook
+
+```bash
+# Start Storybook for UI components
+npx nx storybook shared-ui
+
+# Build static Storybook
+npx nx build-storybook shared-ui
 ```
 
 ## Project Structure
@@ -74,8 +87,10 @@ libs/
 |---------|-------------|
 | `npx nx serve frenzydle` | Start development server |
 | `npx nx build frenzydle` | Build the application |
-| `npx nx test frenzydle` | Run unit tests |
+| `npx nx test frenzydle` | Run unit tests for main app |
 | `npx nx test shared-ui` | Run shared-ui tests |
+| `npx nx test shared-feature` | Run shared-feature tests |
+| `npx nx test shared-data` | Run shared-data tests |
 | `npx nx e2e frenzydle-e2e` | Run E2E tests |
 | `npx nx storybook shared-ui` | Start Storybook for UI components |
 

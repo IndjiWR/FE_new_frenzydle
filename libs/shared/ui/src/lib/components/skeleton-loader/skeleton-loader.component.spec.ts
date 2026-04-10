@@ -19,8 +19,8 @@ describe('SkeletonLoaderComponent', () => {
   });
 
   it('should render correct number of skeleton cards', () => {
-    component.count = 4;
-    component.type = 'card';
+    fixture.componentRef.setInput('count', 4);
+    fixture.componentRef.setInput('type', 'card');
     fixture.detectChanges();
 
     const cards = fixture.nativeElement.querySelectorAll('.skeleton-card-item');
@@ -28,9 +28,9 @@ describe('SkeletonLoaderComponent', () => {
   });
 
   it('should render text skeleton with custom dimensions', () => {
-    component.type = 'text';
-    component.width = '200px';
-    component.height = '2rem';
+    fixture.componentRef.setInput('type', 'text');
+    fixture.componentRef.setInput('width', '200px');
+    fixture.componentRef.setInput('height', '2rem');
     fixture.detectChanges();
 
     const textSkeleton = fixture.nativeElement.querySelector('.skeleton-text');
@@ -39,8 +39,8 @@ describe('SkeletonLoaderComponent', () => {
   });
 
   it('should render circle skeletons', () => {
-    component.type = 'circle';
-    component.count = 3;
+    fixture.componentRef.setInput('type', 'circle');
+    fixture.componentRef.setInput('count', 3);
     fixture.detectChanges();
 
     const circles = fixture.nativeElement.querySelectorAll('.skeleton-circle');
@@ -48,6 +48,6 @@ describe('SkeletonLoaderComponent', () => {
   });
 
   it('should default to 3 cards', () => {
-    expect(component.count).toBe(3);
+    expect(component.count()).toBe(3);
   });
 });

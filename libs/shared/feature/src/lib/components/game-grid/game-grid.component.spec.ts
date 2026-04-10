@@ -50,7 +50,7 @@ describe('GameGridComponent', () => {
   });
 
   it('should display loading state', () => {
-    component.state = 'loading';
+    fixture.componentRef.setInput('state', 'loading');
     fixture.detectChanges();
 
     const loadingElement = fixture.nativeElement.querySelector('[data-testid="game-grid-loading"]');
@@ -58,8 +58,8 @@ describe('GameGridComponent', () => {
   });
 
   it('should display error state', () => {
-    component.state = 'error';
-    component.errorMessage = 'Failed to load';
+    fixture.componentRef.setInput('state', 'error');
+    fixture.componentRef.setInput('errorMessage', 'Failed to load');
     fixture.detectChanges();
 
     const errorElement = fixture.nativeElement.querySelector('[data-testid="game-grid-error"]');
@@ -67,7 +67,7 @@ describe('GameGridComponent', () => {
   });
 
   it('should display empty state', () => {
-    component.state = 'empty';
+    fixture.componentRef.setInput('state', 'empty');
     fixture.detectChanges();
 
     const emptyElement = fixture.nativeElement.querySelector('[data-testid="game-grid-empty"]');
@@ -75,8 +75,8 @@ describe('GameGridComponent', () => {
   });
 
   it('should display games when loaded', () => {
-    component.state = 'loaded';
-    component.games = mockGames;
+    fixture.componentRef.setInput('state', 'loaded');
+    fixture.componentRef.setInput('games', mockGames);
     fixture.detectChanges();
 
     const gridElement = fixture.nativeElement.querySelector('[data-testid="game-grid-loaded"]');
@@ -84,9 +84,9 @@ describe('GameGridComponent', () => {
   });
 
   it('should emit gameClick when card is clicked', () => {
-    spyOn(component.gameClick, 'emit');
-    component.state = 'loaded';
-    component.games = mockGames;
+    jest.spyOn(component.gameClick, 'emit');
+    fixture.componentRef.setInput('state', 'loaded');
+    fixture.componentRef.setInput('games', mockGames);
     fixture.detectChanges();
 
     component.onGameClick('dragonball');
@@ -95,8 +95,8 @@ describe('GameGridComponent', () => {
   });
 
   it('should emit retry when retry button is clicked', () => {
-    spyOn(component.retry, 'emit');
-    component.state = 'error';
+    jest.spyOn(component.retry, 'emit');
+    fixture.componentRef.setInput('state', 'error');
     fixture.detectChanges();
 
     component.onRetry();
@@ -108,10 +108,5 @@ describe('GameGridComponent', () => {
     expect(component.getAnimationDelay(0)).toBe(0);
     expect(component.getAnimationDelay(1)).toBe(80);
     expect(component.getAnimationDelay(2)).toBe(160);
-  });
-
-  it('should track games by ID', () => {
-    const game = mockGames[0];
-    expect(component.trackByGameId(0, game)).toBe('dragonball');
   });
 });

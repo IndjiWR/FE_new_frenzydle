@@ -6,7 +6,7 @@
   <div class="hero-logo mb-4">
     <app-logo
       size="lg"
-      [animated]="animated"
+      [animated]="animated()"
       [customClass]="'text-5xl md:text-6xl'"
       [attr.data-testid]="'hero-logo'"
     ></app-logo>
@@ -15,26 +15,11 @@
   <!-- Subtitle -->
   <div class="hero-subtitle text-center max-w-2xl">
     <p
-      *ngIf="animated && logoAnimationComplete(); else staticSubtitle"
-      class="text-lg md:text-xl text-gray-600"
-      [attr.data-testid]="'hero-subtitle-typewriter'"
+      class="text-lg md:text-xl text-gray-600 font-body"
+      [class.fade-in-subtitle]="animated() && showSubtitle()"
+      [attr.data-testid]="'hero-subtitle'"
     >
-      {{ typewriterText() }}<span class="typewriter-cursor">|</span>
+      {{ subtitleText() }}
     </p>
-
-    <ng-template #staticSubtitle>
-      <p
-        class="text-lg md:text-xl text-gray-600"
-        [attr.data-testid]="'hero-subtitle-static'"
-      >
-        {{ subtitleKey | translate }}
-      </p>
-    </ng-template>
   </div>
 </section>
-
-<!-- Hidden element to trigger typewriter -->
-<span
-  class="hidden"
-  #subtitleText
->{{ subtitleKey | translate }}</span>

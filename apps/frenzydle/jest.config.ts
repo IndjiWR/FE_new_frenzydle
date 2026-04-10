@@ -29,6 +29,11 @@ const config: Config = {
     '!**/*.test.ts',
     '!**/test-setup.ts',
     '!**/main.ts',
+    '!**/environment*.ts',
+    '!**/jest.config.ts',
+    '!**/index.ts',
+    '!**/app.config.ts',
+    '!**/app.routes.ts',
   ],
 };
 

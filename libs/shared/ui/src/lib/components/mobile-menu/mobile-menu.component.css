@@ -7,7 +7,7 @@
   transition: transform 0.3s ease-out;
 }
 
-.mobile-menu.translate-x-0 {
+.mobile-menu.open {
   transform: translateX(0);
 }
 

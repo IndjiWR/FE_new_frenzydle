@@ -27,10 +27,10 @@ describe('NavBarComponent', () => {
   });
 
   it('should display desktop navigation links', () => {
-    component.navItems = [
+    fixture.componentRef.setInput('navItems', [
       { label: 'nav.home', path: '/' },
       { label: 'nav.games', path: '/games' },
-    ];
+    ]);
     fixture.detectChanges();
 
     const navLinks = fixture.nativeElement.querySelectorAll('[data-testid^="nav-link-"]');
@@ -38,7 +38,7 @@ describe('NavBarComponent', () => {
   });
 
   it('should display login button when not logged in', () => {
-    component.isLoggedIn = false;
+    fixture.componentRef.setInput('isLoggedIn', false);
     fixture.detectChanges();
 
     const loginButton = fixture.nativeElement.querySelector('[data-testid="login-button"]');
@@ -46,9 +46,9 @@ describe('NavBarComponent', () => {
   });
 
   it('should display user avatar when logged in', () => {
-    component.isLoggedIn = true;
-    component.userAvatar = 'test-avatar.png';
-    component.userName = 'TestUser';
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.componentRef.setInput('userAvatar', 'test-avatar.png');
+    fixture.componentRef.setInput('userName', 'TestUser');
     fixture.detectChanges();
 
     const avatar = fixture.nativeElement.querySelector('[data-testid="user-avatar"]');
@@ -56,9 +56,9 @@ describe('NavBarComponent', () => {
   });
 
   it('should display avatar placeholder when no avatar', () => {
-    component.isLoggedIn = true;
-    component.userAvatar = '';
-    component.userName = 'TestUser';
+    fixture.componentRef.setInput('isLoggedIn', true);
+    fixture.componentRef.setInput('userAvatar', '');
+    fixture.componentRef.setInput('userName', 'TestUser');
     fixture.detectChanges();
 
     const placeholder = fixture.nativeElement.querySelector('[data-testid="user-avatar-placeholder"]');
@@ -81,7 +81,7 @@ describe('NavBarComponent', () => {
 
   it('should emit loginClick when login button clicked', () => {
     jest.spyOn(component.loginClick, 'emit');
-    component.isLoggedIn = false;
+    fixture.componentRef.setInput('isLoggedIn', false);
     fixture.detectChanges();
 
     const loginButton = fixture.nativeElement.querySelector('[data-testid="login-button"]');

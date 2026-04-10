@@ -11,14 +11,16 @@ const config: Config = {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
       {
-        tsconfig: '<rootDir>/../../../tsconfig.base.json',
+        tsconfig: '<rootDir>/tsconfig.spec.json',
         stringifyContentPathRegex: '\\.(html|svg)$',
       },
     ],
   },
   transformIgnorePatterns: ['node_modules/(?!@angular|@nx|rxjs|@ngx-translate)'],
   moduleNameMapper: {
-    '^@shared/(.*)$': '<rootDir>/../../$1/src/index.ts',
+    '^@shared/ui$': '<rootDir>/../ui/src/index.ts',
+    '^@shared/data$': '<rootDir>/src/index.ts',
+    '^@shared/feature$': '<rootDir>/../feature/src/index.ts',
     '^@games/dragonball/(.*)$': '<rootDir>/../../../libs/games/dragonball/$1/src/index.ts',
   },
 };

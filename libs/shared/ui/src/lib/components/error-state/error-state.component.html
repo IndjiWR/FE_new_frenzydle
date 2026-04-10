@@ -14,7 +14,7 @@
     />
   </svg>
   <p class="text-gray-600 mb-4" [attr.data-testid]="'error-message'">
-    {{ message || ('common.error' | translate) }}
+    {{ message() || ('common.error' | translate) }}
   </p>
   <button
     class="px-4 py-2 bg-lavender-600 hover:bg-lavender-700 text-white rounded-lg font-semibold transition-colors"

@@ -21,10 +21,10 @@ describe('MobileMenuComponent', () => {
   });
 
   it('should display nav items', () => {
-    component.navItems = [
+    fixture.componentRef.setInput('navItems', [
       { label: 'nav.home', path: '/' },
       { label: 'nav.games', path: '/games' },
-    ];
+    ]);
     fixture.detectChanges();
 
     const items = fixture.nativeElement.querySelectorAll('li');
@@ -33,7 +33,7 @@ describe('MobileMenuComponent', () => {
 
   it('should emit close when backdrop is clicked', () => {
     jest.spyOn(component.close, 'emit');
-    component.isOpen = true;
+    fixture.componentRef.setInput('isOpen', true);
     fixture.detectChanges();
 
     const backdrop = fixture.nativeElement.querySelector('[data-testid="mobile-menu-backdrop"]');
@@ -44,7 +44,7 @@ describe('MobileMenuComponent', () => {
 
   it('should emit close when close button is clicked', () => {
     jest.spyOn(component.close, 'emit');
-    component.isOpen = true;
+    fixture.componentRef.setInput('isOpen', true);
     fixture.detectChanges();
 
     const closeButton = fixture.nativeElement.querySelector('[data-testid="mobile-menu-close"]');
@@ -56,7 +56,7 @@ describe('MobileMenuComponent', () => {
   it('should emit navigate when nav item is clicked', () => {
     jest.spyOn(component.navigate, 'emit');
     jest.spyOn(component.close, 'emit');
-    component.navItems = [{ label: 'nav.home', path: '/' }];
+    fixture.componentRef.setInput('navItems', [{ label: 'nav.home', path: '/' }]);
     fixture.detectChanges();
 
     const navItem = fixture.nativeElement.querySelector('[data-testid="mobile-nav-nav.home"]');

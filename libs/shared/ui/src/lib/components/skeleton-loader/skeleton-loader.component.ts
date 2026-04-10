@@ -1,5 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * Skeleton loader component for loading states
@@ -8,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-skeleton-loader',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './skeleton-loader.component.html',
   styleUrls: ['./skeleton-loader.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,27 +16,25 @@ export class SkeletonLoaderComponent {
   /**
    * Number of skeleton cards to display
    */
-  @Input() count: number = 3;
+  count = input<number>(3);
 
   /**
    * Type of skeleton (card, text, circle)
    */
-  @Input() type: 'card' | 'text' | 'circle' = 'card';
+  type = input<'card' | 'text' | 'circle'>('card');
 
   /**
    * Custom width (for text type)
    */
-  @Input() width: string = '100%';
+  width = input<string>('100%');
 
   /**
    * Custom height (for text type)
    */
-  @Input() height: string = '1rem';
+  height = input<string>('1rem');
 
   /**
-   * Generate array for ngFor
+   * Generate array for @for loop
    */
-  get items(): number[] {
-    return Array(this.count).fill(0);
-  }
+  items = computed(() => Array(this.count()).fill(0));
 }

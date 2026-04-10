@@ -20,7 +20,7 @@ describe('ErrorStateComponent', () => {
   });
 
   it('should display custom message when provided', () => {
-    component.message = 'Custom error message';
+    fixture.componentRef.setInput('message', 'Custom error message');
     fixture.detectChanges();
     const messageElement = fixture.nativeElement.querySelector('[data-testid="error-message"]');
     expect(messageElement.textContent).toContain('Custom error message');

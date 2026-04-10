@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
@@ -9,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-error-state',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './error-state.component.html',
   styleUrls: ['./error-state.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,12 +17,12 @@ export class ErrorStateComponent {
   /**
    * Custom error message (optional, uses translation if not provided)
    */
-  @Input() message: string = '';
+  message = input<string>('');
 
   /**
    * Emits when retry button is clicked
    */
-  @Output() retry = new EventEmitter<void>();
+  retry = output<void>();
 
   onRetry(): void {
     this.retry.emit();

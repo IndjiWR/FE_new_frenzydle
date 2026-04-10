@@ -22,7 +22,7 @@ describe('CountdownTimerComponent', () => {
   it('should display formatted time', () => {
     const futureDate = new Date();
     futureDate.setHours(futureDate.getHours() + 1, futureDate.getMinutes() + 30, futureDate.getSeconds() + 45);
-    component.targetDate = futureDate.toISOString();
+    fixture.componentRef.setInput('targetDate', futureDate.toISOString());
     fixture.detectChanges();
     expect(component.formattedTime()).toMatch(/\d{2}:\d{2}:\d{2}/);
   });
@@ -30,7 +30,7 @@ describe('CountdownTimerComponent', () => {
   it('should accept target date input', () => {
     const futureDate = new Date();
     futureDate.setHours(futureDate.getHours() + 1);
-    component.targetDate = futureDate.toISOString();
-    expect(component['_targetDate']()).toBeInstanceOf(Date);
+    fixture.componentRef.setInput('targetDate', futureDate.toISOString());
+    expect(component.targetDate()).toBe(futureDate.toISOString());
   });
 });

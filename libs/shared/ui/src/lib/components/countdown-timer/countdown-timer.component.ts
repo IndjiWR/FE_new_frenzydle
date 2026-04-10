@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnDestroy, signal, effect, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, effect, signal, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 export interface CountdownTime {
@@ -15,7 +14,7 @@ export interface CountdownTime {
 @Component({
   selector: 'app-countdown-timer',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './countdown-timer.component.html',
   styleUrls: ['./countdown-timer.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,41 +23,32 @@ export class CountdownTimerComponent implements OnDestroy {
   /**
    * ISO date string for when the countdown ends
    */
-  @Input() set targetDate(value: string) {
-    this._targetDate.set(new Date(value));
-  }
+  targetDate = input<string>('');
 
   /**
    * Emits when countdown reaches zero
    */
-  @Output() countdownComplete = new EventEmitter<void>();
-
-  /**
-   * Signal for the target date
-   */
-  private _targetDate = signal<Date>(new Date());
+  countdownComplete = output<void>();
 
   /**
    * Signal for the remaining time
    */
-  remainingTime: Signal<CountdownTime>;
+  remainingTime = signal<CountdownTime>({ hours: 0, minutes: 0, seconds: 0 });
 
   /**
    * Formatted time string (HH:MM:SS)
    */
-  formattedTime: Signal<string>;
+  formattedTime = signal<string>('00:00:00');
 
   private intervalId: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
-    // Initialize with current time
-    this.remainingTime = signal<CountdownTime>({ hours: 0, minutes: 0, seconds: 0 });
-    this.formattedTime = signal<string>('00:00:00');
-
-    // Set up effect to update countdown
+    // Set up effect to update countdown when targetDate changes
     effect(() => {
-      const target = this._targetDate();
-      this.startCountdown(target);
+      const targetDateStr = this.targetDate();
+      if (targetDateStr) {
+        this.startCountdown(new Date(targetDateStr));
+      }
     });
   }
 
@@ -79,8 +69,8 @@ export class CountdownTimerComponent implements OnDestroy {
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      (this.remainingTime as any).set({ hours, minutes, seconds });
-      (this.formattedTime as any).set(this.formatTime(hours, minutes, seconds));
+      this.remainingTime.set({ hours, minutes, seconds });
+      this.formattedTime.set(this.formatTime(hours, minutes, seconds));
     };
 
     updateTime();

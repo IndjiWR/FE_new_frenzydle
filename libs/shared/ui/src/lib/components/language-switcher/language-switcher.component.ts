@@ -1,5 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy, signal, OnInit, HostListener, ElementRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, output, ChangeDetectionStrategy, signal, OnInit, HostListener, ElementRef, computed } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '@shared/data';
 
@@ -11,7 +10,7 @@ import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '@sh
 @Component({
   selector: 'app-language-switcher',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './language-switcher.component.html',
   styleUrls: ['./language-switcher.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +34,14 @@ export class LanguageSwitcherComponent implements OnInit {
   /**
    * Emits when language is changed
    */
-  @Output() languageChange = new EventEmitter<string>();
+  languageChange = output<string>();
+
+  /**
+   * Get the language object for the current selection
+   */
+  currentLang = computed(() => {
+    return this.languages.find(l => l.code === this.currentLanguage()) || this.languages[0];
+  });
 
   constructor(
     private translate: TranslateService,
@@ -46,13 +52,6 @@ export class LanguageSwitcherComponent implements OnInit {
     // Get current language from translate service
     const currentLang = this.translate.currentLang || this.translate.defaultLang || DEFAULT_LANGUAGE;
     this.currentLanguage.set(currentLang);
-  }
-
-  /**
-   * Get the language object for the current selection
-   */
-  get currentLang(): typeof SUPPORTED_LANGUAGES[0] {
-    return this.languages.find(l => l.code === this.currentLanguage()) || this.languages[0];
   }
 
   /**
@@ -83,13 +82,6 @@ export class LanguageSwitcherComponent implements OnInit {
 
     this.languageChange.emit(langCode);
     this.closeDropdown();
-  }
-
-  /**
-   * Track by function for ngFor
-   */
-  trackByCode(index: number, lang: typeof SUPPORTED_LANGUAGES[0]): string {
-    return lang.code;
   }
 
   /**

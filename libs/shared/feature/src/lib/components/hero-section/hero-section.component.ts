@@ -1,97 +1,85 @@
-import { Component, Input, ChangeDetectionStrategy, signal, effect, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { Component, input, ChangeDetectionStrategy, signal, OnInit, OnDestroy, inject } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LogoComponent } from '@shared/ui';
+import { Subscription } from 'rxjs';
 
 /**
  * Hero section component for the homepage
- * Displays animated logo and typewriter subtitle
+ * Displays animated logo with fade-in subtitle
  */
 @Component({
   selector: 'app-hero-section',
   standalone: true,
-  imports: [CommonModule, TranslateModule, LogoComponent],
+  imports: [TranslateModule, LogoComponent],
   templateUrl: './hero-section.component.html',
   styleUrls: ['./hero-section.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeroSectionComponent implements OnInit {
+export class HeroSectionComponent implements OnInit, OnDestroy {
+  private translate = inject(TranslateService);
+
   /**
    * Custom title (defaults to FrenzyDle)
    */
-  @Input() title: string = 'FrenzyDle';
+  title = input<string>('FrenzyDle');
 
   /**
    * Custom subtitle key for translation
    */
-  @Input() subtitleKey: string = 'home.subtitle';
+  subtitleKey = input<string>('home.subtitle');
 
   /**
    * Whether to animate on mount
    */
-  @Input() animated: boolean = true;
+  animated = input<boolean>(true);
 
   /**
-   * Typewriter text state
+   * Whether logo animation is complete (show subtitle)
    */
-  typewriterText = signal<string>('');
+  showSubtitle = signal<boolean>(false);
 
   /**
-   * Whether logo animation is complete
+   * Current subtitle text (for language changes)
    */
-  logoAnimationComplete = signal<boolean>(false);
+  subtitleText = signal<string>('');
 
   /**
-   * Full subtitle text
+   * Language change subscription
    */
-  private fullText: string = '';
-
-  /**
-   * Typewriter interval reference
-   */
-  private typewriterInterval: ReturnType<typeof setInterval> | null = null;
+  private langChangeSubscription: Subscription | null = null;
 
   ngOnInit(): void {
-    // Set up the subtitle for typewriter effect
-    if (this.animated) {
-      // Wait for logo animation to complete before starting typewriter
+    // Set initial subtitle text
+    this.updateSubtitleText();
+
+    // Subscribe to language changes
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(() => {
+      this.updateSubtitleText();
+    });
+
+    // If not animated, show subtitle immediately
+    if (!this.animated()) {
+      this.showSubtitle.set(true);
+    } else {
+      // Wait for logo animation to complete before showing subtitle
       setTimeout(() => {
-        this.logoAnimationComplete.set(true);
+        this.showSubtitle.set(true);
       }, 600);
     }
   }
 
-  /**
-   * Start typewriter effect
-   * Called when logo animation completes
-   */
-  startTypewriter(text: string): void {
-    this.fullText = text;
-    this.typewriterText.set('');
-
-    if (this.typewriterInterval) {
-      clearInterval(this.typewriterInterval);
+  ngOnDestroy(): void {
+    if (this.langChangeSubscription) {
+      this.langChangeSubscription.unsubscribe();
     }
-
-    let charIndex = 0;
-    const speed = 40; // ms per character
-
-    this.typewriterInterval = setInterval(() => {
-      if (charIndex < this.fullText.length) {
-        this.typewriterText.update(current => current + this.fullText[charIndex]);
-        charIndex++;
-      } else {
-        if (this.typewriterInterval) {
-          clearInterval(this.typewriterInterval);
-        }
-      }
-    }, speed);
   }
 
   /**
-   * Handle logo animation complete
+   * Update subtitle text from translation
    */
-  onLogoAnimationComplete(): void {
-    this.logoAnimationComplete.set(true);
+  private updateSubtitleText(): void {
+    const key = this.subtitleKey();
+    const text = this.translate.instant(key);
+    this.subtitleText.set(text);
   }
 }

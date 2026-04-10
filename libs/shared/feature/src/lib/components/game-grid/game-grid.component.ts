@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameCardComponent, SkeletonLoaderComponent, ErrorStateComponent, EmptyStateComponent } from '@shared/ui';
@@ -16,7 +15,6 @@ export type GameGridState = 'loading' | 'loaded' | 'error' | 'empty';
   selector: 'app-game-grid',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     TranslateModule,
     GameCardComponent,
@@ -32,27 +30,27 @@ export class GameGridComponent {
   /**
    * Games to display
    */
-  @Input() games: GameWithStatus[] = [];
+  games = input<GameWithStatus[]>([]);
 
   /**
    * Current state of the grid
    */
-  @Input() state: GameGridState = 'loading';
+  state = input<GameGridState>('loading');
 
   /**
    * Error message to display
    */
-  @Input() errorMessage: string = '';
+  errorMessage = input<string>('');
 
   /**
    * Emits when a game card is clicked
    */
-  @Output() gameClick = new EventEmitter<string>();
+  gameClick = output<string>();
 
   /**
    * Emits when retry button is clicked
    */
-  @Output() retry = new EventEmitter<void>();
+  retry = output<void>();
 
   /**
    * Stagger animation delay per card (ms)
@@ -78,12 +76,5 @@ export class GameGridComponent {
    */
   onRetry(): void {
     this.retry.emit();
-  }
-
-  /**
-   * Track by game ID
-   */
-  trackByGameId(index: number, game: GameWithStatus): string {
-    return game.id;
   }
 }

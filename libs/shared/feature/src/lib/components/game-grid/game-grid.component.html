@@ -8,40 +8,45 @@
   </h2>
 
   <!-- Loading State -->
-  <app-skeleton-loader
-    *ngIf="state === 'loading'"
-    type="card"
-    [count]="4"
-    [attr.data-testid]="'game-grid-loading'"
-  ></app-skeleton-loader>
+  @if (state() === 'loading') {
+    <app-skeleton-loader
+      type="card"
+      [count]="4"
+      [attr.data-testid]="'game-grid-loading'"
+    ></app-skeleton-loader>
+  }
 
   <!-- Error State -->
-  <app-error-state
-    *ngIf="state === 'error'"
-    [message]="errorMessage"
-    (retry)="onRetry()"
-    [attr.data-testid]="'game-grid-error'"
-  ></app-error-state>
+  @if (state() === 'error') {
+    <app-error-state
+      [message]="errorMessage()"
+      (retry)="onRetry()"
+      [attr.data-testid]="'game-grid-error'"
+    ></app-error-state>
+  }
 
   <!-- Empty State -->
-  <app-empty-state
-    *ngIf="state === 'empty'"
-    [title]="'empty.noGames' | translate"
-    [description]="'empty.checkBackLater' | translate"
-    [attr.data-testid]="'game-grid-empty'"
-  ></app-empty-state>
+  @if (state() === 'empty') {
+    <app-empty-state
+      [title]="'empty.noGames' | translate"
+      [description]="'empty.checkBackLater' | translate"
+      [attr.data-testid]="'game-grid-empty'"
+    ></app-empty-state>
+  }
 
   <!-- Games Grid -->
-  <div
-    *ngIf="state === 'loaded' && games.length > 0"
-    class="game-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-    [attr.data-testid]="'game-grid-loaded'"
-  >
-    <app-game-card
-      *ngFor="let game of games; trackBy: trackByGameId; let i = index"
-      [game]="game"
-      [animationDelay]="getAnimationDelay(i)"
-      (cardClick)="onGameClick($event)"
-    ></app-game-card>
-  </div>
+  @if (state() === 'loaded' && games().length > 0) {
+    <div
+      class="game-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      [attr.data-testid]="'game-grid-loaded'"
+    >
+      @for (game of games(); track game.id; let i = $index) {
+        <app-game-card
+          [game]="game"
+          [animationDelay]="getAnimationDelay(i)"
+          (cardClick)="onGameClick($event)"
+        ></app-game-card>
+      }
+    </div>
+  }
 </section>

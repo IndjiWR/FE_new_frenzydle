@@ -83,4 +83,12 @@ describe('HomeComponent', () => {
 
     expect(gameService.getGames).toHaveBeenCalledTimes(2);
   });
+
+  it('should handle game click', () => {
+    gameService.getGames.mockReturnValue(of(mockGames));
+    fixture.detectChanges();
+
+    // Should not throw when called
+    expect(() => component.onGameClick('dragonball')).not.toThrow();
+  });
 });

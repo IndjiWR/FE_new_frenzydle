@@ -17,8 +17,12 @@
   }
 }
 
-.hero-subtitle {
-  animation: fadeInUp 500ms ease-out 600ms backwards;
+.hero-subtitle p {
+  opacity: 0;
+}
+
+.fade-in-subtitle {
+  animation: fadeInUp 500ms ease-out forwards;
 }
 
 @keyframes fadeInUp {
@@ -29,18 +33,5 @@
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.typewriter-cursor {
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
   }
 }

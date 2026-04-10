@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LogoComponent } from '../logo/logo.component';
@@ -14,7 +13,6 @@ import { MobileMenuComponent, NavItem } from '../mobile-menu/mobile-menu.compone
   selector: 'app-nav-bar',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     TranslateModule,
     LogoComponent,
@@ -29,35 +27,35 @@ export class NavBarComponent {
   /**
    * Whether user is logged in
    */
-  @Input() isLoggedIn: boolean = false;
+  isLoggedIn = input<boolean>(false);
 
   /**
    * User avatar URL
    */
-  @Input() userAvatar: string = '';
+  userAvatar = input<string>('');
 
   /**
    * User display name
    */
-  @Input() userName: string = 'Guest';
+  userName = input<string>('Guest');
 
   /**
    * Navigation items for the menu
    */
-  @Input() navItems: NavItem[] = [
+  navItems = input<NavItem[]>([
     { label: 'nav.home', path: '/' },
     { label: 'nav.games', path: '/games' },
-  ];
+  ]);
 
   /**
    * Emits when user clicks login
    */
-  @Output() loginClick = new EventEmitter<void>();
+  loginClick = output<void>();
 
   /**
    * Emits when user clicks logout
    */
-  @Output() logoutClick = new EventEmitter<void>();
+  logoutClick = output<void>();
 
   /**
    * Mobile menu open state
@@ -90,12 +88,5 @@ export class NavBarComponent {
    */
   onLogoutClick(): void {
     this.logoutClick.emit();
-  }
-
-  /**
-   * Track by for nav items
-   */
-  trackByPath(index: number, item: NavItem): string {
-    return item.path;
   }
 }
