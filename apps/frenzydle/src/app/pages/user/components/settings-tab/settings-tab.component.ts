@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AuthService, ThemeService, UserProfileService } from '@shared/data';
+import { AuthService, ThemeService, UserProfileService, LANGUAGE_STORAGE_KEY, DEFAULT_LANGUAGE } from '@shared/data';
 import { AuthModalService } from '@shared/feature';
 
 /**
@@ -60,20 +60,40 @@ export class SettingsTabComponent {
     { code: 'pt', name: 'Português', flag: '🇵🇹' },
   ];
 
-  // Selected language
-  selectedLanguage = signal(this.translateService.currentLang || 'en');
+  // Selected language - initialize from translate service or localStorage
+  selectedLanguage = signal(this.getInitialLanguage());
 
   // Is dark theme
   isDarkTheme = this.themeService.isDark;
 
   constructor() {
-    // Sync language with translate service
-    this.selectedLanguage.set(this.translateService.currentLang || 'en');
-
     // Subscribe to language changes from other components
     this.translateService.onLangChange.subscribe((event) => {
       this.selectedLanguage.set(event.lang);
     });
+  }
+
+  /**
+   * Get initial language from translate service or localStorage
+   */
+  private getInitialLanguage(): string {
+    // First try translate service currentLang
+    if (this.translateService.currentLang) {
+      return this.translateService.currentLang;
+    }
+    // Then try localStorage
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (stored) {
+        return stored;
+      }
+    }
+    // Then try defaultLang
+    if (this.translateService.defaultLang) {
+      return this.translateService.defaultLang;
+    }
+    // Finally fallback to DEFAULT_LANGUAGE
+    return DEFAULT_LANGUAGE;
   }
 
   /**
