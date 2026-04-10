@@ -1,4 +1,4 @@
-import { Component, output, ChangeDetectionStrategy, signal, OnInit, HostListener, ElementRef, computed } from '@angular/core';
+import { Component, output, ChangeDetectionStrategy, signal, OnInit, HostListener, ElementRef, computed, effect } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '@shared/data';
 
@@ -46,12 +46,25 @@ export class LanguageSwitcherComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private elementRef: ElementRef,
-  ) {}
+  ) {
+    // Keep currentLanguage in sync with translate service
+    effect(() => {
+      const lang = this.translate.currentLang;
+      if (lang && lang !== this.currentLanguage()) {
+        this.currentLanguage.set(lang);
+      }
+    });
+  }
 
   ngOnInit(): void {
     // Get current language from translate service
     const currentLang = this.translate.currentLang || this.translate.defaultLang || DEFAULT_LANGUAGE;
     this.currentLanguage.set(currentLang);
+
+    // Subscribe to language changes from other components
+    this.translate.onLangChange.subscribe((event) => {
+      this.currentLanguage.set(event.lang);
+    });
   }
 
   /**
