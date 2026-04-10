@@ -6,14 +6,16 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { APP_INITIALIZER } from '@angular/core';
 import { appRoutes } from './app.routes';
-import { mockInterceptor } from '@shared/data';
+import { mockInterceptor, csrfInterceptor, AuthService, ENVIRONMENT } from '@shared/data';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
-    provideHttpClient(withInterceptors([mockInterceptor])),
+    provideHttpClient(withInterceptors([csrfInterceptor, mockInterceptor])),
     // Configure ngx-translate with HTTP loader
     importProvidersFrom(TranslateModule.forRoot({
       fallbackLang: getStoredLanguage(),
@@ -21,7 +23,19 @@ export const appConfig: ApplicationConfig = {
         prefix: '/assets/i18n/',
         suffix: '.json',
       }),
-    }))
+    })),
+    // Provide environment configuration
+    {
+      provide: ENVIRONMENT,
+      useValue: environment,
+    },
+    // Initialize auth service on app bootstrap
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (authService: AuthService) => () => authService.initialize(),
+      deps: [AuthService],
+      multi: true,
+    },
   ],
 };
 

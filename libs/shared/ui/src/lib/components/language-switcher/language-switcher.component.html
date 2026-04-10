@@ -1,14 +1,14 @@
 <div class="language-switcher relative" [attr.data-testid]="'language-switcher'">
   <button
-    class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+    class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
     (click)="toggleDropdown()"
     [attr.data-testid]="'language-switcher-button'"
     aria-label="Select language"
   >
     <span class="text-lg">{{ currentLang().flag }}</span>
-    <span class="text-sm font-medium text-gray-700 hidden sm:inline">{{ currentLang().name }}</span>
+    <span class="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:inline">{{ currentLang().name }}</span>
     <svg
-      class="w-4 h-4 text-gray-500 transition-transform"
+      class="w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform"
       [class.rotate-180]="isOpen()"
       fill="none"
       stroke="currentColor"
@@ -20,21 +20,22 @@
 
   @if (isOpen()) {
     <ul
-      class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50"
+      class="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 rounded-lg shadow-lg border border-gray-200 dark:border-zinc-600 py-1 z-50"
       [attr.data-testid]="'language-dropdown'"
     >
       @for (lang of languages; track lang.code) {
         <li
-          class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-3"
+          class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer flex items-center gap-3"
           [class.bg-lavender-50]="lang.code === currentLanguage()"
+          [class.dark:bg-lavender-900/30]="lang.code === currentLanguage()"
           (click)="selectLanguage(lang.code)"
           [attr.data-testid]="'language-option-' + lang.code"
         >
           <span class="text-lg">{{ lang.flag }}</span>
-          <span class="text-sm font-medium text-gray-700">{{ lang.name }}</span>
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ lang.name }}</span>
           @if (lang.code === currentLanguage()) {
             <svg
-              class="w-4 h-4 text-lavender-600 ml-auto"
+              class="w-4 h-4 text-lavender-600 dark:text-lavender-400 ml-auto"
               fill="currentColor"
               viewBox="0 0 20 20"
             >

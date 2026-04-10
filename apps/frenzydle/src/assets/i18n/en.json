@@ -43,6 +43,31 @@
     "signOut": "Sign Out",
     "signIn": "Sign In"
   },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "welcomeBack": "Welcome back!",
+    "createAccount": "Create Account",
+    "success": "Success!",
+    "successMessage": "You're signed in!",
+    "successSubtitle": "Redirecting...",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display Name",
+    "displayNamePlaceholder": "Your name",
+    "continue": "Continue",
+    "back": "Back",
+    "orContinueWithEmail": "or continue with email",
+    "continueAsGuest": "Continue as Guest",
+    "checkingEmail": "Checking...",
+    "signingIn": "Signing in...",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordError": "Password must be at least 8 characters",
+    "displayNameError": "Display name must be 2-24 characters",
+    "invalidCredentials": "Invalid email or password",
+    "googleError": "Google sign-in failed. Please try again.",
+    "errorCheckingEmail": "Could not verify email. Please try again."
+  },
   "errors": {
     "loadGames": "Failed to load games. Please try again.",
     "loadUser": "Failed to load user data.",
@@ -51,5 +76,9 @@
   "empty": {
     "noGames": "No games available at the moment.",
     "checkBackLater": "Check back later for new games!"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
   }
 }

@@ -43,6 +43,31 @@
     "signOut": "Esci",
     "signIn": "Accedi"
   },
+  "auth": {
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "welcomeBack": "Bentornato!",
+    "createAccount": "Crea Account",
+    "success": "Successo!",
+    "successMessage": "Accesso effettuato!",
+    "successSubtitle": "Reindirizzamento...",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Nome Visualizzato",
+    "displayNamePlaceholder": "Il tuo nome",
+    "continue": "Continua",
+    "back": "Indietro",
+    "orContinueWithEmail": "o continua con email",
+    "continueAsGuest": "Continua come Ospite",
+    "checkingEmail": "Verifica...",
+    "signingIn": "Accesso in corso...",
+    "invalidEmail": "Inserisci un indirizzo email valido",
+    "passwordError": "La password deve essere di almeno 8 caratteri",
+    "displayNameError": "Il nome deve essere di 2-24 caratteri",
+    "invalidCredentials": "Email o password non validi",
+    "googleError": "Accesso Google fallito. Riprova.",
+    "errorCheckingEmail": "Impossibile verificare l'email. Riprova."
+  },
   "errors": {
     "loadGames": "Impossibile caricare i giochi. Riprova.",
     "loadUser": "Impossibile caricare i dati utente.",
@@ -51,5 +76,9 @@
   "empty": {
     "noGames": "Nessun gioco disponibile al momento.",
     "checkBackLater": "Controlla più tardi per nuovi giochi!"
+  },
+  "theme": {
+    "light": "Modalità Chiara",
+    "dark": "Modalità Scura"
   }
 }

@@ -43,6 +43,31 @@
     "signOut": "Cerrar Sesión",
     "signIn": "Iniciar Sesión"
   },
+  "auth": {
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "createAccount": "Crear Cuenta",
+    "success": "¡Éxito!",
+    "successMessage": "¡Has iniciado sesión!",
+    "successSubtitle": "Redirigiendo...",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "displayName": "Nombre para Mostrar",
+    "displayNamePlaceholder": "Tu nombre",
+    "continue": "Continuar",
+    "back": "Volver",
+    "orContinueWithEmail": "o continuar con correo",
+    "continueAsGuest": "Continuar como Invitado",
+    "checkingEmail": "Verificando...",
+    "signingIn": "Iniciando sesión...",
+    "invalidEmail": "Por favor ingresa un correo electrónico válido",
+    "passwordError": "La contraseña debe tener al menos 8 caracteres",
+    "displayNameError": "El nombre debe tener 2-24 caracteres",
+    "invalidCredentials": "Correo o contraseña inválidos",
+    "googleError": "Error al iniciar sesión con Google. Por favor intenta de nuevo.",
+    "errorCheckingEmail": "No se pudo verificar el correo. Por favor intenta de nuevo."
+  },
   "errors": {
     "loadGames": "Error al cargar los juegos. Por favor, inténtalo de nuevo.",
     "loadUser": "Error al cargar los datos del usuario.",
@@ -51,5 +76,9 @@
   "empty": {
     "noGames": "No hay juegos disponibles en este momento.",
     "checkBackLater": "¡Vuelve más tarde para nuevos juegos!"
+  },
+  "theme": {
+    "light": "Modo Claro",
+    "dark": "Modo Oscuro"
   }
 }
